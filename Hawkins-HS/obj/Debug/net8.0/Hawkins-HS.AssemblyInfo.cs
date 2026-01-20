@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Hawkins-HS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dde292a321a213ee493666c600138c64c85e4ad4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hawkins-HS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hawkins-HS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,23 @@
+@model Hawkins_HS.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Profilim";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+    
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Kullanıcı Bilgileri</h5>
+            
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <p><strong>Ad Soyad:</strong> @Model.FullName</p>
+                    <p><strong>Kullanıcı Adı:</strong> @Model.UserName</p>
+                    <p><strong>Email:</strong> @Model.Email</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

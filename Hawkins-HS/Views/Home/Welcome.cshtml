@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "Hoş Geldiniz";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-10">
+            <div class="text-center mb-5">
+                <h1 class="display-3 fw-bold text-primary">Hawkins Lisesi</h1>
+                <p class="lead text-muted">Öğrenci Yönetim Sistemi</p>
+            </div>
+
+            <div class="row g-4 mt-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 text-primary mb-3">📚</div>
+                            <h5 class="card-title">Ders Yönetimi</h5>
+                            <p class="card-text text-muted">Tüm derslerinizi tek platformda takip edin</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 text-success mb-3">📝</div>
+                            <h5 class="card-title">Sınav Takibi</h5>
+                            <p class="card-text text-muted">Sınavlarınızı ve notlarınızı görüntüleyin</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 text-warning mb-3">📅</div>
+                            <h5 class="card-title">Ders Programı</h5>
+                            <p class="card-text text-muted">Haftalık ders programınızı kontrol edin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg px-5">
+                    Giriş Yap
+                </a>
+            </div>
+
+            <div class="card mt-5 bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Demo Hesaplar</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>Admin:</strong><br />
+                            Kullanıcı: admin<br />
+                            Şifre: P@ssw0rd!
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Öğretmen:</strong><br />
+                            Kullanıcı: e.watson<br />
+                            Şifre: Teacher@123
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Öğrenci:</strong><br />
+                            Kullanıcı: lucas<br />
+                            Şifre: Student@123
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
