@@ -1,0 +1,101 @@
+@model IEnumerable<Hawkins_HS.ViewModels.ExamViewModel>
+
+@{
+    ViewData["Title"] = "Sınavlar";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📝 Sınavlar</h2>
+        @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Yeni Sınav Oluştur</a>
+        }
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var exam in Model.OrderBy(e => e.ExamDate))
+            {
+                var isPast = exam.ExamDate < DateTime.Now;
+                var cardClass = isPast ? "border-secondary" : "border-primary";
+                
+                <div class="col">
+                    <div class="card h-100 shadow-sm @cardClass">
+                        <div class="card-header @(isPast ? "bg-secondary" : "bg-primary") text-white">
+                            <h5 class="mb-0">@exam.Title</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="text-muted mb-3">@exam.CourseName</h6>
+                            
+                            <div class="mb-2">
+                                <small class="text-muted">📅 Tarih:</small>
+                                <div>@exam.ExamDate.ToString("dd MMMM yyyy, HH:mm")</div>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <small class="text-muted">⏱️ Süre:</small>
+                                <div>@exam.DurationMinutes dakika</div>
+                            </div>
+                            
+                            @if (!string.IsNullOrEmpty(exam.Description))
+                            {
+                                <div class="mb-2">
+                                    <small class="text-muted">📋 Açıklama:</small>
+                                    <div class="text-truncate">@exam.Description</div>
+                                </div>
+                            }
+                            
+                            <div class="mt-3">
+                                @if (isPast)
+                                {
+                                    <span class="badge bg-secondary">Geçmiş</span>
+                                }
+                                else
+                                {
+                                    var daysUntil = (exam.ExamDate - DateTime.Now).Days;
+                                    if (daysUntil == 0)
+                                    {
+                                        <span class="badge bg-danger">Bugün</span>
+                                    }
+                                    else if (daysUntil <= 7)
+                                    {
+                                        <span class="badge bg-warning">@daysUntil gün kaldı</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-info">@daysUntil gün kaldı</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="btn-group w-100" role="group">
+                                <a asp-action="Details" asp-route-id="@exam.Id" class="btn btn-sm btn-outline-primary">Detaylar</a>
+                                @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@exam.Id" class="btn btn-sm btn-outline-secondary">Düzenle</a>
+                                }
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Delete" asp-route-id="@exam.Id" class="btn btn-sm btn-outline-danger" onclick="return confirm('Bu sınavı silmek istediğinizden emin misiniz?')">Sil</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            <h4>Henüz sınav oluşturulmamış</h4>
+            @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+            {
+                <p>Yeni bir sınav oluşturmak için yukarıdaki butona tıklayın.</p>
+            }
+        </div>
+    }
+</div>

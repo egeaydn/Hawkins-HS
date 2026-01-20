@@ -1,0 +1,142 @@
+@model Hawkins_HS.Models.Teacher
+
+@{
+    ViewData["Title"] = "Öğretmen Dashboard";
+    var upcomingExams = ViewBag.UpcomingExams as List<Hawkins_HS.Models.Exam>;
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>Hoş Geldiniz, @Model.ApplicationUser.FullName! 👨‍🏫</h2>
+            <p class="text-muted">@Model.Department | @Model.EmployeeNumber</p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    <h3 class="mb-0">@Model.Courses.Count</h3>
+                    <p class="mb-0">Verdiğim Ders</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body">
+                    <h3 class="mb-0">@Model.Courses.Sum(c => c.Enrollments.Count)</h3>
+                    <p class="mb-0">Toplam Öğrenci</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-white shadow">
+                <div class="card-body">
+                    <h3 class="mb-0">@upcomingExams.Count</h3>
+                    <p class="mb-0">Yaklaşan Sınav</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">📚 Derslerim</h5>
+                    <a asp-controller="Courses" asp-action="Create" class="btn btn-sm btn-primary">Yeni Ders</a>
+                </div>
+                <div class="card-body">
+                    @if (Model.Courses.Any())
+                    {
+                        <div class="list-group">
+                            @foreach (var course in Model.Courses)
+                            {
+                                <a href="@Url.Action("Details", "Courses", new { id = course.Id })" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@course.Title</h6>
+                                        <span class="badge bg-primary">@course.Enrollments.Count öğrenci</span>
+                                    </div>
+                                    <p class="mb-1 text-muted">@course.Code - @course.Credits Kredi</p>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Henüz atanmış ders yok</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">📝 Yaklaşan Sınavlar</h5>
+                </div>
+                <div class="card-body">
+                    @if (upcomingExams.Any())
+                    {
+                        <div class="list-group">
+                            @foreach (var exam in upcomingExams)
+                            {
+                                <a href="@Url.Action("Details", "Exams", new { id = exam.Id })" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@exam.Title</h6>
+                                        <small class="text-danger">@exam.ExamDate.ToString("dd MMM")</small>
+                                    </div>
+                                    <p class="mb-1 text-muted">@exam.Course.Title</p>
+                                    <small>@exam.ExamDate.ToString("HH:mm") - @exam.DurationMinutes dk</small>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Yaklaşan sınav yok</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">⚡ Hızlı Erişim</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Courses" asp-action="Create" class="btn btn-outline-primary w-100 py-3">
+                                <div class="display-6">📚</div>
+                                <div class="mt-2">Yeni Ders</div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Exams" asp-action="Create" class="btn btn-outline-success w-100 py-3">
+                                <div class="display-6">📝</div>
+                                <div class="mt-2">Yeni Sınav</div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Announcements" asp-action="Create" class="btn btn-outline-warning w-100 py-3">
+                                <div class="display-6">📢</div>
+                                <div class="mt-2">Yeni Duyuru</div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Courses" asp-action="Index" class="btn btn-outline-info w-100 py-3">
+                                <div class="display-6">📋</div>
+                                <div class="mt-2">Tüm Dersler</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

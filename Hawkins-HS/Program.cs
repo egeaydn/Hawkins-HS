@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Hawkins_HS.Data;
 using Hawkins_HS.Models;
 
@@ -49,11 +51,13 @@ builder.Services.ConfigureApplicationCookie(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Add AutoMapper (will be configured later)
-// builder.Services.AddAutoMapper(typeof(Program));
+// Add AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
 
-// Add FluentValidation (will be configured later)
-// builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>());
+// Add FluentValidation
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
 
 var app = builder.Build();
 

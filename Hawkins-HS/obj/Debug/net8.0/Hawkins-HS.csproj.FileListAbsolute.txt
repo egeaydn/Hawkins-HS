@@ -167,4 +167,3 @@ C:\Users\tr\source\repos\Hawkins-HS\Hawkins-HS\obj\Debug\net8.0\refint\Hawkins-H
 C:\Users\tr\source\repos\Hawkins-HS\Hawkins-HS\obj\Debug\net8.0\Hawkins-HS.pdb
 C:\Users\tr\source\repos\Hawkins-HS\Hawkins-HS\obj\Debug\net8.0\Hawkins-HS.genruntimeconfig.cache
 C:\Users\tr\source\repos\Hawkins-HS\Hawkins-HS\obj\Debug\net8.0\ref\Hawkins-HS.dll
-C:\Users\tr\source\repos\Hawkins-HS\Hawkins-HS\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

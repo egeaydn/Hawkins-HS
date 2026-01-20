@@ -1,0 +1,112 @@
+@model IEnumerable<Hawkins_HS.Models.Grade>
+
+@{
+    ViewData["Title"] = "Notlarım";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>🎯 Notlarım</h2>
+        <a asp-action="Dashboard" class="btn btn-secondary">Dashboard'a Dön</a>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Ders</th>
+                                <th>Sınav</th>
+                                <th>Puan</th>
+                                <th>Harf Notu</th>
+                                <th>Tarih</th>
+                                <th>Sınav Tarihi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var grade in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@grade.Exam.Course.Title</strong>
+                                        <br />
+                                        <small class="text-muted">@grade.Exam.Course.Code</small>
+                                    </td>
+                                    <td>@grade.Exam.Title</td>
+                                    <td>
+                                        <span class="badge bg-@(grade.Score >= 85 ? "success" : grade.Score >= 70 ? "primary" : grade.Score >= 50 ? "warning" : "danger") fs-6">
+                                            @grade.Score.ToString("0.00")
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-@(grade.Letter == "A" ? "success" : grade.Letter == "B" ? "primary" : grade.Letter == "C" ? "info" : grade.Letter == "D" ? "warning" : "danger") fs-5">
+                                            @grade.Letter
+                                        </span>
+                                    </td>
+                                    <td>@grade.GradedAt.ToString("dd MMM yyyy")</td>
+                                    <td>@grade.Exam.ExamDate.ToString("dd MMM yyyy")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                @{
+                    var averageScore = Model.Average(g => g.Score);
+                    var totalGrades = Model.Count();
+                    var aGrades = Model.Count(g => g.Letter == "A");
+                    var bGrades = Model.Count(g => g.Letter == "B");
+                    var cGrades = Model.Count(g => g.Letter == "C");
+                    var dGrades = Model.Count(g => g.Letter == "D");
+                    var fGrades = Model.Count(g => g.Letter == "F");
+                }
+
+                <div class="mt-4 border-top pt-4">
+                    <h5 class="mb-3">📊 İstatistikler</h5>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h3 class="text-primary">@averageScore.ToString("0.00")</h3>
+                                    <p class="mb-0 text-muted">Ortalama Puan</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h3 class="text-success">@totalGrades</h3>
+                                    <p class="mb-0 text-muted">Toplam Sınav</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>Harf Notu Dağılımı:</strong></p>
+                                    <div class="d-flex gap-3 justify-content-center">
+                                        <span class="badge bg-success">A: @aGrades</span>
+                                        <span class="badge bg-primary">B: @bGrades</span>
+                                        <span class="badge bg-info">C: @cGrades</span>
+                                        <span class="badge bg-warning">D: @dGrades</span>
+                                        <span class="badge bg-danger">F: @fGrades</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            <h4>📋 Henüz Not Girilmemiş</h4>
+            <p class="mb-0">Sınav sonuçlarınız açıklandıkça burada görünecektir.</p>
+        </div>
+    }
+</div>

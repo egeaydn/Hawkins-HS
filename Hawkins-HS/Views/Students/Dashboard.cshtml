@@ -1,0 +1,147 @@
+@model Hawkins_HS.Models.Student
+
+@{
+    ViewData["Title"] = "Öğrenci Dashboard";
+    var upcomingExams = ViewBag.UpcomingExams as List<Hawkins_HS.Models.Exam>;
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>Hoş Geldiniz, @Model.ApplicationUser.FullName! 👋</h2>
+            <p class="text-muted">@Model.StudentNumber | @Model.ClassName</p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    <h3 class="mb-0">@Model.Enrollments.Count</h3>
+                    <p class="mb-0">Kayıtlı Ders</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body">
+                    <h3 class="mb-0">@upcomingExams.Count</h3>
+                    <p class="mb-0">Yaklaşan Sınav</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white shadow">
+                <div class="card-body">
+                    <h3 class="mb-0">@Model.Grades.Count</h3>
+                    <p class="mb-0">Alınan Not</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">📚 Derslerim</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Enrollments.Any())
+                    {
+                        <div class="list-group">
+                            @foreach (var enrollment in Model.Enrollments)
+                            {
+                                <a href="@Url.Action("Details", "Courses", new { id = enrollment.CourseId })" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@enrollment.Course.Title</h6>
+                                        <small>@enrollment.Course.Code</small>
+                                    </div>
+                                    <p class="mb-1 text-muted">@enrollment.Course.Teacher?.ApplicationUser.FullName</p>
+                                    <small>@enrollment.Course.Credits Kredi</small>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Henüz kayıtlı ders yok</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">📝 Yaklaşan Sınavlar</h5>
+                </div>
+                <div class="card-body">
+                    @if (upcomingExams.Any())
+                    {
+                        <div class="list-group">
+                            @foreach (var exam in upcomingExams)
+                            {
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@exam.Title</h6>
+                                        <small class="text-danger">@exam.ExamDate.ToString("dd MMM")</small>
+                                    </div>
+                                    <p class="mb-1 text-muted">@exam.Course.Title</p>
+                                    <small>@exam.ExamDate.ToString("HH:mm") - @exam.DurationMinutes dk</small>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Yaklaşan sınav yok</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">🎯 Son Notlarım</h5>
+                    <a asp-action="MyGrades" class="btn btn-sm btn-primary">Tüm Notları Gör</a>
+                </div>
+                <div class="card-body">
+                    @if (Model.Grades.Any())
+                    {
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sınav</th>
+                                    <th>Ders</th>
+                                    <th>Puan</th>
+                                    <th>Harf Notu</th>
+                                    <th>Tarih</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var grade in Model.Grades.OrderByDescending(g => g.GradedAt).Take(5))
+                                {
+                                    <tr>
+                                        <td>@grade.Exam.Title</td>
+                                        <td>@grade.Exam.Course.Title</td>
+                                        <td>@grade.Score.ToString("0.00")</td>
+                                        <td><span class="badge bg-@(grade.Letter == "A" ? "success" : grade.Letter == "F" ? "danger" : "primary")">@grade.Letter</span></td>
+                                        <td>@grade.GradedAt.ToString("dd MMM yyyy")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Henüz not girilmemiş</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

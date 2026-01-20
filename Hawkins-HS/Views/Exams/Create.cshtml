@@ -1,0 +1,66 @@
+@model Hawkins_HS.ViewModels.ExamViewModel
+
+@{
+    ViewData["Title"] = "Yeni Sınav Oluştur";
+    var courses = ViewBag.Courses as SelectList;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">📝 Yeni Sınav Oluştur</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="CourseId" class="form-label">Ders</label>
+                            <select asp-for="CourseId" class="form-select" asp-items="courses">
+                                <option value="">-- Ders Seçin --</option>
+                            </select>
+                            <span asp-validation-for="CourseId" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label">Sınav Başlığı</label>
+                            <input asp-for="Title" class="form-control" placeholder="Örn: Vize Sınavı" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Açıklama</label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Sınav hakkında açıklama..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ExamDate" class="form-label">Sınav Tarihi ve Saati</label>
+                                <input asp-for="ExamDate" type="datetime-local" class="form-control" />
+                                <span asp-validation-for="ExamDate" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="DurationMinutes" class="form-label">Süre (Dakika)</label>
+                                <input asp-for="DurationMinutes" type="number" class="form-control" min="15" max="300" placeholder="90" />
+                                <span asp-validation-for="DurationMinutes" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+                            <button type="submit" class="btn btn-primary">Sınavı Oluştur</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
