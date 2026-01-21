@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Hawkins_HS.Data;
@@ -57,9 +58,16 @@ public class ExamsController : Controller
     [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> Create(int? courseId)
     {
-        ViewBag.Courses = await _context.Courses
-            .Select(c => new { c.Id, c.Title, c.Code })
+        var courses = await _context.Courses
+            .Include(c => c.Teacher)
+                .ThenInclude(t => t.ApplicationUser)
+            .Select(c => new { 
+                c.Id, 
+                DisplayText = c.Code + " - " + c.Title
+            })
             .ToListAsync();
+
+        ViewBag.Courses = new SelectList(courses, "Id", "DisplayText");
 
         var viewModel = new ExamViewModel();
         if (courseId.HasValue)
@@ -89,9 +97,16 @@ public class ExamsController : Controller
             return RedirectToAction(nameof(Details), new { id = exam.Id });
         }
 
-        ViewBag.Courses = await _context.Courses
-            .Select(c => new { c.Id, c.Title, c.Code })
+        var courses = await _context.Courses
+            .Include(c => c.Teacher)
+                .ThenInclude(t => t.ApplicationUser)
+            .Select(c => new { 
+                c.Id, 
+                DisplayText = c.Code + " - " + c.Title
+            })
             .ToListAsync();
+
+        ViewBag.Courses = new SelectList(courses, "Id", "DisplayText");
 
         return View(viewModel);
     }
@@ -107,9 +122,16 @@ public class ExamsController : Controller
 
         var viewModel = _mapper.Map<ExamViewModel>(exam);
 
-        ViewBag.Courses = await _context.Courses
-            .Select(c => new { c.Id, c.Title, c.Code })
+        var courses = await _context.Courses
+            .Include(c => c.Teacher)
+                .ThenInclude(t => t.ApplicationUser)
+            .Select(c => new { 
+                c.Id, 
+                DisplayText = c.Code + " - " + c.Title
+            })
             .ToListAsync();
+
+        ViewBag.Courses = new SelectList(courses, "Id", "DisplayText", viewModel.CourseId);
 
         return View(viewModel);
     }
@@ -147,9 +169,16 @@ public class ExamsController : Controller
             return RedirectToAction(nameof(Details), new { id });
         }
 
-        ViewBag.Courses = await _context.Courses
-            .Select(c => new { c.Id, c.Title, c.Code })
+        var courses = await _context.Courses
+            .Include(c => c.Teacher)
+                .ThenInclude(t => t.ApplicationUser)
+            .Select(c => new { 
+                c.Id, 
+                DisplayText = c.Code + " - " + c.Title
+            })
             .ToListAsync();
+
+        ViewBag.Courses = new SelectList(courses, "Id", "DisplayText", viewModel.CourseId);
 
         return View(viewModel);
     }

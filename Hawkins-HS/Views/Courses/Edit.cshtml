@@ -1,18 +1,19 @@
 @model Hawkins_HS.ViewModels.CourseViewModel
 
 @{
-    ViewData["Title"] = "Yeni Ders Ekle";
+    ViewData["Title"] = "Ders Düzenle";
 }
 
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">📝 Ders Düzenle</h4>
                 </div>
                 <div class="card-body">
-                    <form asp-action="Create" method="post">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
                         <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
                         
                         <div class="mb-3">
@@ -54,9 +55,9 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-between mt-4">
-                            <a asp-action="Index" class="btn btn-secondary">İptal</a>
-                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">İptal</a>
+                            <button type="submit" class="btn btn-warning">Değişiklikleri Kaydet</button>
                         </div>
                     </form>
                 </div>
@@ -66,5 +67,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

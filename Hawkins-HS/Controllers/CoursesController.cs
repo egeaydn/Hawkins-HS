@@ -76,6 +76,12 @@ public class CoursesController : Controller
     [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> Create(CourseViewModel viewModel)
     {
+        // Ders kodunun benzersiz olup olmadığını kontrol et
+        if (await _context.Courses.AnyAsync(c => c.Code == viewModel.Code))
+        {
+            ModelState.AddModelError("Code", "Bu ders kodu zaten kullanılıyor. Lütfen farklı bir kod girin.");
+        }
+
         if (ModelState.IsValid)
         {
             var course = _mapper.Map<Course>(viewModel);
@@ -123,6 +129,12 @@ public class CoursesController : Controller
     public async Task<IActionResult> Edit(int id, CourseViewModel viewModel)
     {
         if (id != viewModel.Id) return NotFound();
+
+        // Ders kodunun başka bir ders tarafından kullanılıp kullanılmadığını kontrol et
+        if (await _context.Courses.AnyAsync(c => c.Code == viewModel.Code && c.Id != id))
+        {
+            ModelState.AddModelError("Code", "Bu ders kodu başka bir ders tarafından kullanılıyor. Lütfen farklı bir kod girin.");
+        }
 
         if (ModelState.IsValid)
         {

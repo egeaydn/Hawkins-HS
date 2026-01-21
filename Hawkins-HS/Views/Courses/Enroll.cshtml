@@ -1,0 +1,103 @@
+@{
+    ViewData["Title"] = "Öğrenci Kaydet";
+    var course = ViewBag.Course as Hawkins_HS.Models.Course;
+    var availableStudents = ViewBag.AvailableStudents as IEnumerable<dynamic>;
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">👨‍🎓 Derse Öğrenci Kaydet</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info mb-4">
+                        <h5>📚 @course.Title (@course.Code)</h5>
+                        <p class="mb-0">Bu derse kayıt olmamış öğrencileri aşağıdan seçerek kaydedebilirsiniz.</p>
+                    </div>
+
+                    @if (availableStudents.Any())
+                    {
+                        <form asp-action="EnrollStudent" method="post" id="enrollForm">
+                            <input type="hidden" name="courseId" value="@course.Id" />
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Öğrenci Seç</label>
+                                <select name="studentId" class="form-select form-select-lg" required>
+                                    <option value="">-- Öğrenci Seçin --</option>
+                                    @foreach (var student in availableStudents)
+                                    {
+                                        <option value="@student.Id">
+                                            @student.Name - @student.StudentNumber (@student.ClassName)
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="table-responsive mt-4">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Öğrenci No</th>
+                                            <th>Ad Soyad</th>
+                                            <th>Sınıf</th>
+                                            <th>İşlem</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var student in availableStudents)
+                                        {
+                                            <tr>
+                                                <td>@student.StudentNumber</td>
+                                                <td>@student.Name</td>
+                                                <td><span class="badge bg-primary">@student.ClassName</span></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-success enroll-btn" data-student-id="@student.Id" data-student-name="@student.Name">
+                                                        Kaydet
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <a asp-action="Details" asp-route-id="@course.Id" class="btn btn-secondary">Derse Geri Dön</a>
+                                <button type="submit" class="btn btn-success">Seçili Öğrenciyi Kaydet</button>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning text-center" role="alert">
+                            <h5>✅ Tüm Öğrenciler Kayıtlı</h5>
+                            <p class="mb-0">Bu derse kayıt olmamış öğrenci kalmadı.</p>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <a asp-action="Details" asp-route-id="@course.Id" class="btn btn-primary">Derse Geri Dön</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Tablodaki butonlarla hızlı kayıt
+        document.querySelectorAll('.enroll-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const studentId = this.dataset.studentId;
+                const studentName = this.dataset.studentName;
+                
+                if (confirm(studentName + ' adlı öğrenciyi derse kaydetmek istediğinizden emin misiniz?')) {
+                    document.querySelector('select[name="studentId"]').value = studentId;
+                    document.getElementById('enrollForm').submit();
+                }
+            });
+        });
+    </script>
+}
