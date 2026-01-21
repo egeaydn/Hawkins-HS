@@ -759,3 +759,41 @@ System.InvalidOperationException: The view 'Details' was not found. The followin
 2026-01-21 14:22:29.349 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 13.2981 ms
 2026-01-21 14:22:35.207 +03:00 [INF] HTTP GET /Exams/Create responded 200 in 7.4692 ms
 2026-01-21 14:22:35.232 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 0.4480 ms
+2026-01-21 14:33:46.357 +03:00 [INF] Database initialized and seeded successfully
+2026-01-21 14:33:46.455 +03:00 [INF] Starting HawkinsHS application
+2026-01-21 14:33:47.824 +03:00 [INF] HTTP GET / responded 302 in 140.8341 ms
+2026-01-21 14:33:47.965 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-21 14:33:48.190 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 334.8789 ms
+2026-01-21 14:33:48.224 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 14.8487 ms
+2026-01-21 14:33:54.623 +03:00 [INF] HTTP GET /Exams/Create responded 200 in 162.8954 ms
+2026-01-21 14:33:54.653 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 2.6476 ms
+2026-01-21 14:34:48.610 +03:00 [INF] Exam created: Bütünleme Sınavı for course 6
+2026-01-21 14:34:48.612 +03:00 [INF] HTTP POST /Exams/Create responded 302 in 141.7172 ms
+2026-01-21 14:34:48.668 +03:00 [INF] HTTP GET /Exams/Details/4 responded 200 in 50.7481 ms
+2026-01-21 14:34:48.683 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 1.7746 ms
+2026-01-21 14:34:55.555 +03:00 [INF] HTTP GET /Exams responded 200 in 28.2827 ms
+2026-01-21 14:34:55.576 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 1.3154 ms
+2026-01-21 14:34:58.738 +03:00 [INF] HTTP GET / responded 302 in 8.2307 ms
+2026-01-21 14:34:58.765 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 20.5770 ms
+2026-01-21 14:34:58.803 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 0.5279 ms
+2026-01-21 14:35:04.174 +03:00 [INF] HTTP GET /Announcements/Create responded 200 in 22.4816 ms
+2026-01-21 14:35:04.196 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 2.2975 ms
+2026-01-21 14:35:05.433 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.2827 ms
+2026-01-21 14:35:14.679 +03:00 [INF] HTTP GET /Account/Profile responded 200 in 11.9700 ms
+2026-01-21 14:35:14.699 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 1.6148 ms
+2026-01-21 14:35:17.857 +03:00 [INF] HTTP GET / responded 302 in 5.1919 ms
+2026-01-21 14:35:17.872 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.3008 ms
+2026-01-21 14:35:17.919 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 0.5045 ms
+2026-01-21 14:35:23.040 +03:00 [INF] HTTP GET /Courses responded 200 in 30.4667 ms
+2026-01-21 14:35:23.063 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 1.5686 ms
+2026-01-21 14:35:24.694 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-21 14:35:24.735 +03:00 [INF] HTTP GET /Courses/Details/2 responded 200 in 63.6841 ms
+2026-01-21 14:35:24.755 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 0.6371 ms
+2026-01-21 14:35:33.884 +03:00 [INF] HTTP GET / responded 302 in 9.4414 ms
+2026-01-21 14:35:33.904 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 13.7875 ms
+2026-01-21 14:35:33.947 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 1.5484 ms
+2026-01-21 14:35:37.748 +03:00 [INF] HTTP GET /Courses/Details/3 responded 200 in 7.4407 ms
+2026-01-21 14:35:37.770 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 1.5888 ms
+2026-01-21 14:35:41.495 +03:00 [INF] HTTP GET / responded 302 in 9.4084 ms
+2026-01-21 14:35:41.518 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 14.4195 ms
+2026-01-21 14:35:41.561 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 0.5404 ms

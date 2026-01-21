@@ -14,6 +14,7 @@
                         @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
                         {
                             <div class="btn-group">
+                                <a asp-controller="Grades" asp-action="EnterGrades" asp-route-id="@Model.Id" class="btn btn-success btn-sm">Not Gir</a>
                                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-light btn-sm">Düzenle</a>
                                 @if (User.IsInRole("Admin"))
                                 {

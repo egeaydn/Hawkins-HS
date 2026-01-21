@@ -82,14 +82,21 @@
                         <div class="list-group">
                             @foreach (var exam in upcomingExams)
                             {
-                                <a href="@Url.Action("Details", "Exams", new { id = exam.Id })" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">@exam.Title</h6>
-                                        <small class="text-danger">@exam.ExamDate.ToString("dd MMM")</small>
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">@exam.Title</h6>
+                                            <p class="mb-1 text-muted">@exam.Course.Title</p>
+                                            <small>@exam.ExamDate.ToString("HH:mm") - @exam.DurationMinutes dk</small>
+                                        </div>
+                                        <div>
+                                            <small class="text-danger d-block">@exam.ExamDate.ToString("dd MMM")</small>
+                                            <a href="@Url.Action("EnterGrades", "Grades", new { id = exam.Id })" class="btn btn-sm btn-success mt-1">
+                                                Not Gir
+                                            </a>
+                                        </div>
                                     </div>
-                                    <p class="mb-1 text-muted">@exam.Course.Title</p>
-                                    <small>@exam.ExamDate.ToString("HH:mm") - @exam.DurationMinutes dk</small>
-                                </a>
+                                </div>
                             }
                         </div>
                     }

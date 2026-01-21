@@ -1,0 +1,176 @@
+@{
+    ViewData["Title"] = "Not Girişi";
+    var exam = ViewBag.Exam as Hawkins_HS.Models.Exam;
+    var studentGrades = ViewBag.StudentGrades as List<dynamic>;
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">📝 Not Girişi</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>📚 @exam.Course.Title</h5>
+                            <p class="text-muted mb-0">@exam.Course.Code</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>📝 @exam.Title</h5>
+                            <p class="text-muted mb-0">@exam.ExamDate.ToString("dd MMMM yyyy, HH:mm")</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <strong>💡 Not Sistemi:</strong> A (85-100), B (70-84), C (55-69), D (40-54), F (0-39)
+                    </div>
+
+                    @if (studentGrades.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 10%;">Öğrenci No</th>
+                                        <th style="width: 25%;">Ad Soyad</th>
+                                        <th style="width: 10%;">Sınıf</th>
+                                        <th style="width: 15%;">Puan (0-100)</th>
+                                        <th style="width: 10%;">Harf Notu</th>
+                                        <th style="width: 15%;">Tarih</th>
+                                        <th style="width: 15%;">İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in studentGrades)
+                                    {
+                                        var student = item.Student as Hawkins_HS.Models.Student;
+                                        var grade = item.Grade as Hawkins_HS.Models.Grade;
+                                        
+                                        <tr>
+                                            <td>@student.StudentNumber</td>
+                                            <td><strong>@student.ApplicationUser.FullName</strong></td>
+                                            <td><span class="badge bg-primary">@student.ClassName</span></td>
+                                            <td>
+                                                @if (grade != null)
+                                                {
+                                                    <form asp-action="SaveGrade" method="post" class="d-inline grade-form">
+                                                        <input type="hidden" name="examId" value="@exam.Id" />
+                                                        <input type="hidden" name="studentId" value="@student.Id" />
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="number" name="score" class="form-control" 
+                                                                   value="@grade.Score.ToString("0.00")" 
+                                                                   min="0" max="100" step="0.01" required />
+                                                            <button type="submit" class="btn btn-success btn-sm">
+                                                                <i class="bi bi-check"></i> Güncelle
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <form asp-action="SaveGrade" method="post" class="d-inline grade-form">
+                                                        <input type="hidden" name="examId" value="@exam.Id" />
+                                                        <input type="hidden" name="studentId" value="@student.Id" />
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="number" name="score" class="form-control" 
+                                                                   placeholder="Not girin" 
+                                                                   min="0" max="100" step="0.01" required />
+                                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                                <i class="bi bi-plus"></i> Kaydet
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (grade != null)
+                                                {
+                                                    <span class="badge bg-@(grade.Letter == "A" ? "success" : grade.Letter == "F" ? "danger" : "primary") fs-6">
+                                                        @grade.Letter
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">-</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (grade != null)
+                                                {
+                                                    <small>@grade.GradedAt.ToString("dd MMM HH:mm")</small>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">-</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (grade != null)
+                                                {
+                                                    <form asp-action="DeleteGrade" method="post" class="d-inline" 
+                                                          onsubmit="return confirm('Bu notu silmek istediğinizden emin misiniz?');">
+                                                        <input type="hidden" name="id" value="@grade.Id" />
+                                                        <input type="hidden" name="examId" value="@exam.Id" />
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            <i class="bi bi-trash"></i> Sil
+                                                        </button>
+                                                    </form>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot class="table-light">
+                                    <tr>
+                                        <td colspan="3" class="text-end"><strong>İstatistikler:</strong></td>
+                                        <td>
+                                            @{
+                                                var gradedCount = studentGrades.Count(s => s.Grade != null);
+                                                var totalStudents = studentGrades.Count;
+                                                var avgScore = gradedCount > 0 
+                                                    ? studentGrades.Where(s => s.Grade != null)
+                                                        .Average(s => ((Hawkins_HS.Models.Grade)s.Grade).Score)
+                                                    : 0;
+                                            }
+                                            <strong>Ortalama: @avgScore.ToString("0.00")</strong>
+                                        </td>
+                                        <td colspan="3">
+                                            <strong>Not Girildi: @gradedCount / @totalStudents</strong>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning text-center">
+                            Bu derse kayıtlı öğrenci bulunmamaktadır.
+                        </div>
+                    }
+
+                    <div class="mt-4">
+                        <a asp-controller="Exams" asp-action="Details" asp-route-id="@exam.Id" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Sınava Geri Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Form gönderiminde loading göster
+        document.querySelectorAll('.grade-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const btn = this.querySelector('button[type="submit"]');
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Kaydediliyor...';
+            });
+        });
+    </script>
+}

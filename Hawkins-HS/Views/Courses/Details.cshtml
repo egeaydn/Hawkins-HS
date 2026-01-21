@@ -92,12 +92,22 @@
                             @foreach (var exam in Model.Exams.OrderBy(e => e.ExamDate))
                             {
                                 <div class="list-group-item">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">@exam.Title</h6>
-                                        <small>@exam.ExamDate.ToString("dd MMM yyyy HH:mm")</small>
+                                    <div class="d-flex w-100 justify-content-between align-items-start">
+                                        <div>
+                                            <h6 class="mb-1">@exam.Title</h6>
+                                            <p class="mb-1 text-muted">@exam.Description</p>
+                                            <small>Süre: @exam.DurationMinutes dakika</small>
+                                        </div>
+                                        <div class="text-end">
+                                            <small class="d-block">@exam.ExamDate.ToString("dd MMM yyyy HH:mm")</small>
+                                            @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                                            {
+                                                <a href="@Url.Action("EnterGrades", "Grades", new { id = exam.Id })" class="btn btn-success btn-sm mt-1">
+                                                    Not Gir
+                                                </a>
+                                            }
+                                        </div>
                                     </div>
-                                    <p class="mb-1 text-muted">@exam.Description</p>
-                                    <small>Süre: @exam.DurationMinutes dakika | Tip: @exam.ExamType</small>
                                 </div>
                             }
                         </div>
