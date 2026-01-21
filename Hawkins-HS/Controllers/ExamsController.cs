@@ -29,12 +29,31 @@ public class ExamsController : Controller
     // GET: Exams
     public async Task<IActionResult> Index()
     {
-        var exams = await _context.Exams
+        var examsQuery = _context.Exams
             .Include(e => e.Course)
+                .ThenInclude(c => c.Teacher)
+                    .ThenInclude(t => t!.ApplicationUser)
+            .AsQueryable();
+
+        // Öğretmen ise sadece kendi derslerinin sınavlarını göster
+        string? currentTeacherUserName = null;
+        if (User.IsInRole("Teacher"))
+        {
+            var userName = User.Identity!.Name;
+            currentTeacherUserName = userName;
+            examsQuery = examsQuery.Where(e => e.Course.Teacher!.ApplicationUser.UserName == userName);
+        }
+
+        var exams = await examsQuery
             .OrderByDescending(e => e.ExamDate)
             .ToListAsync();
 
         var viewModels = _mapper.Map<List<ExamViewModel>>(exams);
+        
+        // View'a öğretmenin kendi sınavlarını belirtmek için kullanıcı adını gönder
+        ViewBag.CurrentTeacherUserName = currentTeacherUserName;
+        ViewBag.IsAdmin = User.IsInRole("Admin");
+        
         return View(viewModels);
     }
 
@@ -46,13 +65,37 @@ public class ExamsController : Controller
         var exam = await _context.Exams
             .Include(e => e.Course)
                 .ThenInclude(c => c.Teacher)
-                    .ThenInclude(t => t.ApplicationUser)
+                    .ThenInclude(t => t!.ApplicationUser)
             .Include(e => e.Grades)
                 .ThenInclude(g => g.Student)
                     .ThenInclude(s => s.ApplicationUser)
             .FirstOrDefaultAsync(m => m.Id == id);
 
         if (exam == null) return NotFound();
+
+        // Öğretmen ise sadece kendi dersinin sınavına erişebilir
+        if (User.IsInRole("Teacher"))
+        {
+            var userName = User.Identity!.Name;
+            if (exam.Course.Teacher?.ApplicationUser?.UserName != userName)
+            {
+                TempData["Error"] = "Bu sınava erişim yetkiniz yok.";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        // Öğretmen kendi sınavını görebilir, admin her şeyi görebilir
+        bool isTeacherOfCourse = false;
+        if (User.IsInRole("Admin"))
+        {
+            isTeacherOfCourse = true;
+        }
+        else if (User.IsInRole("Teacher"))
+        {
+            var userName = User.Identity!.Name;
+            isTeacherOfCourse = exam.Course.Teacher?.ApplicationUser?.UserName == userName;
+        }
+        ViewBag.IsTeacherOfCourse = isTeacherOfCourse;
 
         return View(exam);
     }
@@ -61,9 +104,25 @@ public class ExamsController : Controller
     [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> Create(int? courseId)
     {
-        var courses = await _context.Courses
+        var coursesQuery = _context.Courses
             .Include(c => c.Teacher)
                 .ThenInclude(t => t.ApplicationUser)
+            .AsQueryable();
+
+        // Öğretmen sadece kendi derslerini görsün
+        if (User.IsInRole("Teacher"))
+        {
+            var userName = User.Identity?.Name;
+            var teacher = await _context.Teachers
+                .FirstOrDefaultAsync(t => t.ApplicationUser.UserName == userName);
+            
+            if (teacher != null)
+            {
+                coursesQuery = coursesQuery.Where(c => c.TeacherId == teacher.Id);
+            }
+        }
+
+        var courses = await coursesQuery
             .Select(c => new { 
                 c.Id, 
                 DisplayText = c.Code + " - " + c.Title
@@ -123,8 +182,23 @@ public class ExamsController : Controller
     {
         if (id == null) return NotFound();
 
-        var exam = await _context.Exams.FindAsync(id);
+        var exam = await _context.Exams
+            .Include(e => e.Course)
+                .ThenInclude(c => c.Teacher)
+                    .ThenInclude(t => t!.ApplicationUser)
+            .FirstOrDefaultAsync(e => e.Id == id);
         if (exam == null) return NotFound();
+
+        // Öğretmen ise sadece kendi dersinin sınavını düzenleyebilir
+        if (User.IsInRole("Teacher"))
+        {
+            var userName = User.Identity!.Name;
+            if (exam.Course.Teacher?.ApplicationUser?.UserName != userName)
+            {
+                TempData["Error"] = "Bu sınavı düzenleme yetkiniz yok.";
+                return RedirectToAction(nameof(Index));
+            }
+        }
 
         var viewModel = _mapper.Map<ExamViewModel>(exam);
 
@@ -154,8 +228,23 @@ public class ExamsController : Controller
         {
             try
             {
-                var exam = await _context.Exams.FindAsync(id);
+                var exam = await _context.Exams
+                    .Include(e => e.Course)
+                        .ThenInclude(c => c.Teacher)
+                            .ThenInclude(t => t!.ApplicationUser)
+                    .FirstOrDefaultAsync(e => e.Id == id);
                 if (exam == null) return NotFound();
+
+                // Öğretmen ise sadece kendi dersinin sınavını düzenleyebilir
+                if (User.IsInRole("Teacher"))
+                {
+                    var userName = User.Identity!.Name;
+                    if (exam.Course.Teacher?.ApplicationUser?.UserName != userName)
+                    {
+                        TempData["Error"] = "Bu sınavı düzenleme yetkiniz yok.";
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
 
                 _mapper.Map(viewModel, exam);
                 

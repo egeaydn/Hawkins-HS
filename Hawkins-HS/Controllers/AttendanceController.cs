@@ -29,10 +29,21 @@ public class AttendanceController : Controller
                 .ThenInclude(e => e.Student)
                     .ThenInclude(s => s.ApplicationUser)
             .Include(c => c.Teacher)
-                .ThenInclude(t => t.ApplicationUser)
+                .ThenInclude(t => t!.ApplicationUser)
             .FirstOrDefaultAsync(c => c.Id == id);
 
         if (course == null) return NotFound();
+
+        // Öğretmen sadece kendi dersinin yoklamasını alabilsin
+        if (User.IsInRole("Teacher"))
+        {
+            var userName = User.Identity?.Name;
+            if (course.Teacher?.ApplicationUser?.UserName != userName)
+            {
+                TempData["Error"] = "Bu dersin yoklamasını alma yetkiniz yok.";
+                return RedirectToAction("Index", "Courses");
+            }
+        }
 
         var attendanceDate = date ?? DateTime.Today;
 

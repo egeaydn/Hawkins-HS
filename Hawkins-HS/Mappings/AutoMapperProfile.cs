@@ -25,7 +25,9 @@ public class AutoMapperProfile : Profile
         // Exam Mappings
         CreateMap<Exam, ExamViewModel>()
             .ForMember(dest => dest.CourseName,
-                opt => opt.MapFrom(src => src.Course.Title));
+                opt => opt.MapFrom(src => src.Course.Title))
+            .ForMember(dest => dest.TeacherUserName,
+                opt => opt.MapFrom(src => src.Course.Teacher!.ApplicationUser.UserName));
 
         CreateMap<ExamViewModel, Exam>()
             .ForMember(dest => dest.Course, opt => opt.Ignore())

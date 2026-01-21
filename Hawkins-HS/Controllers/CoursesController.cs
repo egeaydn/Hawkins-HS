@@ -28,12 +28,26 @@ public class CoursesController : Controller
     // GET: Courses
     public async Task<IActionResult> Index()
     {
-        var courses = await _context.Courses
+        var coursesQuery = _context.Courses
             .Include(c => c.Teacher)
                 .ThenInclude(t => t.ApplicationUser)
             .Include(c => c.Enrollments)
-            .ToListAsync();
+            .AsQueryable();
 
+        // Öğretmen sadece kendi derslerini görsün
+        if (User.IsInRole("Teacher"))
+        {
+            var userName = User.Identity?.Name;
+            var teacher = await _context.Teachers
+                .FirstOrDefaultAsync(t => t.ApplicationUser.UserName == userName);
+            
+            if (teacher != null)
+            {
+                coursesQuery = coursesQuery.Where(c => c.TeacherId == teacher.Id);
+            }
+        }
+
+        var courses = await coursesQuery.ToListAsync();
         var viewModels = _mapper.Map<List<CourseViewModel>>(courses);
         return View(viewModels);
     }
@@ -45,7 +59,7 @@ public class CoursesController : Controller
 
         var course = await _context.Courses
             .Include(c => c.Teacher)
-                .ThenInclude(t => t.ApplicationUser)
+                .ThenInclude(t => t!.ApplicationUser)
             .Include(c => c.Enrollments)
                 .ThenInclude(e => e.Student)
                     .ThenInclude(s => s.ApplicationUser)
@@ -54,6 +68,20 @@ public class CoursesController : Controller
             .FirstOrDefaultAsync(m => m.Id == id);
 
         if (course == null) return NotFound();
+
+        // Öğretmenin bu dersi verip vermediğini kontrol et
+        bool isTeacherOfCourse = false;
+        if (User.IsInRole("Teacher"))
+        {
+            var userName = User.Identity?.Name;
+            isTeacherOfCourse = course.Teacher?.ApplicationUser?.UserName == userName;
+        }
+        else if (User.IsInRole("Admin"))
+        {
+            isTeacherOfCourse = true; // Admin her şeyi yapabilir
+        }
+
+        ViewBag.IsTeacherOfCourse = isTeacherOfCourse;
 
         return View(course);
     }

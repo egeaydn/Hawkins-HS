@@ -73,11 +73,11 @@
                         <div class="card-footer bg-transparent">
                             <div class="btn-group w-100" role="group">
                                 <a asp-action="Details" asp-route-id="@exam.Id" class="btn btn-sm btn-outline-primary">Detaylar</a>
-                                @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                                @if (ViewBag.IsAdmin == true || (ViewBag.CurrentTeacherUserName != null && ViewBag.CurrentTeacherUserName == exam.TeacherUserName))
                                 {
                                     <a asp-action="Edit" asp-route-id="@exam.Id" class="btn btn-sm btn-outline-secondary">Düzenle</a>
                                 }
-                                @if (User.IsInRole("Admin"))
+                                @if (ViewBag.IsAdmin == true)
                                 {
                                     <a asp-action="Delete" asp-route-id="@exam.Id" class="btn btn-sm btn-outline-danger" onclick="return confirm('Bu sınavı silmek istediğinizden emin misiniz?')">Sil</a>
                                 }

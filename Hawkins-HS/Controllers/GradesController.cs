@@ -29,14 +29,27 @@ public class GradesController : Controller
 
         var exam = await _context.Exams
             .Include(e => e.Course)
-                .ThenInclude(c => c.Enrollments)
-                    .ThenInclude(e => e.Student)
-                        .ThenInclude(s => s.ApplicationUser)
+                .ThenInclude(c => c.Teacher)
+                    .ThenInclude(t => t!.ApplicationUser)
+            .Include(e => e.Course.Enrollments)
+                .ThenInclude(e => e.Student)
+                    .ThenInclude(s => s.ApplicationUser)
             .Include(e => e.Grades)
                 .ThenInclude(g => g.Student)
             .FirstOrDefaultAsync(e => e.Id == id);
 
         if (exam == null) return NotFound();
+
+        // Öğretmen ise sadece kendi dersinin sınavına not girebilir
+        if (User.IsInRole("Teacher"))
+        {
+            var userName = User.Identity!.Name;
+            if (exam.Course.Teacher?.ApplicationUser?.UserName != userName)
+            {
+                TempData["Error"] = "Bu sınava not girme yetkiniz yok.";
+                return RedirectToAction("Index", "Exams");
+            }
+        }
 
         // Derse kayıtlı öğrenciler
         var enrolledStudents = exam.Course.Enrollments.Select(e => e.Student).ToList();
@@ -60,6 +73,26 @@ public class GradesController : Controller
     [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> SaveGrade(int examId, int studentId, decimal score)
     {
+        // Öğretmen izin kontrolü
+        if (User.IsInRole("Teacher"))
+        {
+            var exam = await _context.Exams
+                .Include(e => e.Course)
+                    .ThenInclude(c => c.Teacher)
+                        .ThenInclude(t => t!.ApplicationUser)
+                .FirstOrDefaultAsync(e => e.Id == examId);
+
+            if (exam != null)
+            {
+                var userName = User.Identity!.Name;
+                if (exam.Course.Teacher?.ApplicationUser?.UserName != userName)
+                {
+                    TempData["Error"] = "Bu sınava not girme yetkiniz yok.";
+                    return RedirectToAction("Index", "Exams");
+                }
+            }
+        }
+
         if (score < 0 || score > 100)
         {
             TempData["Error"] = "Not 0 ile 100 arasında olmalıdır.";

@@ -37,6 +37,8 @@ public class ExamViewModel
     public int CourseId { get; set; }
 
     public string? CourseName { get; set; }
+    
+    public string? TeacherUserName { get; set; }
 
     [Required(ErrorMessage = "Sınav başlığı gereklidir")]
     [Display(Name = "Sınav Başlığı")]

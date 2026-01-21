@@ -11,17 +11,17 @@
                 <div class="card-header bg-primary text-white">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">📝 @Model.Title</h4>
-                        @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                        @if (ViewBag.IsTeacherOfCourse == true)
                         {
                             <div class="btn-group">
                                 <a asp-controller="Grades" asp-action="EnterGrades" asp-route-id="@Model.Id" class="btn btn-success btn-sm">Not Gir</a>
                                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-light btn-sm">Düzenle</a>
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm" 
-                                       onclick="return confirm('Bu sınavı silmek istediğinizden emin misiniz?')">Sil</a>
-                                }
                             </div>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm" 
+                               onclick="return confirm('Bu sınavı silmek istediğinizden emin misiniz?')">Sil</a>
                         }
                     </div>
                 </div>
