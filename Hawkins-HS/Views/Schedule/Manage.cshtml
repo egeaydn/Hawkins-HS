@@ -1,0 +1,117 @@
+@{
+    ViewData["Title"] = "Ders Programı Yönetimi";
+    var course = ViewBag.Course as Hawkins_HS.Models.Course;
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">📅 Ders Programı Yönetimi</h4>
+        </div>
+        <div class="card-body">
+            <div class="mb-4">
+                <h5>@course.Title (@course.Code)</h5>
+                <p class="text-muted">Öğretmen: @course.Teacher.ApplicationUser.FullName</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0">➕ Yeni Program Ekle</h6>
+                        </div>
+                        <div class="card-body">
+                            <form asp-action="Create" method="post">
+                                <input type="hidden" name="courseId" value="@course.Id" />
+
+                                <div class="mb-3">
+                                    <label class="form-label">Gün</label>
+                                    <select name="day" class="form-select" required>
+                                        <option value="">-- Gün Seçin --</option>
+                                        <option value="Pazartesi">Pazartesi</option>
+                                        <option value="Salı">Salı</option>
+                                        <option value="Çarşamba">Çarşamba</option>
+                                        <option value="Perşembe">Perşembe</option>
+                                        <option value="Cuma">Cuma</option>
+                                        <option value="Cumartesi">Cumartesi</option>
+                                        <option value="Pazar">Pazar</option>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Başlangıç Saati</label>
+                                        <input type="time" name="startTime" class="form-control" required />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Bitiş Saati</label>
+                                        <input type="time" name="endTime" class="form-control" required />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Sınıf/Oda</label>
+                                    <input type="text" name="room" class="form-control" placeholder="Örn: A-101" required />
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-success">Ekle</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0">📋 Mevcut Program</h6>
+                        </div>
+                        <div class="card-body">
+                            @if (course.ClassSchedules.Any())
+                            {
+                                <div class="list-group">
+                                    @foreach (var schedule in course.ClassSchedules.OrderBy(s => s.Day).ThenBy(s => s.StartTime))
+                                    {
+                                        <div class="list-group-item">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1">@schedule.Day</h6>
+                                                    <p class="mb-1">
+                                                        <strong>@schedule.StartTime.ToString(@"hh\:mm") - @schedule.EndTime.ToString(@"hh\:mm")</strong>
+                                                    </p>
+                                                    <small class="text-muted">@schedule.Room</small>
+                                                </div>
+                                                <form asp-action="Delete" method="post" class="d-inline"
+                                                      onsubmit="return confirm('Bu program kaydını silmek istediğinizden emin misiniz?');">
+                                                    <input type="hidden" name="id" value="@schedule.Id" />
+                                                    <input type="hidden" name="courseId" value="@course.Id" />
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="bi bi-trash"></i> Sil
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted text-center">Henüz program eklenmemiş</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id" class="btn btn-secondary">
+                    Derse Geri Dön
+                </a>
+                <a asp-action="Weekly" class="btn btn-primary">
+                    Haftalık Program
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

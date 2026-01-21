@@ -1,0 +1,106 @@
+@model IEnumerable<Hawkins_HS.Models.Teacher>
+
+@{
+    ViewData["Title"] = "Öğretmenler";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>👨‍🏫 Öğretmenler</h2>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary">
+                Yeni Öğretmen Ekle
+            </a>
+        }
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
+            @foreach (var teacher in Model.OrderBy(t => t.Department))
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <div class="display-4">👨‍🏫</div>
+                                <h5 class="mt-2">@teacher.ApplicationUser.FullName</h5>
+                                <p class="text-muted mb-2">@teacher.EmployeeNumber</p>
+                                <span class="badge bg-primary">@teacher.Department</span>
+                            </div>
+
+                            <hr />
+
+                            <div class="mb-2">
+                                <small class="text-muted">Email:</small>
+                                <div class="text-truncate">@teacher.ApplicationUser.Email</div>
+                            </div>
+
+                            <div class="mb-2">
+                                <small class="text-muted">Telefon:</small>
+                                <div>@(teacher.ApplicationUser.PhoneNumber ?? "Belirtilmemiş")</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <small class="text-muted">Verdiği Ders:</small>
+                                <div><strong>@teacher.Courses.Count ders</strong></div>
+                            </div>
+
+                            <div class="d-grid">
+                                <a asp-action="Details" asp-route-id="@teacher.Id" class="btn btn-outline-primary btn-sm">
+                                    Detayları Gör
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h3 class="text-primary">@Model.Count()</h3>
+                                <p class="mb-0 text-muted">Toplam Öğretmen</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h3 class="text-success">@Model.Sum(t => t.Courses.Count)</h3>
+                                <p class="mb-0 text-muted">Toplam Ders</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h3 class="text-info">@Model.Select(t => t.Department).Distinct().Count()</h3>
+                                <p class="mb-0 text-muted">Bölüm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h3 class="text-warning">@Model.Average(t => t.Courses.Count).ToString("0.0")</h3>
+                                <p class="mb-0 text-muted">Ort. Ders/Öğretmen</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            <h4>Henüz öğretmen kaydı yok</h4>
+        </div>
+    }
+</div>

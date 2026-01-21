@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\grades\\entergrades.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\grades\\entergrades.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +27,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EnterGrades.cshtml",
+              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
+              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
+              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
+              "RelativeToolTip": "Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAAAIIAAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-21T13:06:19.066Z",
+              "EditorCaption": ""
             }
           ]
         }

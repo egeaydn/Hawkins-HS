@@ -5,6 +5,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Hawkins_HS.Data;
 using Hawkins_HS.Models;
+using Hawkins_HS.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
+
+// Add Services
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 var app = builder.Build();
 

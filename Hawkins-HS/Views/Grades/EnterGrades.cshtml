@@ -1,7 +1,7 @@
 @{
     ViewData["Title"] = "Not Girişi";
     var exam = ViewBag.Exam as Hawkins_HS.Models.Exam;
-    var studentGrades = ViewBag.StudentGrades as List<dynamic>;
+    var studentGrades = ViewBag.StudentGrades as IEnumerable<dynamic>;
 }
 
 <div class="container-fluid mt-4">
@@ -128,7 +128,7 @@
                                         <td>
                                             @{
                                                 var gradedCount = studentGrades.Count(s => s.Grade != null);
-                                                var totalStudents = studentGrades.Count;
+                                                var totalStudents = studentGrades.Count();
                                                 var avgScore = gradedCount > 0 
                                                     ? studentGrades.Where(s => s.Grade != null)
                                                         .Average(s => ((Hawkins_HS.Models.Grade)s.Grade).Score)

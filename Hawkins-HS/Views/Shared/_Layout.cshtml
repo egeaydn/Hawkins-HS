@@ -32,6 +32,19 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-white" asp-controller="Admin" asp-action="Dashboard">Yönetim</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Students" asp-action="Index">Öğrenciler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Teachers" asp-action="Index">Öğretmenler</a>
+                                </li>
+                            }
+                            
+                            @if (User.IsInRole("Teacher") && !User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Students" asp-action="Index">Öğrenciler</a>
+                                </li>
                             }
                             
                             @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
@@ -39,7 +52,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-white" asp-controller="Courses" asp-action="Index">Dersler</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Exams" asp-action="Index">Sınavlar</a>
+                                </li>
                             }
+                            
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Announcements" asp-action="Index">Duyurular</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Schedule" asp-action="Weekly">Program</a>
+                            </li>
                         }
                     </ul>
                     

@@ -6,6 +6,7 @@ using AutoMapper;
 using Hawkins_HS.Data;
 using Hawkins_HS.Models;
 using Hawkins_HS.ViewModels;
+using Hawkins_HS.Services;
 
 namespace Hawkins_HS.Controllers;
 
@@ -15,12 +16,14 @@ public class ExamsController : Controller
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
     private readonly ILogger<ExamsController> _logger;
+    private readonly INotificationService _notificationService;
 
-    public ExamsController(ApplicationDbContext context, IMapper mapper, ILogger<ExamsController> logger)
+    public ExamsController(ApplicationDbContext context, IMapper mapper, ILogger<ExamsController> logger, INotificationService notificationService)
     {
         _context = context;
         _mapper = mapper;
         _logger = logger;
+        _notificationService = notificationService;
     }
 
     // GET: Exams
@@ -90,6 +93,9 @@ public class ExamsController : Controller
             
             _context.Add(exam);
             await _context.SaveChangesAsync();
+            
+            // Bildirim gönder
+            await _notificationService.NotifyExamCreatedAsync(exam);
             
             _logger.LogInformation("Exam created: {ExamTitle} for course {CourseId}", exam.Title, exam.CourseId);
             TempData["Success"] = "Sınav başarıyla oluşturuldu.";

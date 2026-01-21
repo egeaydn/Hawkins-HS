@@ -1,0 +1,116 @@
+@{
+    ViewData["Title"] = "Devamsızlık Raporu";
+    var course = ViewBag.Course as Hawkins_HS.Models.Course;
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">📊 Ders Devamsızlık Raporu</h4>
+        </div>
+        <div class="card-body">
+            <div class="mb-4">
+                <h5>📚 @course.Title</h5>
+                <p class="text-muted">@course.Code - @course.Teacher?.ApplicationUser?.FullName</p>
+            </div>
+
+            @if (course.Enrollments.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Öğrenci</th>
+                                <th>Toplam Gün</th>
+                                <th>Var</th>
+                                <th>Yok</th>
+                                <th>Geç</th>
+                                <th>Mazeret</th>
+                                <th>Devamsızlık %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var enrollment in course.Enrollments.OrderBy(e => e.Student.StudentNumber))
+                            {
+                                var student = enrollment.Student;
+                                var studentAttendances = course.Attendances.Where(a => a.StudentId == student.Id).ToList();
+                                
+                                var totalDays = studentAttendances.Count;
+                                var presentCount = studentAttendances.Count(a => a.Status == "Present");
+                                var absentCount = studentAttendances.Count(a => a.Status == "Absent");
+                                var lateCount = studentAttendances.Count(a => a.Status == "Late");
+                                var excusedCount = studentAttendances.Count(a => a.Status == "Excused");
+                                var absenceRate = totalDays > 0 ? (absentCount * 100.0 / totalDays) : 0;
+                                
+                                <tr class="@(absenceRate > 20 ? "table-danger" : absenceRate > 10 ? "table-warning" : "")">
+                                    <td>
+                                        <strong>@student.ApplicationUser.FullName</strong>
+                                        <br />
+                                        <small class="text-muted">@student.StudentNumber - @student.ClassName</small>
+                                    </td>
+                                    <td class="text-center">@totalDays</td>
+                                    <td class="text-center"><span class="badge bg-success">@presentCount</span></td>
+                                    <td class="text-center"><span class="badge bg-danger">@absentCount</span></td>
+                                    <td class="text-center"><span class="badge bg-warning">@lateCount</span></td>
+                                    <td class="text-center"><span class="badge bg-info">@excusedCount</span></td>
+                                    <td class="text-center">
+                                        <strong class="@(absenceRate > 20 ? "text-danger" : absenceRate > 10 ? "text-warning" : "text-success")">
+                                            @absenceRate.ToString("0.0")%
+                                        </strong>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="table-light">
+                            <tr>
+                                <td><strong>Toplam</strong></td>
+                                <td class="text-center"><strong>@course.Attendances.Select(a => a.Date).Distinct().Count() gün</strong></td>
+                                <td class="text-center"><strong>@course.Attendances.Count(a => a.Status == "Present")</strong></td>
+                                <td class="text-center"><strong>@course.Attendances.Count(a => a.Status == "Absent")</strong></td>
+                                <td class="text-center"><strong>@course.Attendances.Count(a => a.Status == "Late")</strong></td>
+                                <td class="text-center"><strong>@course.Attendances.Count(a => a.Status == "Excused")</strong></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="alert alert-info mt-4">
+                    <h6>📋 Uyarılar:</h6>
+                    <ul class="mb-0">
+                        @{
+                            var criticalStudents = course.Enrollments
+                                .Where(e => {
+                                    var att = course.Attendances.Where(a => a.StudentId == e.StudentId);
+                                    var total = att.Count();
+                                    var absent = att.Count(a => a.Status == "Absent");
+                                    return total > 0 && (absent * 100.0 / total) > 20;
+                                })
+                                .Select(e => e.Student.ApplicationUser.FullName)
+                                .ToList();
+                        }
+                        @if (criticalStudents.Any())
+                        {
+                            <li class="text-danger"><strong>%20'nin üzerinde devamsızlık:</strong> @string.Join(", ", criticalStudents)</li>
+                        }
+                        else
+                        {
+                            <li class="text-success">Kritik devamsızlık sorunu yok</li>
+                        }
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">
+                    Bu derse kayıtlı öğrenci bulunmamaktadır.
+                </div>
+            }
+
+            <div class="mt-4">
+                <a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id" class="btn btn-secondary">Derse Geri Dön</a>
+                <a asp-action="TakeAttendance" asp-route-id="@course.Id" class="btn btn-success">Yoklama Al</a>
+            </div>
+        </div>
+    </div>
+</div>

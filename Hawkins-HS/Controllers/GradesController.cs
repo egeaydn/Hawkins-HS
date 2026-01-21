@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Hawkins_HS.Data;
 using Hawkins_HS.Models;
+using Hawkins_HS.Services;
 
 namespace Hawkins_HS.Controllers;
 
@@ -11,11 +12,13 @@ public class GradesController : Controller
 {
     private readonly ApplicationDbContext _context;
     private readonly ILogger<GradesController> _logger;
+    private readonly INotificationService _notificationService;
 
-    public GradesController(ApplicationDbContext context, ILogger<GradesController> logger)
+    public GradesController(ApplicationDbContext context, ILogger<GradesController> logger, INotificationService notificationService)
     {
         _context = context;
         _logger = logger;
+        _notificationService = notificationService;
     }
 
     // GET: Grades/EnterGrades/5 (ExamId)
@@ -70,6 +73,7 @@ public class GradesController : Controller
         var existingGrade = await _context.Grades
             .FirstOrDefaultAsync(g => g.ExamId == examId && g.StudentId == studentId);
 
+        Grade gradeToNotify;
         if (existingGrade != null)
         {
             // Güncelle
@@ -77,6 +81,7 @@ public class GradesController : Controller
             existingGrade.Letter = letterGrade;
             existingGrade.GradedAt = DateTime.UtcNow;
             _context.Update(existingGrade);
+            gradeToNotify = existingGrade;
         }
         else
         {
@@ -90,9 +95,13 @@ public class GradesController : Controller
                 GradedAt = DateTime.UtcNow
             };
             _context.Add(grade);
+            gradeToNotify = grade;
         }
 
         await _context.SaveChangesAsync();
+        
+        // Bildirim gönder
+        await _notificationService.NotifyGradeEnteredAsync(gradeToNotify);
         
         var student = await _context.Students
             .Include(s => s.ApplicationUser)

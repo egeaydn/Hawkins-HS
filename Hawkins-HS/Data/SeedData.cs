@@ -200,12 +200,12 @@ public static class SeedData
         // Seed Class Schedules
         var schedules = new List<ClassSchedule>
         {
-            new ClassSchedule { CourseId = courses[0].Id, Day = DayOfWeek.Monday, StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(10, 30, 0), Room = "A101" },
-            new ClassSchedule { CourseId = courses[0].Id, Day = DayOfWeek.Wednesday, StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(10, 30, 0), Room = "A101" },
-            new ClassSchedule { CourseId = courses[1].Id, Day = DayOfWeek.Tuesday, StartTime = new TimeSpan(11, 0, 0), EndTime = new TimeSpan(12, 30, 0), Room = "B202" },
-            new ClassSchedule { CourseId = courses[1].Id, Day = DayOfWeek.Thursday, StartTime = new TimeSpan(11, 0, 0), EndTime = new TimeSpan(12, 30, 0), Room = "B202" },
-            new ClassSchedule { CourseId = courses[2].Id, Day = DayOfWeek.Monday, StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 30, 0), Room = "A102" },
-            new ClassSchedule { CourseId = courses[3].Id, Day = DayOfWeek.Friday, StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(11, 0, 0), Room = "B201" }
+            new ClassSchedule { CourseId = courses[0].Id, Day = "Pazartesi", StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(10, 30, 0), Room = "A101" },
+            new ClassSchedule { CourseId = courses[0].Id, Day = "Çarşamba", StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(10, 30, 0), Room = "A101" },
+            new ClassSchedule { CourseId = courses[1].Id, Day = "Salı", StartTime = new TimeSpan(11, 0, 0), EndTime = new TimeSpan(12, 30, 0), Room = "B202" },
+            new ClassSchedule { CourseId = courses[1].Id, Day = "Perşembe", StartTime = new TimeSpan(11, 0, 0), EndTime = new TimeSpan(12, 30, 0), Room = "B202" },
+            new ClassSchedule { CourseId = courses[2].Id, Day = "Pazartesi", StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 30, 0), Room = "A102" },
+            new ClassSchedule { CourseId = courses[3].Id, Day = "Cuma", StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(11, 0, 0), Room = "B201" }
         };
 
         context.ClassSchedules.AddRange(schedules);

@@ -7,7 +7,7 @@ public class ClassSchedule
     public int CourseId { get; set; }
     public Course Course { get; set; } = null!;
     
-    public DayOfWeek Day { get; set; }
+    public string Day { get; set; } = string.Empty; // Pazartesi, Salı, vb.
     public TimeSpan StartTime { get; set; }
     public TimeSpan EndTime { get; set; }
     public string Room { get; set; } = string.Empty;

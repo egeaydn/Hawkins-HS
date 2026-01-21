@@ -1,0 +1,93 @@
+@model IEnumerable<Hawkins_HS.Models.ClassSchedule>
+
+@{
+    ViewData["Title"] = "Haftalık Ders Programı";
+    var days = new[] { "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar" };
+    var hours = Enumerable.Range(8, 12).Select(h => new TimeSpan(h, 0, 0)).ToList(); // 08:00-19:00
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">📅 Haftalık Ders Programım</h4>
+        </div>
+        <div class="card-body">
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 80px;">Saat</th>
+                                @foreach (var day in days)
+                                {
+                                    <th class="text-center">@day</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var hour in hours)
+                            {
+                                <tr>
+                                    <td class="text-center align-middle">
+                                        <strong>@hour.ToString(@"hh\:mm")</strong>
+                                    </td>
+                                    @foreach (var day in days)
+                                    {
+                                        var schedules = Model.Where(s => 
+                                            s.Day == day && 
+                                            s.StartTime <= hour && 
+                                            s.EndTime > hour
+                                        ).ToList();
+
+                                        <td class="@(schedules.Any() ? "table-success" : "")">
+                                            @foreach (var schedule in schedules)
+                                            {
+                                                <div class="card mb-2 border-primary">
+                                                    <div class="card-body p-2">
+                                                        <h6 class="mb-1">@schedule.Course.Title</h6>
+                                                        <small class="text-muted d-block">@schedule.Course.Code</small>
+                                                        <small class="text-muted d-block">
+                                                            @schedule.StartTime.ToString(@"hh\:mm") - @schedule.EndTime.ToString(@"hh\:mm")
+                                                        </small>
+                                                        <small class="text-muted d-block">📍 @schedule.Room</small>
+                                                        @if (schedule.Course.Teacher != null)
+                                                        {
+                                                            <small class="text-muted d-block">👨‍🏫 @schedule.Course.Teacher.ApplicationUser.FullName</small>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-info mt-4">
+                    <h6>📊 Program Özeti</h6>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>Toplam Ders:</strong> @Model.Select(s => s.CourseId).Distinct().Count()
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Toplam Saat:</strong> @Model.Sum(s => (s.EndTime - s.StartTime).TotalHours).ToString("0.0") saat/hafta
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Aktif Gün:</strong> @Model.Select(s => s.Day).Distinct().Count() gün
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">
+                    <h5>Henüz ders programınız oluşturulmamış</h5>
+                    <p class="mb-0">Derslerinize program eklendiğinde burada görünecektir.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

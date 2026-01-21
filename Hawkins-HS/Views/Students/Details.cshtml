@@ -1,0 +1,129 @@
+@model Hawkins_HS.Models.Student
+
+@{
+    ViewData["Title"] = "Öğrenci Detayı";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">👨‍🎓 Öğrenci Bilgileri</h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <div class="display-1">👤</div>
+                        <h4 class="mt-3">@Model.ApplicationUser.FullName</h4>
+                        <p class="text-muted">@Model.StudentNumber</p>
+                    </div>
+
+                    <hr />
+
+                    <div class="mb-3">
+                        <small class="text-muted d-block">Email</small>
+                        <strong>@Model.ApplicationUser.Email</strong>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-muted d-block">Telefon</small>
+                        <strong>@(Model.ApplicationUser.PhoneNumber ?? "Belirtilmemiş")</strong>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-muted d-block">Sınıf</small>
+                        <span class="badge bg-primary fs-6">@Model.ClassName</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-muted d-block">Yıl</small>
+                        <strong>@Model.Year</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">📚 Kayıtlı Dersler (@Model.Enrollments.Count)</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Enrollments.Any())
+                    {
+                        <div class="row row-cols-1 row-cols-md-2 g-3">
+                            @foreach (var enrollment in Model.Enrollments)
+                            {
+                                <div class="col">
+                                    <div class="card border-primary h-100">
+                                        <div class="card-body">
+                                            <h6 class="card-title">@enrollment.Course.Title</h6>
+                                            <p class="card-text text-muted mb-2">@enrollment.Course.Code</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small>@enrollment.Course.Credits Kredi</small>
+                                                <a asp-controller="Courses" asp-action="Details" asp-route-id="@enrollment.CourseId" 
+                                                   class="btn btn-sm btn-outline-primary">Detay</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Henüz derse kayıtlı değil</p>
+                    }
+                </div>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">🎯 Notlar (@Model.Grades.Count)</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Grades.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Ders</th>
+                                        <th>Sınav</th>
+                                        <th>Puan</th>
+                                        <th>Harf</th>
+                                        <th>Tarih</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var grade in Model.Grades.OrderByDescending(g => g.GradedAt))
+                                    {
+                                        <tr>
+                                            <td>@grade.Exam.Course.Title</td>
+                                            <td>@grade.Exam.Title</td>
+                                            <td>@grade.Score.ToString("0.00")</td>
+                                            <td><span class="badge bg-@(grade.Letter == "A" ? "success" : grade.Letter == "F" ? "danger" : "primary")">@grade.Letter</span></td>
+                                            <td>@grade.GradedAt.ToString("dd MMM yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="alert alert-info mt-3">
+                            <strong>Ortalama Puan:</strong> @Model.Grades.Average(g => g.Score).ToString("0.00")
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Henüz not girilmemiş</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Öğrenci Listesine Dön</a>
+    </div>
+</div>

@@ -14,7 +14,7 @@
     </div>
 
     <div class="row mb-4">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
                     <h3 class="mb-0">@Model.Enrollments.Count</h3>
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card bg-success text-white shadow">
                 <div class="card-body">
                     <h3 class="mb-0">@upcomingExams.Count</h3>
@@ -30,13 +30,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card bg-info text-white shadow">
                 <div class="card-body">
                     <h3 class="mb-0">@Model.Grades.Count</h3>
                     <p class="mb-0">Alınan Not</p>
                 </div>
             </div>
+        </div>
+        <div class="col-md-3">
+            <a asp-controller="Attendance" asp-action="StudentReport" class="text-decoration-none">
+                <div class="card bg-warning text-white shadow">
+                    <div class="card-body">
+                        <h3 class="mb-0">@Model.Attendances.Count(a => a.Status == "Absent")</h3>
+                        <p class="mb-0">Devamsızlık</p>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 

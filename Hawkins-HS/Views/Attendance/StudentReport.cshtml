@@ -1,0 +1,139 @@
+@model Hawkins_HS.Models.Student
+
+@{
+    ViewData["Title"] = "Devamsızlık Raporum";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">📊 Devamsızlık Raporum</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5>@Model.ApplicationUser.FullName</h5>
+                    <p class="text-muted">@Model.StudentNumber - @Model.ClassName</p>
+                </div>
+            </div>
+
+            @if (Model.Attendances.Any())
+            {
+                var attendancesByCourse = Model.Attendances.GroupBy(a => a.Course);
+                
+                @foreach (var courseGroup in attendancesByCourse)
+                {
+                    var course = courseGroup.Key;
+                    var attendances = courseGroup.ToList();
+                    var totalDays = attendances.Count;
+                    var presentCount = attendances.Count(a => a.Status == "Present");
+                    var absentCount = attendances.Count(a => a.Status == "Absent");
+                    var lateCount = attendances.Count(a => a.Status == "Late");
+                    var excusedCount = attendances.Count(a => a.Status == "Excused");
+                    var absenceRate = totalDays > 0 ? (absentCount * 100.0 / totalDays) : 0;
+                    
+                    <div class="card mb-3 @(absenceRate > 20 ? "border-danger" : absenceRate > 10 ? "border-warning" : "")">
+                        <div class="card-header @(absenceRate > 20 ? "bg-danger text-white" : absenceRate > 10 ? "bg-warning" : "bg-light")">
+                            <h6 class="mb-0">@course.Title (@course.Code)</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-2">
+                                    <div class="card bg-light">
+                                        <div class="card-body text-center p-2">
+                                            <h4>@totalDays</h4>
+                                            <small>Toplam Gün</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="card bg-success text-white">
+                                        <div class="card-body text-center p-2">
+                                            <h4>@presentCount</h4>
+                                            <small>Var</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="card bg-danger text-white">
+                                        <div class="card-body text-center p-2">
+                                            <h4>@absentCount</h4>
+                                            <small>Yok</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="card bg-warning">
+                                        <div class="card-body text-center p-2">
+                                            <h4>@lateCount</h4>
+                                            <small>Geç</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="card bg-info text-white">
+                                        <div class="card-body text-center p-2">
+                                            <h4>@excusedCount</h4>
+                                            <small>Mazeret</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="card @(absenceRate > 20 ? "bg-danger text-white" : absenceRate > 10 ? "bg-warning" : "bg-success text-white")">
+                                        <div class="card-body text-center p-2">
+                                            <h4>@absenceRate.ToString("0.0")%</h4>
+                                            <small>Devamsızlık</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (absenceRate > 20)
+                            {
+                                <div class="alert alert-danger">
+                                    <strong>⚠️ Dikkat!</strong> Bu derste devamsızlık oranınız %20'yi aştı!
+                                </div>
+                            }
+                            else if (absenceRate > 10)
+                            {
+                                <div class="alert alert-warning">
+                                    <strong>⚠️ Uyarı!</strong> Bu derste devamsızlık oranınız %10'u aştı.
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <div class="card bg-light mt-4">
+                    <div class="card-body">
+                        <h6>📊 Genel Özet</h6>
+                        @{
+                            var totalAttendances = Model.Attendances.Count;
+                            var totalPresent = Model.Attendances.Count(a => a.Status == "Present");
+                            var totalAbsent = Model.Attendances.Count(a => a.Status == "Absent");
+                            var totalLate = Model.Attendances.Count(a => a.Status == "Late");
+                            var totalExcused = Model.Attendances.Count(a => a.Status == "Excused");
+                            var overallAbsenceRate = totalAttendances > 0 ? (totalAbsent * 100.0 / totalAttendances) : 0;
+                        }
+                        <div class="row">
+                            <div class="col-md-3">Toplam Kayıt: <strong>@totalAttendances</strong></div>
+                            <div class="col-md-3">Var: <strong class="text-success">@totalPresent</strong></div>
+                            <div class="col-md-3">Yok: <strong class="text-danger">@totalAbsent</strong></div>
+                            <div class="col-md-3">Genel Devamsızlık: <strong>@overallAbsenceRate.ToString("0.0")%</strong></div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    Henüz devamsızlık kaydı bulunmamaktadır.
+                </div>
+            }
+
+            <div class="mt-4">
+                <a asp-controller="Students" asp-action="Dashboard" class="btn btn-secondary">Dashboard'a Dön</a>
+            </div>
+        </div>
+    </div>
+</div>

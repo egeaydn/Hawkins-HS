@@ -797,3 +797,5 @@ System.InvalidOperationException: The view 'Details' was not found. The followin
 2026-01-21 14:35:41.495 +03:00 [INF] HTTP GET / responded 302 in 9.4084 ms
 2026-01-21 14:35:41.518 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 14.4195 ms
 2026-01-21 14:35:41.561 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 0.5404 ms
+2026-01-21 15:45:39.653 +03:00 [INF] Database initialized and seeded successfully
+2026-01-21 15:45:39.725 +03:00 [INF] Starting HawkinsHS application

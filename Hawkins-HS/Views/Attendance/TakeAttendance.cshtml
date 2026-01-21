@@ -1,0 +1,159 @@
+@{
+    ViewData["Title"] = "Yoklama Al";
+    var course = ViewBag.Course as Hawkins_HS.Models.Course;
+    var attendanceDate = (DateTime)ViewBag.AttendanceDate;
+    var existingAttendance = ViewBag.ExistingAttendance as List<Hawkins_HS.Models.Attendance>;
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">✅ Yoklama Al</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5>📚 @course.Title</h5>
+                    <p class="text-muted mb-0">@course.Code - @course.Teacher.ApplicationUser.FullName</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <form asp-action="TakeAttendance" method="get" class="d-inline">
+                        <input type="hidden" name="id" value="@course.Id" />
+                        <label class="form-label">Tarih:</label>
+                        <input type="date" name="date" class="form-control d-inline w-auto" 
+                               value="@attendanceDate.ToString("yyyy-MM-dd")" 
+                               onchange="this.form.submit()" />
+                    </form>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>📅 Yoklama Tarihi:</strong> @attendanceDate.ToString("dd MMMM yyyy, dddd")
+            </div>
+
+            @if (course.Enrollments.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 10%;">Öğrenci No</th>
+                                <th style="width: 25%;">Ad Soyad</th>
+                                <th style="width: 10%;">Sınıf</th>
+                                <th style="width: 40%;">Durum</th>
+                                <th style="width: 15%;">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var enrollment in course.Enrollments.OrderBy(e => e.Student.StudentNumber))
+                            {
+                                var student = enrollment.Student;
+                                var attendance = existingAttendance.FirstOrDefault(a => a.StudentId == student.Id);
+                                
+                                <tr>
+                                    <td>@student.StudentNumber</td>
+                                    <td><strong>@student.ApplicationUser.FullName</strong></td>
+                                    <td><span class="badge bg-primary">@student.ClassName</span></td>
+                                    <td>
+                                        <form asp-action="SaveAttendance" method="post" class="attendance-form">
+                                            <input type="hidden" name="courseId" value="@course.Id" />
+                                            <input type="hidden" name="studentId" value="@student.Id" />
+                                            <input type="hidden" name="date" value="@attendanceDate.ToString("yyyy-MM-dd")" />
+                                            
+                                            <div class="btn-group w-100" role="group">
+                                                <input type="radio" class="btn-check" name="status" value="Present" 
+                                                       id="present_@student.Id" @(attendance?.Status == "Present" ? "checked" : "") 
+                                                       onchange="this.form.submit()" />
+                                                <label class="btn btn-outline-success" for="present_@student.Id">
+                                                    ✅ Var
+                                                </label>
+
+                                                <input type="radio" class="btn-check" name="status" value="Absent" 
+                                                       id="absent_@student.Id" @(attendance?.Status == "Absent" ? "checked" : "") 
+                                                       onchange="this.form.submit()" />
+                                                <label class="btn btn-outline-danger" for="absent_@student.Id">
+                                                    ❌ Yok
+                                                </label>
+
+                                                <input type="radio" class="btn-check" name="status" value="Late" 
+                                                       id="late_@student.Id" @(attendance?.Status == "Late" ? "checked" : "") 
+                                                       onchange="this.form.submit()" />
+                                                <label class="btn btn-outline-warning" for="late_@student.Id">
+                                                    ⏰ Geç
+                                                </label>
+
+                                                <input type="radio" class="btn-check" name="status" value="Excused" 
+                                                       id="excused_@student.Id" @(attendance?.Status == "Excused" ? "checked" : "") 
+                                                       onchange="this.form.submit()" />
+                                                <label class="btn btn-outline-info" for="excused_@student.Id">
+                                                    📋 Mazeret
+                                                </label>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    <td class="text-center">
+                                        @if (attendance != null)
+                                        {
+                                            <span class="badge bg-@(attendance.Status == "Present" ? "success" : attendance.Status == "Absent" ? "danger" : attendance.Status == "Late" ? "warning" : "info")">
+                                                Kaydedildi
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">-</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="table-light">
+                            <tr>
+                                <td colspan="3" class="text-end"><strong>Özet:</strong></td>
+                                <td colspan="2">
+                                    @{
+                                        var presentCount = existingAttendance.Count(a => a.Status == "Present");
+                                        var absentCount = existingAttendance.Count(a => a.Status == "Absent");
+                                        var lateCount = existingAttendance.Count(a => a.Status == "Late");
+                                        var excusedCount = existingAttendance.Count(a => a.Status == "Excused");
+                                        var totalStudents = course.Enrollments.Count;
+                                    }
+                                    <span class="badge bg-success me-2">Var: @presentCount</span>
+                                    <span class="badge bg-danger me-2">Yok: @absentCount</span>
+                                    <span class="badge bg-warning me-2">Geç: @lateCount</span>
+                                    <span class="badge bg-info me-2">Mazeret: @excusedCount</span>
+                                    <span class="badge bg-secondary">Kayıt: @existingAttendance.Count / @totalStudents</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">
+                    Bu derse kayıtlı öğrenci bulunmamaktadır.
+                </div>
+            }
+
+            <div class="mt-4">
+                <a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id" class="btn btn-secondary">
+                    Derse Geri Dön
+                </a>
+                <a asp-action="CourseReport" asp-route-id="@course.Id" class="btn btn-primary">
+                    Devamsızlık Raporu
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Form gönderiminde loading göster
+        document.querySelectorAll('.attendance-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                // Formu submit ediyoruz, sayfa yenilenecek
+            });
+        });
+    </script>
+}

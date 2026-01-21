@@ -1,0 +1,103 @@
+@model IEnumerable<Hawkins_HS.Models.Student>
+
+@{
+    ViewData["Title"] = "Öğrenciler";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>👨‍🎓 Öğrenciler</h2>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary">
+                Yeni Öğrenci Ekle
+            </a>
+        }
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Öğrenci No</th>
+                                <th>Ad Soyad</th>
+                                <th>Email</th>
+                                <th>Sınıf</th>
+                                <th>Yıl</th>
+                                <th>Kayıtlı Ders Sayısı</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var student in Model.OrderBy(s => s.ClassName).ThenBy(s => s.StudentNumber))
+                            {
+                                <tr>
+                                    <td><strong>@student.StudentNumber</strong></td>
+                                    <td>@student.ApplicationUser.FullName</td>
+                                    <td>@student.ApplicationUser.Email</td>
+                                    <td><span class="badge bg-primary">@student.ClassName</span></td>
+                                    <td>@student.Year</td>
+                                    <td>
+                                        <span class="badge bg-info">@student.Enrollments.Count ders</span>
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@student.Id" class="btn btn-sm btn-outline-primary">
+                                            Detaylar
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h3 class="text-primary">@Model.Count()</h3>
+                                    <p class="mb-0 text-muted">Toplam Öğrenci</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h3 class="text-success">@Model.Where(s => s.ClassName.Contains("9")).Count()</h3>
+                                    <p class="mb-0 text-muted">9. Sınıf</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h3 class="text-info">@Model.Where(s => s.ClassName.Contains("10")).Count()</h3>
+                                    <p class="mb-0 text-muted">10. Sınıf</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h3 class="text-warning">@Model.Sum(s => s.Enrollments.Count)</h3>
+                                    <p class="mb-0 text-muted">Toplam Kayıt</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            <h4>Henüz öğrenci kaydı yok</h4>
+        </div>
+    }
+</div>

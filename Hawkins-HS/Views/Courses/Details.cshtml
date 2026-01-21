@@ -40,6 +40,9 @@
                         {
                             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
                             <a asp-action="Enroll" asp-route-id="@Model.Id" class="btn btn-success">Öğrenci Kaydet</a>
+                            <a asp-controller="Schedule" asp-action="Manage" asp-route-id="@Model.Id" class="btn btn-primary">Program Yönet</a>
+                            <a asp-controller="Attendance" asp-action="TakeAttendance" asp-route-id="@Model.Id" class="btn btn-info">Yoklama Al</a>
+                            <a asp-controller="Attendance" asp-action="CourseReport" asp-route-id="@Model.Id" class="btn btn-secondary">Devamsızlık Raporu</a>
                         }
                         @if (User.IsInRole("Admin"))
                         {

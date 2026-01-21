@@ -6,6 +6,7 @@ using AutoMapper;
 using Hawkins_HS.Data;
 using Hawkins_HS.Models;
 using Hawkins_HS.ViewModels;
+using Hawkins_HS.Services;
 
 namespace Hawkins_HS.Controllers;
 
@@ -16,17 +17,20 @@ public class AnnouncementsController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IMapper _mapper;
     private readonly ILogger<AnnouncementsController> _logger;
+    private readonly INotificationService _notificationService;
 
     public AnnouncementsController(
         ApplicationDbContext context,
         UserManager<ApplicationUser> userManager,
         IMapper mapper,
-        ILogger<AnnouncementsController> logger)
+        ILogger<AnnouncementsController> logger,
+        INotificationService notificationService)
     {
         _context = context;
         _userManager = userManager;
         _mapper = mapper;
         _logger = logger;
+        _notificationService = notificationService;
     }
 
     // GET: Announcements
@@ -102,6 +106,9 @@ public class AnnouncementsController : Controller
             
             _context.Add(announcement);
             await _context.SaveChangesAsync();
+            
+            // Bildirim gönder
+            await _notificationService.NotifyAnnouncementCreatedAsync(announcement);
             
             _logger.LogInformation("Announcement created: {Title} by {User}", announcement.Title, user.UserName);
             TempData["Success"] = "Duyuru başarıyla oluşturuldu.";

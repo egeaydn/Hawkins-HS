@@ -1,0 +1,69 @@
+@model Hawkins_HS.Models.Exam
+
+@{
+    ViewData["Title"] = "Sınav Sil";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">⚠️ Sınav Sil</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger" role="alert">
+                        <h5 class="alert-heading">Dikkat!</h5>
+                        <p>Bu sınavı silmek üzeresiniz. Bu işlem geri alınamaz!</p>
+                        <hr>
+                        <p class="mb-0">Sınava ait tüm notlar da silinecektir.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5>Silinecek Sınav:</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>@Model.Title</h4>
+                                <p class="text-muted mb-2">@Model.Course.Title (@Model.Course.Code)</p>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small class="text-muted d-block">Tarih:</small>
+                                        <strong>@Model.ExamDate.ToString("dd MMMM yyyy, HH:mm")</strong>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <small class="text-muted d-block">Süre:</small>
+                                        <strong>@Model.DurationMinutes dakika</strong>
+                                    </div>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(Model.Description))
+                                {
+                                    <div class="mt-3">
+                                        <small class="text-muted d-block">Açıklama:</small>
+                                        <p>@Model.Description</p>
+                                    </div>
+                                }
+
+                                <div class="mt-3">
+                                    <span class="badge bg-info">@Model.Grades.Count not girildi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">İptal</a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Evet, Sil
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
