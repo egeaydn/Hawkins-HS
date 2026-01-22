@@ -71,3 +71,47 @@ System.IO.IOException: Failed to bind to address http://127.0.0.1:5246: address 
 2026-01-22 14:07:56.590 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
 2026-01-22 14:07:56.622 +03:00 [INF] HTTP GET /Schedule/Weekly responded 200 in 46.4886 ms
 2026-01-22 14:07:56.649 +03:00 [INF] HTTP GET /Hawkins_HS.styles.css responded 404 in 1.2397 ms
+2026-01-22 14:16:53.963 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 14:16:54.033 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 15:07:12.319 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 15:07:12.427 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 15:07:14.433 +03:00 [INF] HTTP GET / responded 302 in 221.0063 ms
+2026-01-22 15:07:14.596 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 15:07:14.850 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 384.1855 ms
+2026-01-22 15:07:27.579 +03:00 [INF] HTTP GET /Account/Profile responded 200 in 31.5134 ms
+2026-01-22 15:07:29.149 +03:00 [INF] HTTP GET / responded 302 in 5.7314 ms
+2026-01-22 15:07:29.171 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 16.1171 ms
+2026-01-22 15:07:31.531 +03:00 [INF] HTTP GET /Courses responded 200 in 127.3025 ms
+2026-01-22 15:07:52.186 +03:00 [INF] HTTP GET /Exams responded 200 in 65.5188 ms
+2026-01-22 15:07:55.647 +03:00 [INF] HTTP GET /Account/Profile responded 200 in 6.6323 ms
+2026-01-22 15:07:56.999 +03:00 [INF] HTTP GET /Exams responded 200 in 9.5615 ms
+2026-01-22 15:07:58.538 +03:00 [INF] HTTP GET /Courses responded 200 in 9.1212 ms
+2026-01-22 15:08:01.233 +03:00 [INF] HTTP GET /Students responded 200 in 35.8761 ms
+2026-01-22 15:08:05.112 +03:00 [INF] HTTP GET / responded 302 in 9.8170 ms
+2026-01-22 15:08:05.140 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 21.0241 ms
+2026-01-22 15:08:08.179 +03:00 [INF] HTTP GET /Courses/Create responded 200 in 98.3199 ms
+2026-01-22 15:08:08.213 +03:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js responded 304 in 11.0650 ms
+2026-01-22 15:08:08.213 +03:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 304 in 8.1810 ms
+2026-01-22 15:08:15.294 +03:00 [INF] HTTP GET /Students responded 200 in 8.9373 ms
+2026-01-22 15:08:16.028 +03:00 [INF] HTTP GET /Courses responded 200 in 11.7227 ms
+2026-01-22 15:08:16.726 +03:00 [INF] HTTP GET /Students responded 200 in 6.9137 ms
+2026-01-22 15:08:18.257 +03:00 [INF] HTTP GET /Courses responded 200 in 7.5898 ms
+2026-01-22 15:08:19.167 +03:00 [INF] HTTP GET /Students responded 200 in 6.4569 ms
+2026-01-22 15:08:20.313 +03:00 [INF] HTTP GET / responded 302 in 4.4535 ms
+2026-01-22 15:08:20.328 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.9849 ms
+2026-01-22 15:08:20.801 +03:00 [INF] HTTP GET /Students responded 200 in 7.3536 ms
+2026-01-22 15:08:21.502 +03:00 [INF] HTTP GET /Exams responded 200 in 10.2785 ms
+2026-01-22 15:08:22.562 +03:00 [INF] HTTP GET /Students responded 200 in 6.6486 ms
+2026-01-22 15:08:33.869 +03:00 [INF] HTTP GET /Exams responded 200 in 7.0854 ms
+2026-01-22 15:08:35.223 +03:00 [INF] HTTP GET /Exams/Details/1 responded 200 in 71.7116 ms
+2026-01-22 15:08:40.582 +03:00 [INF] HTTP GET /Exams responded 200 in 6.8482 ms
+2026-01-22 15:08:41.951 +03:00 [INF] HTTP GET /Exams/Create responded 200 in 43.9217 ms
+2026-01-22 15:08:46.673 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 15:08:46.710 +03:00 [INF] HTTP GET /Schedule/Weekly responded 200 in 50.5622 ms
+2026-01-22 15:08:50.193 +03:00 [INF] HTTP GET /Courses responded 200 in 8.1817 ms
+2026-01-22 15:08:50.700 +03:00 [INF] HTTP GET /Exams responded 200 in 6.8725 ms
+2026-01-22 15:08:57.752 +03:00 [INF] HTTP GET /Courses responded 200 in 10.6508 ms
+2026-01-22 15:08:59.501 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 15:08:59.532 +03:00 [INF] HTTP GET /Courses/Details/3 responded 200 in 50.1761 ms
+2026-01-22 15:09:03.341 +03:00 [INF] HTTP GET /Courses responded 200 in 7.1906 ms
+2026-01-22 15:09:06.242 +03:00 [INF] HTTP GET /Courses/Edit/3 responded 200 in 52.3868 ms

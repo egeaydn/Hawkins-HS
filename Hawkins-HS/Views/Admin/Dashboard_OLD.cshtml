@@ -1,0 +1,192 @@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid mt-4">
+    <h2 class="mb-4">⚙️ Yönetim Paneli</h2>
+
+    <!-- İstatistik Kartları -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Öğrenciler</h6>
+                            <h2 class="mb-0">@Model.TotalStudents</h2>
+                        </div>
+                        <div class="display-4">👥</div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a asp-controller="Students" asp-action="Index" class="text-white">Detaylar →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Öğretmenler</h6>
+                            <h2 class="mb-0">@Model.TotalTeachers</h2>
+                        </div>
+                        <div class="display-4">👨‍🏫</div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a asp-controller="Teachers" asp-action="Index" class="text-white">Detaylar →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-warning text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Dersler</h6>
+                            <h2 class="mb-0">@Model.TotalCourses</h2>
+                        </div>
+                        <div class="display-4">📚</div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a asp-controller="Courses" asp-action="Index" class="text-white">Detaylar →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-info text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Sınavlar</h6>
+                            <h2 class="mb-0">@Model.TotalExams</h2>
+                        </div>
+                        <div class="display-4">📝</div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a asp-controller="Exams" asp-action="Index" class="text-white">Detaylar →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Yaklaşan Sınavlar -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">📅 Yaklaşan Sınavlar</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.UpcomingExams.Count > 0)
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var exam in Model.UpcomingExams)
+                            {
+                                <div class="list-group-item px-0">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@exam.Title</h6>
+                                        <small class="text-muted">@exam.ExamDate.ToString("dd MMM yyyy")</small>
+                                    </div>
+                                    <p class="mb-1 text-muted">@exam.Course.Title</p>
+                                    <small>@exam.ExamDate.ToString("HH:mm") - @exam.DurationMinutes dk</small>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center mb-0">Yaklaşan sınav bulunmuyor</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Son Duyurular -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">📢 Son Duyurular</h5>
+                    <a asp-controller="Announcements" asp-action="Create" class="btn btn-sm btn-primary">Yeni Duyuru</a>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentAnnouncements.Count > 0)
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var announcement in Model.RecentAnnouncements)
+                            {
+                                <div class="list-group-item px-0">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">
+                                            @if (announcement.IsImportant)
+                                            {
+                                                <span class="badge bg-danger me-1">Önemli</span>
+                                            }
+                                            @announcement.Title
+                                        </h6>
+                                        <small class="text-muted">@announcement.CreatedAt.ToString("dd MMM")</small>
+                                    </div>
+                                    <p class="mb-1 text-muted">
+                                        @(announcement.Body.Length > 100 ? announcement.Body.Substring(0, 100) + "..." : announcement.Body)
+                                    </p>
+                                    <small>@announcement.Creator.FullName - @announcement.Audience</small>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center mb-0">Duyuru bulunmuyor</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hızlı Erişim -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">⚡ Hızlı Erişim</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-outline-primary w-100 py-3">
+                                <div class="display-6">👤</div>
+                                <div class="mt-2">Yeni Kullanıcı</div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Courses" asp-action="Create" class="btn btn-outline-success w-100 py-3">
+                                <div class="display-6">📚</div>
+                                <div class="mt-2">Yeni Ders</div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Announcements" asp-action="Create" class="btn btn-outline-warning w-100 py-3">
+                                <div class="display-6">📢</div>
+                                <div class="mt-2">Yeni Duyuru</div>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-action="Users" class="btn btn-outline-info w-100 py-3">
+                                <div class="display-6">👥</div>
+                                <div class="mt-2">Tüm Kullanıcılar</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

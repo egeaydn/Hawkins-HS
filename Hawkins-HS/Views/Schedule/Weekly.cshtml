@@ -21,157 +21,158 @@
         .FirstOrDefault();
 }
 
-<div class="container-fluid mt-4">
-    @if (upcomingClass != null)
-    {
-        <div class="alert alert-primary shadow-sm mb-4 border-0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-            <div class="d-flex align-items-center text-white">
-                <div class="me-3" style="font-size: 2.5rem;">⏰</div>
-                <div class="flex-grow-1">
-                    <h5 class="mb-1 fw-bold text-white">Sonraki Dersiniz</h5>
-                    <h4 class="mb-2 text-white">@upcomingClass.Course.Title</h4>
-                    <div class="d-flex flex-wrap gap-3">
-                        <span class="badge bg-white text-primary px-3 py-2">
-                            <i class="bi bi-calendar3"></i> @upcomingClass.Day
-                        </span>
-                        <span class="badge bg-white text-primary px-3 py-2">
-                            <i class="bi bi-clock"></i> @($"{upcomingClass.StartTime.Hours:D2}:{upcomingClass.StartTime.Minutes:D2}") - @($"{upcomingClass.EndTime.Hours:D2}:{upcomingClass.EndTime.Minutes:D2}")
-                        </span>
-                        <span class="badge bg-white text-primary px-3 py-2">
-                            <i class="bi bi-geo-alt-fill"></i> @upcomingClass.Room
-                        </span>
-                    </div>
+<style>
+    @@keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+        50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.8); }
+    }
+    .upcoming-class { animation: pulse-glow 2s infinite; }
+</style>
+
+<!-- Header -->
+<div class="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-12 px-4 sm:px-6 lg:px-8 mb-8 rounded-2xl shadow-xl">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-bold mb-2 animate-pulse-slow">📅 Haftalık Ders Programım</h1>
+        <p class="text-primary-100">Tüm derslerinizin haftalık takvimi</p>
+    </div>
+</div>
+
+<!-- Upcoming Class Alert -->
+@if (upcomingClass != null)
+{
+    <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl p-6 mb-8 shadow-xl text-white">
+        <div class="flex items-center">
+            <div class="text-6xl mr-6 animate-bounce">⏰</div>
+            <div class="flex-1">
+                <h5 class="text-lg font-semibold mb-1 text-purple-100">Sonraki Dersiniz</h5>
+                <h2 class="text-3xl font-bold mb-3">@upcomingClass.Course.Title</h2>
+                <div class="flex flex-wrap gap-3">
+                    <span class="bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold">
+                        <i class="bi bi-calendar3"></i> @upcomingClass.Day
+                    </span>
+                    <span class="bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold">
+                        <i class="bi bi-clock"></i> @($"{upcomingClass.StartTime.Hours:D2}:{upcomingClass.StartTime.Minutes:D2}") - @($"{upcomingClass.EndTime.Hours:D2}:{upcomingClass.EndTime.Minutes:D2}")
+                    </span>
+                    <span class="bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold">
+                        <i class="bi bi-geo-alt-fill"></i> @upcomingClass.Room
+                    </span>
                 </div>
             </div>
         </div>
-    }
-    
-    <div class="card shadow-sm border-0">
-        <div class="card-header text-white" style="background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%);">
-            <h4 class="mb-0"><i class="bi bi-calendar-week"></i> Haftalık Ders Programım</h4>
-        </div>
-        <div class="card-body">
-            @if (Model.Any())
-            {
-                <div class="table-responsive">
-                    <table class="table table-bordered mb-0 schedule-table">
-                        <thead style="background-color: #F5F5DC;">
-                            <tr>
-                                <th style="width: 100px; background-color: #6B4423; color: white;" class="text-center">
-                                    <i class="bi bi-clock-history"></i> Saat
-                                </th>
-                                @foreach (var day in days)
-                                {
-                                    var isToday = day == currentDay;
-                                    <th class="text-center @(isToday ? "table-active" : "")" style="@(isToday ? "background-color: #FFE5B4; font-weight: bold;" : "")">
-                                        @if (isToday)
-                                        {
-                                            <span class="badge bg-danger mb-1">BUGÜN</span><br/>
-                                        }
-                                        @day
-                                    </th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var hour in hours)
-                            {
-                                <tr>
-                                    <td class="text-center align-middle fw-bold" style="background-color: #F5F5DC; color: #6B4423;">
-                                        @($"{hour.Hours:D2}:{hour.Minutes:D2}")
-                                    </td>
-                                    @foreach (var day in days)
-                                    {
-                                        var schedules = Model.Where(s => 
-                                            s.Day == day && 
-                                            s.StartTime <= hour && 
-                                            s.EndTime > hour
-                                        ).ToList();
-                                        
-                                        var isToday = day == currentDay;
-                                        var isCurrentHour = isToday && hour <= currentTime && hour.Add(TimeSpan.FromHours(1)) > currentTime;
+    </div>
+}
 
-                                        <td class="position-relative @(isToday ? "today-column" : "")" style="min-height: 80px; @(isCurrentHour ? "background-color: #FFF9E6;" : "")">
-                                            @foreach (var schedule in schedules)
+@if (Model.Any())
+{
+    <!-- Schedule Table -->
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-gradient-to-r from-primary-600 to-primary-700">
+                        <th class="px-4 py-4 text-white font-bold text-center">
+                            <i class="bi bi-clock-history"></i> Saat
+                        </th>
+                        @foreach (var day in days)
+                        {
+                            var isToday = day == currentDay;
+                            <th class="px-4 py-4 text-center @(isToday ? "bg-amber-500" : "text-white")">
+                                @if (isToday)
+                                {
+                                    <span class="block bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold mb-1">BUGÜN</span>
+                                }
+                                <span class="@(isToday ? "text-white font-bold" : "font-semibold")">@day</span>
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var hour in hours)
+                    {
+                        <tr class="border-b border-gray-200">
+                            <td class="bg-primary-50 px-4 py-3 text-center font-bold text-primary-700">
+                                @($"{hour.Hours:D2}:{hour.Minutes:D2}")
+                            </td>
+                            @foreach (var day in days)
+                            {
+                                var schedules = Model.Where(s => 
+                                    s.Day == day && 
+                                    s.StartTime <= hour && 
+                                    s.EndTime > hour
+                                ).ToList();
+                                
+                                var isToday = day == currentDay;
+                                var isCurrentHour = isToday && hour <= currentTime && hour.Add(TimeSpan.FromHours(1)) > currentTime;
+
+                                <td class="px-2 py-2 min-h-[100px] @(isToday ? "bg-amber-50" : "") @(isCurrentHour ? "bg-yellow-100" : "")">
+                                    @foreach (var schedule in schedules)
+                                    {
+                                        var isUpcoming = schedule == upcomingClass;
+                                        <div class="@(isUpcoming ? "upcoming-class" : "") bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3 text-white mb-2 hover:scale-105 transition-transform">
+                                            <div class="mb-2">
+                                                <h6 class="font-bold text-sm mb-1">@schedule.Course.Title</h6>
+                                                <span class="inline-block bg-white/20 px-2 py-1 rounded text-xs">@schedule.Course.Code</span>
+                                            </div>
+                                            <div class="space-y-1 text-xs">
+                                                <div class="flex items-center">
+                                                    <i class="bi bi-clock mr-2"></i>
+                                                    <span>@($"{schedule.StartTime.Hours:D2}:{schedule.StartTime.Minutes:D2}") - @($"{schedule.EndTime.Hours:D2}:{schedule.EndTime.Minutes:D2}")</span>
+                                                </div>
+                                                <div class="flex items-center font-semibold">
+                                                    <i class="bi bi-geo-alt-fill mr-2"></i>
+                                                    <span>@schedule.Room</span>
+                                                </div>
+                                                @if (schedule.Course.Teacher != null)
+                                                {
+                                                    <div class="flex items-center">
+                                                        <i class="bi bi-person-circle mr-2"></i>
+                                                        <span>@schedule.Course.Teacher.ApplicationUser.FullName</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                            @if (isUpcoming)
                                             {
-                                                var isUpcoming = schedule == upcomingClass;
-                                                <div class="schedule-card @(isUpcoming ? "upcoming-class" : "")" style="@(isUpcoming ? "animation: pulse 2s infinite;" : "")">
-                                                    <div class="schedule-card-header">
-                                                        <h6 class="mb-1 fw-bold">@schedule.Course.Title</h6>
-                                                        <span class="badge" style="background-color: #8B5A3C;">@schedule.Course.Code</span>
-                                                    </div>
-                                                    <div class="schedule-card-body">
-                                                        <div class="schedule-info">
-                                                            <i class="bi bi-clock text-primary"></i>
-                                                            <span>@($"{schedule.StartTime.Hours:D2}:{schedule.StartTime.Minutes:D2}") - @($"{schedule.EndTime.Hours:D2}:{schedule.EndTime.Minutes:D2}")</span>
-                                                        </div>
-                                                        <div class="schedule-info room-info">
-                                                            <i class="bi bi-geo-alt-fill text-danger"></i>
-                                                            <span class="fw-bold">@schedule.Room</span>
-                                                        </div>
-                                                        @if (schedule.Course.Teacher != null)
-                                                        {
-                                                            <div class="schedule-info">
-                                                                <i class="bi bi-person-circle text-success"></i>
-                                                                <span>@schedule.Course.Teacher.ApplicationUser.FullName</span>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                    @if (isUpcoming)
-                                                    {
-                                                        <div class="upcoming-badge">
-                                                            <span class="badge bg-danger">
-                                                                <i class="bi bi-arrow-right-circle-fill"></i> SONRAKİ DERS
-                                                            </span>
-                                                        </div>
-                                                    }
+                                                <div class="mt-2">
+                                                    <span class="inline-block bg-red-500 text-white px-2 py-1 rounded text-xs font-bold animate-pulse">
+                                                        <i class="bi bi-arrow-right-circle-fill"></i> SONRAKİ DERS
+                                                    </span>
                                                 </div>
                                             }
-                                        </td>
+                                        </div>
                                     }
-                                </tr>
+                                </td>
                             }
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="row mt-4 g-3">
-                    <div class="col-md-4">
-                        <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                            <div class="card-body text-center text-white">
-                                <i class="bi bi-book-fill" style="font-size: 2rem;"></i>
-                                <h3 class="mt-2 mb-0">@Model.Select(s => s.CourseId).Distinct().Count()</h3>
-                                <p class="mb-0">Toplam Ders</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                            <div class="card-body text-center text-white">
-                                <i class="bi bi-clock-fill" style="font-size: 2rem;"></i>
-                                <h3 class="mt-2 mb-0">@Model.Sum(s => (s.EndTime - s.StartTime).TotalHours).ToString("0")</h3>
-                                <p class="mb-0">Saat / Hafta</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                            <div class="card-body text-center text-white">
-                                <i class="bi bi-calendar-check-fill" style="font-size: 2rem;"></i>
-                                <h3 class="mt-2 mb-0">@Model.Select(s => s.Day).Distinct().Count()</h3>
-                                <p class="mb-0">Aktif Gün</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="alert alert-warning text-center">
-                    <h5>Henüz ders programınız oluşturulmamış</h5>
-                    <p class="mb-0">Derslerinize program eklendiğinde burada görünecektir.</p>
-                </div>
-            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white text-center hover:scale-105 transition-transform shadow-lg">
+            <i class="bi bi-book-fill text-6xl mb-3 opacity-80"></i>
+            <h3 class="text-4xl font-bold mb-1">@Model.Select(s => s.CourseId).Distinct().Count()</h3>
+            <p class="text-purple-100">Toplam Ders</p>
+        </div>
+        <div class="bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl p-6 text-white text-center hover:scale-105 transition-transform shadow-lg">
+            <i class="bi bi-clock-fill text-6xl mb-3 opacity-80"></i>
+            <h3 class="text-4xl font-bold mb-1">@Model.Sum(s => (s.EndTime - s.StartTime).TotalHours).ToString("0")</h3>
+            <p class="text-pink-100">Saat / Hafta</p>
+        </div>
+        <div class="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl p-6 text-white text-center hover:scale-105 transition-transform shadow-lg">
+            <i class="bi bi-calendar-check-fill text-6xl mb-3 opacity-80"></i>
+            <h3 class="text-4xl font-bold mb-1">@Model.Select(s => s.Day).Distinct().Count()</h3>
+            <p class="text-cyan-100">Aktif Gün</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="bg-amber-50 border-l-4 border-amber-500 rounded-xl p-8 text-center max-w-2xl mx-auto">
+        <div class="text-6xl mb-4 opacity-30">📅</div>
+        <h4 class="text-2xl font-bold text-gray-800 mb-2">Henüz ders programınız oluşturulmamış</h4>
+        <p class="text-gray-600">Derslerinize program eklendiğinde burada görünecektir.</p>
+    </div>
+}

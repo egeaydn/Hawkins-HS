@@ -5,145 +5,166 @@
     var upcomingExams = ViewBag.UpcomingExams as List<Hawkins_HS.Models.Exam>;
 }
 
-<div class="container-fluid mt-4">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h2>Hoş Geldiniz, @Model.ApplicationUser.FullName! 👨‍🏫</h2>
-            <p class="text-muted">@Model.Department | @Model.EmployeeNumber</p>
+<!-- Header -->
+<div class="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-12 px-4 sm:px-6 lg:px-8 mb-8 rounded-2xl shadow-xl">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-bold mb-2 animate-pulse-slow">Hoş Geldiniz, @Model.ApplicationUser.FullName! 👨‍🏫</h1>
+        <p class="text-primary-100 text-lg">@Model.Department | @Model.EmployeeNumber</p>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <!-- Courses Card -->
+    <div class="group bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg p-6 text-white hover:scale-105 hover:shadow-2xl transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-blue-100 text-sm font-medium mb-1">Verdiğim Ders</p>
+                <h3 class="text-4xl font-bold">@Model.Courses.Count</h3>
+            </div>
+            <div class="text-6xl opacity-20 group-hover:opacity-30 transition-opacity">📚</div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-blue-400">
+            <a asp-controller="Courses" asp-action="Index" class="text-sm font-medium hover:text-blue-100 transition-colors">
+                Dersleri Görüntüle →
+            </a>
         </div>
     </div>
 
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card bg-primary text-white shadow">
-                <div class="card-body">
-                    <h3 class="mb-0">@Model.Courses.Count</h3>
-                    <p class="mb-0">Verdiğim Ders</p>
-                </div>
+    <!-- Students Card -->
+    <div class="group bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg p-6 text-white hover:scale-105 hover:shadow-2xl transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-emerald-100 text-sm font-medium mb-1">Toplam Öğrenci</p>
+                <h3 class="text-4xl font-bold">@Model.Courses.Sum(c => c.Enrollments.Count)</h3>
             </div>
+            <div class="text-6xl opacity-20 group-hover:opacity-30 transition-opacity">👥</div>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-success text-white shadow">
-                <div class="card-body">
-                    <h3 class="mb-0">@Model.Courses.Sum(c => c.Enrollments.Count)</h3>
-                    <p class="mb-0">Toplam Öğrenci</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card bg-warning text-white shadow">
-                <div class="card-body">
-                    <h3 class="mb-0">@upcomingExams.Count</h3>
-                    <p class="mb-0">Yaklaşan Sınav</p>
-                </div>
-            </div>
+        <div class="mt-4 pt-4 border-t border-emerald-400">
+            <a asp-controller="Students" asp-action="Index" class="text-sm font-medium hover:text-emerald-100 transition-colors">
+                Öğrencileri Görüntüle →
+            </a>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow">
-                <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">📚 Derslerim</h5>
-                    <a asp-controller="Courses" asp-action="Create" class="btn btn-sm btn-primary">Yeni Ders</a>
-                </div>
-                <div class="card-body">
-                    @if (Model.Courses.Any())
-                    {
-                        <div class="list-group">
-                            @foreach (var course in Model.Courses)
-                            {
-                                <a href="@Url.Action("Details", "Courses", new { id = course.Id })" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">@course.Title</h6>
-                                        <span class="badge bg-primary">@course.Enrollments.Count öğrenci</span>
-                                    </div>
-                                    <p class="mb-1 text-muted">@course.Code - @course.Credits Kredi</p>
-                                </a>
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <p class="text-muted text-center">Henüz atanmış ders yok</p>
-                    }
-                </div>
+    <!-- Exams Card -->
+    <div class="group bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl shadow-lg p-6 text-white hover:scale-105 hover:shadow-2xl transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-amber-100 text-sm font-medium mb-1">Yaklaşan Sınav</p>
+                <h3 class="text-4xl font-bold">@(upcomingExams?.Count ?? 0)</h3>
             </div>
+            <div class="text-6xl opacity-20 group-hover:opacity-30 transition-opacity">📝</div>
         </div>
+        <div class="mt-4 pt-4 border-t border-amber-400">
+            <a asp-controller="Exams" asp-action="Index" class="text-sm font-medium hover:text-amber-100 transition-colors">
+                Sınavları Görüntüle →
+            </a>
+        </div>
+    </div>
+</div>
 
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow">
-                <div class="card-header bg-white">
-                    <h5 class="mb-0">📝 Yaklaşan Sınavlar</h5>
-                </div>
-                <div class="card-body">
-                    @if (upcomingExams.Any())
+<!-- Courses & Exams Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- My Courses -->
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4 flex justify-between items-center">
+            <h2 class="text-xl font-bold text-white">📚 Derslerim</h2>
+            <a asp-controller="Courses" asp-action="Create" class="bg-white text-blue-600 px-3 py-1 rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors">
+                Yeni Ders
+            </a>
+        </div>
+        <div class="p-6">
+            @if (Model.Courses.Any())
+            {
+                <div class="space-y-3">
+                    @foreach (var course in Model.Courses)
                     {
-                        <div class="list-group">
-                            @foreach (var exam in upcomingExams)
-                            {
-                                <div class="list-group-item">
-                                    <div class="d-flex w-100 justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="mb-1">@exam.Title</h6>
-                                            <p class="mb-1 text-muted">@exam.Course.Title</p>
-                                            <small>@exam.ExamDate.ToString("HH:mm") - @exam.DurationMinutes dk</small>
-                                        </div>
-                                        <div>
-                                            <small class="text-danger d-block">@exam.ExamDate.ToString("dd MMM")</small>
-                                            <a href="@Url.Action("EnterGrades", "Grades", new { id = exam.Id })" class="btn btn-sm btn-success mt-1">
-                                                Not Gir
-                                            </a>
-                                        </div>
-                                    </div>
+                        <a href="@Url.Action("Details", "Courses", new { id = course.Id })" class="block border-l-4 border-blue-500 pl-4 py-3 hover:bg-blue-50 rounded-r-lg transition-all duration-200 group">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">@course.Title</h3>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-1 rounded-full">
+                                    @course.Enrollments.Count öğrenci
+                                </span>
+                            </div>
+                            <p class="text-sm text-gray-600">@course.Code - @course.Credits Kredi</p>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-12">
+                    <div class="text-6xl mb-4 opacity-20">📚</div>
+                    <p class="text-gray-500">Henüz atanmış ders yok</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Upcoming Exams -->
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-4">
+            <h2 class="text-xl font-bold text-white">📝 Yaklaşan Sınavlar</h2>
+        </div>
+        <div class="p-6">
+            @if (upcomingExams != null && upcomingExams.Any())
+            {
+                <div class="space-y-3">
+                    @foreach (var exam in upcomingExams)
+                    {
+                        <div class="border-l-4 border-amber-500 pl-4 py-3 hover:bg-amber-50 rounded-r-lg transition-colors duration-200">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-800">@exam.Title</h3>
+                                    <p class="text-sm text-gray-600 mt-1">@exam.Course.Title</p>
+                                    <p class="text-xs text-gray-500 mt-1">@exam.ExamDate.ToString("HH:mm") - @exam.DurationMinutes dk</p>
                                 </div>
-                            }
+                                <div class="text-right ml-4">
+                                    <span class="text-sm font-medium text-red-600 block mb-2">@exam.ExamDate.ToString("dd MMM")</span>
+                                    <a href="@Url.Action("EnterGrades", "Grades", new { id = exam.Id })" class="inline-block bg-emerald-500 text-white px-3 py-1 rounded-lg text-xs font-medium hover:bg-emerald-600 transition-colors">
+                                        Not Gir
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     }
-                    else
-                    {
-                        <p class="text-muted text-center">Yaklaşan sınav yok</p>
-                    }
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="text-center py-12">
+                    <div class="text-6xl mb-4 opacity-20">📝</div>
+                    <p class="text-gray-500">Yaklaşan sınav yok</p>
+                </div>
+            }
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow">
-                <div class="card-header bg-white">
-                    <h5 class="mb-0">⚡ Hızlı Erişim</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row text-center">
-                        <div class="col-md-3 mb-3">
-                            <a asp-controller="Courses" asp-action="Create" class="btn btn-outline-primary w-100 py-3">
-                                <div class="display-6">📚</div>
-                                <div class="mt-2">Yeni Ders</div>
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <a asp-controller="Exams" asp-action="Create" class="btn btn-outline-success w-100 py-3">
-                                <div class="display-6">📝</div>
-                                <div class="mt-2">Yeni Sınav</div>
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <a asp-controller="Announcements" asp-action="Create" class="btn btn-outline-warning w-100 py-3">
-                                <div class="display-6">📢</div>
-                                <div class="mt-2">Yeni Duyuru</div>
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <a asp-controller="Courses" asp-action="Index" class="btn btn-outline-info w-100 py-3">
-                                <div class="display-6">📋</div>
-                                <div class="mt-2">Tüm Dersler</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Quick Actions -->
+<div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+    <div class="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4">
+        <h2 class="text-xl font-bold text-white">⚡ Hızlı Erişim</h2>
+    </div>
+    <div class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <a asp-controller="Courses" asp-action="Create" class="group flex flex-col items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 hover:scale-105 hover:shadow-xl transition-all duration-300">
+                <div class="text-5xl mb-3 group-hover:animate-bounce">📚</div>
+                <span class="font-semibold">Yeni Ders</span>
+            </a>
+            <a asp-controller="Exams" asp-action="Create" class="group flex flex-col items-center justify-center bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-xl p-6 hover:scale-105 hover:shadow-xl transition-all duration-300">
+                <div class="text-5xl mb-3 group-hover:animate-bounce">📝</div>
+                <span class="font-semibold">Yeni Sınav</span>
+            </a>
+            <a asp-controller="Announcements" asp-action="Create" class="group flex flex-col items-center justify-center bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6 hover:scale-105 hover:shadow-xl transition-all duration-300">
+                <div class="text-5xl mb-3 group-hover:animate-bounce">📢</div>
+                <span class="font-semibold">Yeni Duyuru</span>
+            </a>
+            <a asp-controller="Courses" asp-action="Index" class="group flex flex-col items-center justify-center bg-gradient-to-br from-amber-500 to-amber-600 text-white rounded-xl p-6 hover:scale-105 hover:shadow-xl transition-all duration-300">
+                <div class="text-5xl mb-3 group-hover:animate-bounce">📋</div>
+                <span class="font-semibold">Tüm Dersler</span>
+            </a>
         </div>
     </div>
 </div>

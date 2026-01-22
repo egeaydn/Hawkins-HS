@@ -4,148 +4,180 @@
     ViewData["Title"] = Model.Title;
 }
 
-<div class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-action="Index">Dersler</a></li>
-            <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
-        </ol>
-    </nav>
+<!-- Breadcrumb -->
+<nav class="mb-6">
+    <ol class="flex items-center space-x-2 text-sm text-gray-600">
+        <li><a asp-action="Index" class="hover:text-primary-600 transition-colors">Dersler</a></li>
+        <li><i class="bi bi-chevron-right text-gray-400"></i></li>
+        <li class="text-primary-600 font-medium">@Model.Title</li>
+    </ol>
+</nav>
 
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card shadow mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">@Model.Title (@Model.Code)</h4>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content -->
+    <div class="lg:col-span-2 space-y-6">
+        <!-- Course Info Card -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-6 text-white">
+                <h1 class="text-3xl font-bold mb-2">@Model.Title</h1>
+                <p class="text-blue-100 text-lg">@Model.Code</p>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">📝 Açıklama</h3>
+                    <p class="text-gray-600">
+                        @(string.IsNullOrEmpty(Model.Description) ? "Açıklama bulunmuyor" : Model.Description)
+                    </p>
                 </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <strong>Açıklama:</strong>
-                        <p class="text-muted">@(string.IsNullOrEmpty(Model.Description) ? "Açıklama bulunmuyor" : Model.Description)</p>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <strong>Öğretmen:</strong><br />
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <p class="text-sm text-gray-600 mb-1">👨‍🏫 Öğretmen</p>
+                        <p class="font-semibold text-gray-800">
                             @(Model.Teacher != null ? Model.Teacher.ApplicationUser.FullName : "Atanmamış")
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <strong>Kredi:</strong><br />
-                            @Model.Credits
-                        </div>
+                        </p>
                     </div>
+                    <div class="bg-amber-50 rounded-lg p-4">
+                        <p class="text-sm text-gray-600 mb-1">⭐ Kredi</p>
+                        <p class="font-semibold text-gray-800">@Model.Credits</p>
+                    </div>
+                </div>
 
-                    <div class="mt-3">
-                        @if (ViewBag.IsTeacherOfCourse == true)
-                        {
-                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
-                            <a asp-action="Enroll" asp-route-id="@Model.Id" class="btn btn-success">Öğrenci Kaydet</a>
-                            <a asp-controller="Schedule" asp-action="Manage" asp-route-id="@Model.Id" class="btn btn-primary">Program Yönet</a>
-                            <a asp-controller="Attendance" asp-action="TakeAttendance" asp-route-id="@Model.Id" class="btn btn-info">Yoklama Al</a>
-                            <a asp-controller="Attendance" asp-action="CourseReport" asp-route-id="@Model.Id" class="btn btn-secondary">Devamsızlık Raporu</a>
-                        }
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Sil</a>
-                        }
-                    </div>
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-2">
+                    @if (ViewBag.IsTeacherOfCourse == true)
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors font-medium">
+                            <i class="bi bi-pencil"></i> Düzenle
+                        </a>
+                        <a asp-action="Enroll" asp-route-id="@Model.Id" class="bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors font-medium">
+                            <i class="bi bi-person-plus"></i> Öğrenci Kaydet
+                        </a>
+                        <a asp-controller="Schedule" asp-action="Manage" asp-route-id="@Model.Id" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                            <i class="bi bi-calendar"></i> Program Yönet
+                        </a>
+                        <a asp-controller="Attendance" asp-action="TakeAttendance" asp-route-id="@Model.Id" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors font-medium">
+                            <i class="bi bi-check2-square"></i> Yoklama Al
+                        </a>
+                        <a asp-controller="Attendance" asp-action="CourseReport" asp-route-id="@Model.Id" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors font-medium">
+                            <i class="bi bi-file-text"></i> Devamsızlık Raporu
+                        </a>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium">
+                            <i class="bi bi-trash"></i> Sil
+                        </a>
+                    }
                 </div>
             </div>
+        </div>
 
-            <!-- Ders Programı -->
-            @if (Model.ClassSchedules.Any())
-            {
-                <div class="card shadow mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">📅 Ders Programı</h5>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-hover">
+        <!-- Class Schedule -->
+        @if (Model.ClassSchedules.Any())
+        {
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">📅 Ders Programı</h2>
+                </div>
+                <div class="p-6">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
                             <thead>
-                                <tr>
-                                    <th>Gün</th>
-                                    <th>Saat</th>
-                                    <th>Sınıf</th>
+                                <tr class="border-b-2 border-gray-200">
+                                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Gün</th>
+                                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Saat</th>
+                                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Sınıf</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var schedule in Model.ClassSchedules.OrderBy(s => s.Day))
                                 {
-                                    <tr>
-                                        <td>@schedule.Day</td>
-                                        <td>@schedule.StartTime.ToString(@"hh\:mm") - @schedule.EndTime.ToString(@"hh\:mm")</td>
-                                        <td>@schedule.Room</td>
+                                    <tr class="border-b border-gray-100 hover:bg-purple-50 transition-colors">
+                                        <td class="py-3 px-4 font-medium text-gray-800">@schedule.Day</td>
+                                        <td class="py-3 px-4 text-gray-600">@schedule.StartTime.ToString(@"hh\:mm") - @schedule.EndTime.ToString(@"hh\:mm")</td>
+                                        <td class="py-3 px-4 text-gray-600">@schedule.Room</td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
                     </div>
                 </div>
-            }
+            </div>
+        }
 
-            <!-- Sınavlar -->
-            @if (Model.Exams.Any())
-            {
-                <div class="card shadow mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">📝 Sınavlar</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="list-group">
-                            @foreach (var exam in Model.Exams.OrderBy(e => e.ExamDate))
-                            {
-                                <div class="list-group-item">
-                                    <div class="d-flex w-100 justify-content-between align-items-start">
-                                        <div>
-                                            <h6 class="mb-1">@exam.Title</h6>
-                                            <p class="mb-1 text-muted">@exam.Description</p>
-                                            <small>Süre: @exam.DurationMinutes dakika</small>
-                                        </div>
-                                        <div class="text-end">
-                                            <small class="d-block">@exam.ExamDate.ToString("dd MMM yyyy HH:mm")</small>
-                                            @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
-                                            {
-                                                <a href="@Url.Action("EnterGrades", "Grades", new { id = exam.Id })" class="btn btn-success btn-sm mt-1">
-                                                    Not Gir
-                                                </a>
-                                            }
-                                        </div>
+        <!-- Exams -->
+        @if (Model.Exams.Any())
+        {
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">📝 Sınavlar</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-3">
+                        @foreach (var exam in Model.Exams.OrderBy(e => e.ExamDate))
+                        {
+                            <div class="border-l-4 border-emerald-500 pl-4 py-3 hover:bg-emerald-50 rounded-r-lg transition-colors">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-gray-800 mb-1">@exam.Title</h3>
+                                        <p class="text-sm text-gray-600 mb-2">@exam.Description</p>
+                                        <p class="text-xs text-gray-500">⏱️ Süre: @exam.DurationMinutes dakika</p>
+                                    </div>
+                                    <div class="text-right ml-4">
+                                        <p class="text-sm font-medium text-gray-700 mb-2">@exam.ExamDate.ToString("dd MMM yyyy HH:mm")</p>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                                        {
+                                            <a href="@Url.Action("EnterGrades", "Grades", new { id = exam.Id })" class="inline-block bg-emerald-500 text-white px-3 py-1 rounded-lg text-xs font-medium hover:bg-emerald-600 transition-colors">
+                                                Not Gir
+                                            </a>
+                                        }
                                     </div>
                                 </div>
-                            }
-                        </div>
+                            </div>
+                        }
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
+    </div>
 
-        <div class="col-lg-4">
-            <!-- Kayıtlı Öğrenciler -->
-            <div class="card shadow">
-                <div class="card-header">
-                    <h5 class="mb-0">👥 Kayıtlı Öğrenciler (@Model.Enrollments.Count)</h5>
-                </div>
-                <div class="card-body">
-                    @if (Model.Enrollments.Any())
-                    {
-                        <ul class="list-group">
-                            @foreach (var enrollment in Model.Enrollments.OrderBy(e => e.Student.ApplicationUser.FullName))
-                            {
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <strong>@enrollment.Student.ApplicationUser.FullName</strong><br />
-                                        <small class="text-muted">@enrollment.Student.StudentNumber | @enrollment.Student.ClassName</small>
+    <!-- Sidebar -->
+    <div class="lg:col-span-1">
+        <!-- Enrolled Students -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow sticky top-4">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+                <h2 class="text-xl font-bold text-white">👥 Kayıtlı Öğrenciler</h2>
+                <p class="text-blue-100 text-sm mt-1">Toplam: @Model.Enrollments.Count</p>
+            </div>
+            <div class="p-4 max-h-96 overflow-y-auto">
+                @if (Model.Enrollments.Any())
+                {
+                    <div class="space-y-2">
+                        @foreach (var enrollment in Model.Enrollments.OrderBy(e => e.Student.ApplicationUser.FullName))
+                        {
+                            <div class="bg-gray-50 rounded-lg p-3 hover:bg-blue-50 transition-colors">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-gray-800 text-sm">@enrollment.Student.ApplicationUser.FullName</p>
+                                        <p class="text-xs text-gray-500 mt-1">@enrollment.Student.StudentNumber</p>
+                                        <p class="text-xs text-gray-500">@enrollment.Student.ClassName</p>
                                     </div>
-                                    <span class="badge bg-primary rounded-pill">@enrollment.Status</span>
-                                </li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <p class="text-muted text-center">Henüz kayıtlı öğrenci yok</p>
-                    }
-                </div>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">
+                                        @enrollment.Status
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-8">
+                        <div class="text-5xl mb-3 opacity-20">👥</div>
+                        <p class="text-gray-500 text-sm">Henüz kayıtlı öğrenci yok</p>
+                    </div>
+                }
             </div>
         </div>
     </div>

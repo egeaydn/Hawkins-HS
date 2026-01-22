@@ -4,64 +4,98 @@
     ViewData["Title"] = "Dersler";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>@ViewData["Title"]</h2>
+<!-- Header -->
+<div class="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-12 px-4 sm:px-6 lg:px-8 mb-8 rounded-2xl shadow-xl">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div>
+            <h1 class="text-4xl font-bold mb-2 animate-pulse-slow">📚 @ViewData["Title"]</h1>
+            <p class="text-primary-100">Hawkins Lisesi ders kataloğu</p>
+        </div>
         @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
         {
-            <a asp-action="Create" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Yeni Ders Ekle
+            <a asp-action="Create" class="bg-white text-primary-700 px-6 py-3 rounded-xl font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300 flex items-center space-x-2">
+                <i class="bi bi-plus-circle"></i>
+                <span>Yeni Ders Ekle</span>
             </a>
         }
     </div>
+</div>
 
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">@item.Title</h5>
-                        <small>@item.Code</small>
+<!-- Courses Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @foreach (var item in Model)
+    {
+        <div class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <!-- Card Header -->
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4 text-white">
+                <h3 class="text-xl font-bold mb-1">@item.Title</h3>
+                <p class="text-blue-100 text-sm">@item.Code</p>
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-6">
+                <p class="text-gray-600 mb-4 line-clamp-3">
+                    @(item.Description.Length > 100 ? item.Description.Substring(0, 100) + "..." : item.Description)
+                </p>
+
+                <div class="space-y-3 mb-4">
+                    <div class="flex items-center text-gray-700">
+                        <i class="bi bi-person-badge text-blue-500 text-xl mr-3"></i>
+                        <div>
+                            <span class="text-sm text-gray-500">Öğretmen</span>
+                            <p class="font-medium">@item.TeacherName</p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text text-muted">@(item.Description.Length > 100 ? item.Description.Substring(0, 100) + "..." : item.Description)</p>
-                        
-                        <div class="mb-2">
-                            <strong>Öğretmen:</strong> @item.TeacherName
-                        </div>
-                        <div class="mb-2">
-                            <strong>Kredi:</strong> @item.Credits
-                        </div>
-                        <div class="mb-2">
-                            <strong>Kayıtlı Öğrenci:</strong> @item.EnrolledStudents
+
+                    <div class="flex items-center text-gray-700">
+                        <i class="bi bi-bookmark-star text-amber-500 text-xl mr-3"></i>
+                        <div>
+                            <span class="text-sm text-gray-500">Kredi</span>
+                            <p class="font-medium">@item.Credits</p>
                         </div>
                     </div>
-                    <div class="card-footer bg-transparent">
-                        <div class="btn-group w-100" role="group">
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Detaylar</a>
-                            
-                            @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
-                            {
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Düzenle</a>
-                            }
-                            
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Sil</a>
-                            }
+
+                    <div class="flex items-center text-gray-700">
+                        <i class="bi bi-people text-emerald-500 text-xl mr-3"></i>
+                        <div>
+                            <span class="text-sm text-gray-500">Kayıtlı Öğrenci</span>
+                            <p class="font-medium">@item.EnrolledStudents</p>
                         </div>
                     </div>
                 </div>
             </div>
-        }
-    </div>
 
-    @if (!Model.Any())
-    {
-        <div class="alert alert-info text-center">
-            <h4>Henüz ders bulunmuyor</h4>
-            <p>İlk dersinizi oluşturmak için "Yeni Ders Ekle" butonuna tıklayın.</p>
+            <!-- Card Footer -->
+            <div class="px-6 pb-6">
+                <div class="flex flex-wrap gap-2">
+                    <a asp-action="Details" asp-route-id="@item.Id" class="flex-1 text-center bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                        Detaylar
+                    </a>
+                    
+                    @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="flex-1 text-center bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors font-medium">
+                            Düzenle
+                        </a>
+                    }
+                    
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="flex-1 text-center bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium">
+                            Sil
+                        </a>
+                    }
+                </div>
+            </div>
         </div>
     }
 </div>
+
+@if (!Model.Any())
+{
+    <div class="bg-blue-50 border-l-4 border-blue-500 rounded-xl p-8 text-center max-w-2xl mx-auto">
+        <div class="text-6xl mb-4 opacity-30">📚</div>
+        <h4 class="text-2xl font-bold text-gray-800 mb-2">Henüz ders bulunmuyor</h4>
+        <p class="text-gray-600">İlk dersinizi oluşturmak için "Yeni Ders Ekle" butonuna tıklayın.</p>
+    </div>
+}
