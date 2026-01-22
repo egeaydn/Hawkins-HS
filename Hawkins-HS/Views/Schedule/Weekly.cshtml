@@ -4,24 +4,72 @@
     ViewData["Title"] = "Haftalık Ders Programı";
     var days = new[] { "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar" };
     var hours = Enumerable.Range(8, 12).Select(h => new TimeSpan(h, 0, 0)).ToList(); // 08:00-19:00
+    
+    // Sonraki dersi bul
+    var now = DateTime.Now;
+    var currentDay = now.ToString("dddd", new System.Globalization.CultureInfo("tr-TR"));
+    var currentTime = now.TimeOfDay;
+    
+    var upcomingClass = Model
+        .Where(s => {
+            var dayIndex = Array.IndexOf(days, s.Day);
+            var currentDayIndex = Array.IndexOf(days, currentDay);
+            return dayIndex > currentDayIndex || (dayIndex == currentDayIndex && s.StartTime > currentTime);
+        })
+        .OrderBy(s => Array.IndexOf(days, s.Day))
+        .ThenBy(s => s.StartTime)
+        .FirstOrDefault();
 }
 
 <div class="container-fluid mt-4">
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">📅 Haftalık Ders Programım</h4>
+    @if (upcomingClass != null)
+    {
+        <div class="alert alert-primary shadow-sm mb-4 border-0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="d-flex align-items-center text-white">
+                <div class="me-3" style="font-size: 2.5rem;">⏰</div>
+                <div class="flex-grow-1">
+                    <h5 class="mb-1 fw-bold text-white">Sonraki Dersiniz</h5>
+                    <h4 class="mb-2 text-white">@upcomingClass.Course.Title</h4>
+                    <div class="d-flex flex-wrap gap-3">
+                        <span class="badge bg-white text-primary px-3 py-2">
+                            <i class="bi bi-calendar3"></i> @upcomingClass.Day
+                        </span>
+                        <span class="badge bg-white text-primary px-3 py-2">
+                            <i class="bi bi-clock"></i> @($"{upcomingClass.StartTime.Hours:D2}:{upcomingClass.StartTime.Minutes:D2}") - @($"{upcomingClass.EndTime.Hours:D2}:{upcomingClass.EndTime.Minutes:D2}")
+                        </span>
+                        <span class="badge bg-white text-primary px-3 py-2">
+                            <i class="bi bi-geo-alt-fill"></i> @upcomingClass.Room
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div class="card shadow-sm border-0">
+        <div class="card-header text-white" style="background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%);">
+            <h4 class="mb-0"><i class="bi bi-calendar-week"></i> Haftalık Ders Programım</h4>
         </div>
         <div class="card-body">
             @if (Model.Any())
             {
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead class="table-light">
+                    <table class="table table-bordered mb-0 schedule-table">
+                        <thead style="background-color: #F5F5DC;">
                             <tr>
-                                <th style="width: 80px;">Saat</th>
+                                <th style="width: 100px; background-color: #6B4423; color: white;" class="text-center">
+                                    <i class="bi bi-clock-history"></i> Saat
+                                </th>
                                 @foreach (var day in days)
                                 {
-                                    <th class="text-center">@day</th>
+                                    var isToday = day == currentDay;
+                                    <th class="text-center @(isToday ? "table-active" : "")" style="@(isToday ? "background-color: #FFE5B4; font-weight: bold;" : "")">
+                                        @if (isToday)
+                                        {
+                                            <span class="badge bg-danger mb-1">BUGÜN</span><br/>
+                                        }
+                                        @day
+                                    </th>
                                 }
                             </tr>
                         </thead>
@@ -29,8 +77,8 @@
                             @foreach (var hour in hours)
                             {
                                 <tr>
-                                    <td class="text-center align-middle">
-                                        <strong>@hour.ToString(@"hh\:mm")</strong>
+                                    <td class="text-center align-middle fw-bold" style="background-color: #F5F5DC; color: #6B4423;">
+                                        @($"{hour.Hours:D2}:{hour.Minutes:D2}")
                                     </td>
                                     @foreach (var day in days)
                                     {
@@ -39,23 +87,44 @@
                                             s.StartTime <= hour && 
                                             s.EndTime > hour
                                         ).ToList();
+                                        
+                                        var isToday = day == currentDay;
+                                        var isCurrentHour = isToday && hour <= currentTime && hour.Add(TimeSpan.FromHours(1)) > currentTime;
 
-                                        <td class="@(schedules.Any() ? "table-success" : "")">
+                                        <td class="position-relative @(isToday ? "today-column" : "")" style="min-height: 80px; @(isCurrentHour ? "background-color: #FFF9E6;" : "")">
                                             @foreach (var schedule in schedules)
                                             {
-                                                <div class="card mb-2 border-primary">
-                                                    <div class="card-body p-2">
-                                                        <h6 class="mb-1">@schedule.Course.Title</h6>
-                                                        <small class="text-muted d-block">@schedule.Course.Code</small>
-                                                        <small class="text-muted d-block">
-                                                            @schedule.StartTime.ToString(@"hh\:mm") - @schedule.EndTime.ToString(@"hh\:mm")
-                                                        </small>
-                                                        <small class="text-muted d-block">📍 @schedule.Room</small>
+                                                var isUpcoming = schedule == upcomingClass;
+                                                <div class="schedule-card @(isUpcoming ? "upcoming-class" : "")" style="@(isUpcoming ? "animation: pulse 2s infinite;" : "")">
+                                                    <div class="schedule-card-header">
+                                                        <h6 class="mb-1 fw-bold">@schedule.Course.Title</h6>
+                                                        <span class="badge" style="background-color: #8B5A3C;">@schedule.Course.Code</span>
+                                                    </div>
+                                                    <div class="schedule-card-body">
+                                                        <div class="schedule-info">
+                                                            <i class="bi bi-clock text-primary"></i>
+                                                            <span>@($"{schedule.StartTime.Hours:D2}:{schedule.StartTime.Minutes:D2}") - @($"{schedule.EndTime.Hours:D2}:{schedule.EndTime.Minutes:D2}")</span>
+                                                        </div>
+                                                        <div class="schedule-info room-info">
+                                                            <i class="bi bi-geo-alt-fill text-danger"></i>
+                                                            <span class="fw-bold">@schedule.Room</span>
+                                                        </div>
                                                         @if (schedule.Course.Teacher != null)
                                                         {
-                                                            <small class="text-muted d-block">👨‍🏫 @schedule.Course.Teacher.ApplicationUser.FullName</small>
+                                                            <div class="schedule-info">
+                                                                <i class="bi bi-person-circle text-success"></i>
+                                                                <span>@schedule.Course.Teacher.ApplicationUser.FullName</span>
+                                                            </div>
                                                         }
                                                     </div>
+                                                    @if (isUpcoming)
+                                                    {
+                                                        <div class="upcoming-badge">
+                                                            <span class="badge bg-danger">
+                                                                <i class="bi bi-arrow-right-circle-fill"></i> SONRAKİ DERS
+                                                            </span>
+                                                        </div>
+                                                    }
                                                 </div>
                                             }
                                         </td>
@@ -66,17 +135,32 @@
                     </table>
                 </div>
 
-                <div class="alert alert-info mt-4">
-                    <h6>📊 Program Özeti</h6>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <strong>Toplam Ders:</strong> @Model.Select(s => s.CourseId).Distinct().Count()
+                <div class="row mt-4 g-3">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <div class="card-body text-center text-white">
+                                <i class="bi bi-book-fill" style="font-size: 2rem;"></i>
+                                <h3 class="mt-2 mb-0">@Model.Select(s => s.CourseId).Distinct().Count()</h3>
+                                <p class="mb-0">Toplam Ders</p>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <strong>Toplam Saat:</strong> @Model.Sum(s => (s.EndTime - s.StartTime).TotalHours).ToString("0.0") saat/hafta
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <div class="card-body text-center text-white">
+                                <i class="bi bi-clock-fill" style="font-size: 2rem;"></i>
+                                <h3 class="mt-2 mb-0">@Model.Sum(s => (s.EndTime - s.StartTime).TotalHours).ToString("0")</h3>
+                                <p class="mb-0">Saat / Hafta</p>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <strong>Aktif Gün:</strong> @Model.Select(s => s.Day).Distinct().Count() gün
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <div class="card-body text-center text-white">
+                                <i class="bi bi-calendar-check-fill" style="font-size: 2rem;"></i>
+                                <h3 class="mt-2 mb-0">@Model.Select(s => s.Day).Distinct().Count()</h3>
+                                <p class="mb-0">Aktif Gün</p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,27 @@
+/* ===================================
+   HAWKINS LİSESİ - PROFESYONEL TEMA
+   Kahverengi Akademik Tema
+   =================================== */
+
+/* Root Variables - Okul Renk Paleti */
+:root {
+  --primary-brown: #6B4423;
+  --secondary-brown: #8B5A3C;
+  --light-brown: #A0826D;
+  --cream: #F5F5DC;
+  --gold: #D4AF37;
+  --dark-text: #2C2416;
+  --success: #2d6a4f;
+  --info: #0077b6;
+  --warning: #f77f00;
+  --danger: #d62828;
+  --light-bg: #FAF9F6;
+}
+
+/* Global Styles */
 html {
   font-size: 14px;
+  scroll-behavior: smooth;
 }
 
 @media (min-width: 768px) {
@@ -8,15 +30,397 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
   margin-bottom: 60px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light-bg);
+  color: var(--dark-text);
+  line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-brown);
+  font-weight: 600;
+}
+
+/* Navbar Styles */
+.navbar-dark {
+  background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.nav-link {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  transform: translateY(-2px);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: var(--gold);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 80%;
+}
+
+/* Card Styles */
+.card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card-header {
+  background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+  color: white;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 1.25rem;
+  border-bottom: 3px solid var(--gold);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Button Styles */
+.btn {
+  border-radius: 8px;
+  padding: 0.625rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--secondary-brown) 0%, var(--light-brown) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(107, 68, 35, 0.3);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--success) 0%, #52b788 100%);
+}
+
+.btn-info {
+  background: linear-gradient(135deg, var(--info) 0%, #48cae4 100%);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, var(--warning) 0%, #fcbf49 100%);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger) 0%, #e85d75 100%);
+}
+
+.btn:focus, .btn:active:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(107, 68, 35, 0.25);
+}
+
+/* Form Styles */
+.form-control, .form-select {
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--secondary-brown);
+  box-shadow: 0 0 0 0.2rem rgba(107, 68, 35, 0.15);
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--primary-brown);
+  margin-bottom: 0.5rem;
+}
+
+/* Alert Styles */
+.alert {
+  border-radius: 10px;
+  border: none;
+  padding: 1rem 1.5rem;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d8f3dc 0%, #b7e4c7 100%);
+  color: var(--success);
+}
+
+.alert-danger {
+  background: linear-gradient(135deg, #ffccd5 0%, #ffb3c1 100%);
+  color: var(--danger);
+}
+
+.alert-info {
+  background: linear-gradient(135deg, #caf0f8 0%, #90e0ef 100%);
+  color: var(--info);
+}
+
+.alert-warning {
+  background: linear-gradient(135deg, #ffe5b4 0%, #ffd590 100%);
+  color: var(--warning);
+}
+
+/* Table Styles */
+.table {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background-color: var(--cream);
+  color: var(--primary-brown);
+  font-weight: 600;
+  border-bottom: 2px solid var(--secondary-brown);
+  padding: 1rem;
+}
+
+.table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(245, 245, 220, 0.3);
+  transform: scale(1.01);
+}
+
+/* Badge Styles */
+.badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* Shadow Utilities */
+.shadow-sm {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08) !important;
+}
+
+.shadow {
+  box-shadow: 0 5px 20px rgba(0,0,0,0.12) !important;
+}
+
+/* Footer Styles */
+.footer {
+  background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+  color: white;
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+/* Schedule Specific Styles */
+.schedule-table {
+  font-size: 0.9rem;
+}
+
+.schedule-table td {
+  vertical-align: top;
+  padding: 0.5rem;
+  min-height: 80px;
+}
+
+.schedule-card {
+  background: white;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid var(--secondary-brown);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.schedule-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateX(5px);
+}
+
+.schedule-card-header {
+  margin-bottom: 0.5rem;
+}
+
+.schedule-card-body {
+  font-size: 0.85rem;
+}
+
+.schedule-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  color: #555;
+}
+
+.schedule-info i {
+  font-size: 1rem;
+}
+
+.room-info {
+  background-color: #fff3cd;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+}
+
+.upcoming-class {
+  border-left-color: var(--danger);
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+  border: 2px solid var(--danger);
+}
+
+.upcoming-badge {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+}
+
+.today-column {
+  background-color: rgba(255, 229, 180, 0.1);
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(214, 40, 40, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(214, 40, 40, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+  border-radius: 15px;
+  padding: 2rem;
+  color: white;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: scale(1.05);
+}
+
+.dashboard-card i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.dropdown-item {
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--cream);
+  color: var(--primary-brown);
+  padding-left: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .schedule-table {
+    font-size: 0.75rem;
+  }
+  
+  .schedule-card {
+    padding: 0.5rem;
+  }
+  
+  .card-header h4 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-brown);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-brown);
+}
+
+/* Loading Spinner */
+.spinner-border {
+  color: var(--primary-brown);
+}
+
+/* Utility Classes */
+.text-brown {
+  color: var(--primary-brown) !important;
+}
+
+.bg-brown {
+  background-color: var(--primary-brown) !important;
+}
+
+.bg-cream {
+  background-color: var(--cream) !important;
+}
+
+.border-brown {
+  border-color: var(--secondary-brown) !important;
 }

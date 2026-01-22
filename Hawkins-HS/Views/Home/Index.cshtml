@@ -1,8 +1,146 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="fade-in">
+    <!-- Hero Section -->
+    <div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%); color: white; border-radius: 20px;">
+        <div class="card-body p-5 text-center">
+            <i class="bi bi-mortarboard-fill" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+            <h1 class="display-3 fw-bold mb-3 text-white">Hawkins Lisesi</h1>
+            <p class="lead mb-4 text-white opacity-90">Eğitimde Mükemmellik ve Yenilikçilik</p>
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <a asp-controller="@(User.IsInRole("Admin") ? "Admin" : User.IsInRole("Teacher") ? "Teachers" : "Students")" 
+                   asp-action="Dashboard" 
+                   class="btn btn-light btn-lg px-5 py-3">
+                    <i class="bi bi-speedometer2 me-2"></i>Panele Git
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" class="btn btn-light btn-lg px-5 py-3">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Giriş Yap
+                </a>
+            }
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3" style="font-size: 3rem; color: #6B4423;">
+                        <i class="bi bi-book-fill"></i>
+                    </div>
+                    <h4 class="mb-3" style="color: #6B4423;">Ders Yönetimi</h4>
+                    <p class="text-muted">Tüm derslerinizi tek bir platformdan kolayca yönetin. Program oluşturma, öğrenci kayıt ve ders materyalleri.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3" style="font-size: 3rem; color: #8B5A3C;">
+                        <i class="bi bi-clipboard-check-fill"></i>
+                    </div>
+                    <h4 class="mb-3" style="color: #6B4423;">Sınav & Değerlendirme</h4>
+                    <p class="text-muted">Dijital sınav oluşturma, not girişi ve otomatik değerlendirme sistemi ile zamanınızı verimli kullanın.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3" style="font-size: 3rem; color: #A0826D;">
+                        <i class="bi bi-calendar-week-fill"></i>
+                    </div>
+                    <h4 class="mb-3" style="color: #6B4423;">Yoklama Takibi</h4>
+                    <p class="text-muted">Öğrenci devamsızlığını dijital olarak takip edin. Detaylı raporlar ve bildirimlerle her şey kontrol altında.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <div class="row g-4 mb-5">
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="card-body text-center text-white p-4">
+                        <i class="bi bi-people-fill" style="font-size: 2.5rem;"></i>
+                        <h3 class="mt-3 mb-0">Öğrenciler</h3>
+                        <p class="mb-0 opacity-75">Toplam Kayıt</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="card-body text-center text-white p-4">
+                        <i class="bi bi-person-workspace" style="font-size: 2.5rem;"></i>
+                        <h3 class="mt-3 mb-0">Öğretmenler</h3>
+                        <p class="mb-0 opacity-75">Eğitim Kadrosu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="card-body text-center text-white p-4">
+                        <i class="bi bi-book-half" style="font-size: 2.5rem;"></i>
+                        <h3 class="mt-3 mb-0">Dersler</h3>
+                        <p class="mb-0 opacity-75">Aktif Dersler</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <div class="card-body text-center text-white p-4">
+                        <i class="bi bi-trophy-fill" style="font-size: 2.5rem;"></i>
+                        <h3 class="mt-3 mb-0">Başarı</h3>
+                        <p class="mb-0 opacity-75">Mükemmellik</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Quick Links -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header" style="background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%); color: white;">
+            <h4 class="mb-0"><i class="bi bi-link-45deg me-2"></i>Hızlı Erişim</h4>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                {
+                    <div class="col-md-3">
+                        <a asp-controller="Courses" asp-action="Index" class="btn btn-outline-primary w-100 py-3" style="border-color: #6B4423; color: #6B4423;">
+                            <i class="bi bi-book-fill d-block mb-2" style="font-size: 2rem;"></i>
+                            Dersler
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a asp-controller="Exams" asp-action="Index" class="btn btn-outline-primary w-100 py-3" style="border-color: #6B4423; color: #6B4423;">
+                            <i class="bi bi-clipboard-check-fill d-block mb-2" style="font-size: 2rem;"></i>
+                            Sınavlar
+                        </a>
+                    </div>
+                }
+                <div class="col-md-3">
+                    <a asp-controller="Schedule" asp-action="Weekly" class="btn btn-outline-primary w-100 py-3" style="border-color: #6B4423; color: #6B4423;">
+                        <i class="bi bi-calendar-week-fill d-block mb-2" style="font-size: 2rem;"></i>
+                        Program
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a asp-controller="Announcements" asp-action="Index" class="btn btn-outline-primary w-100 py-3" style="border-color: #6B4423; color: #6B4423;">
+                        <i class="bi bi-megaphone-fill d-block mb-2" style="font-size: 2rem;"></i>
+                        Duyurular
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

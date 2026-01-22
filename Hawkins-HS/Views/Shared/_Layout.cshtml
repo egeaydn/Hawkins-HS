@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Hawkins Lisesi</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Hawkins_HS.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
-                    🎓 Hawkins Lisesi
+                <a class="navbar-brand fw-bold d-flex align-items-center gap-2" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-mortarboard-fill"></i>
+                    <span>Hawkins Lisesi</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -24,44 +26,62 @@
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                                <a class="nav-link text-white" asp-controller="Home" asp-action="Index">
+                                    <i class="bi bi-house-fill me-1"></i>Ana Sayfa
+                                </a>
                             </li>
                             
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Admin" asp-action="Dashboard">Yönetim</a>
+                                    <a class="nav-link text-white" asp-controller="Admin" asp-action="Dashboard">
+                                        <i class="bi bi-speedometer2 me-1"></i>Yönetim
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Students" asp-action="Index">Öğrenciler</a>
+                                    <a class="nav-link text-white" asp-controller="Students" asp-action="Index">
+                                        <i class="bi bi-people-fill me-1"></i>Öğrenciler
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Teachers" asp-action="Index">Öğretmenler</a>
+                                    <a class="nav-link text-white" asp-controller="Teachers" asp-action="Index">
+                                        <i class="bi bi-person-workspace me-1"></i>Öğretmenler
+                                    </a>
                                 </li>
                             }
                             
                             @if (User.IsInRole("Teacher") && !User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Students" asp-action="Index">Öğrenciler</a>
+                                    <a class="nav-link text-white" asp-controller="Students" asp-action="Index">
+                                        <i class="bi bi-people-fill me-1"></i>Öğrenciler
+                                    </a>
                                 </li>
                             }
                             
                             @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Courses" asp-action="Index">Dersler</a>
+                                    <a class="nav-link text-white" asp-controller="Courses" asp-action="Index">
+                                        <i class="bi bi-book-fill me-1"></i>Dersler
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Exams" asp-action="Index">Sınavlar</a>
+                                    <a class="nav-link text-white" asp-controller="Exams" asp-action="Index">
+                                        <i class="bi bi-clipboard-check-fill me-1"></i>Sınavlar
+                                    </a>
                                 </li>
                             }
                             
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Announcements" asp-action="Index">Duyurular</a>
+                                <a class="nav-link text-white" asp-controller="Announcements" asp-action="Index">
+                                    <i class="bi bi-megaphone-fill me-1"></i>Duyurular
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Schedule" asp-action="Weekly">Program</a>
+                                <a class="nav-link text-white" asp-controller="Schedule" asp-action="Weekly">
+                                    <i class="bi bi-calendar-week-fill me-1"></i>Program
+                                </a>
                             </li>
                         }
                     </ul>
@@ -70,15 +90,22 @@
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    👤 @User.Identity.Name
+                                <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle"></i>
+                                    <span>@User.Identity.Name</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profilim</a></li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
+                                            <i class="bi bi-person-badge me-2"></i>Profilim
+                                        </a>
+                                    </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                                            <button type="submit" class="dropdown-item">Çıkış Yap</button>
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                <i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap
+                                            </button>
                                         </form>
                                     </li>
                                 </ul>
@@ -87,7 +114,9 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+                                <a class="nav-link text-white" asp-controller="Account" asp-action="Login">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>Giriş Yap
+                                </a>
                             </li>
                         }
                     </ul>
@@ -122,9 +151,37 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted mt-5">
-        <div class="container text-center py-3">
-            &copy; 2026 - Hawkins Lisesi Yönetim Sistemi
+    <footer class="footer text-white mt-5">
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                    <h5 class="mb-3"><i class="bi bi-mortarboard-fill me-2"></i>Hawkins Lisesi</h5>
+                    <p class="mb-0 opacity-75">Eğitimde Mükemmellik</p>
+                </div>
+                <div class="col-md-4 text-center mb-3 mb-md-0">
+                    <h6 class="mb-3">İletişim</h6>
+                    <p class="mb-1 opacity-75"><i class="bi bi-telephone-fill me-2"></i>(555) 123-4567</p>
+                    <p class="mb-1 opacity-75"><i class="bi bi-envelope-fill me-2"></i>info@hawkinslisesi.edu</p>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <h6 class="mb-3">Sosyal Medya</h6>
+                    <div class="d-flex gap-3 justify-content-center justify-content-md-end">
+                        <a href="#" class="text-white opacity-75" style="font-size: 1.5rem;">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="text-white opacity-75" style="font-size: 1.5rem;">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                        <a href="#" class="text-white opacity-75" style="font-size: 1.5rem;">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="opacity-25" />
+            <div class="text-center py-3 opacity-75">
+                &copy; 2026 - Hawkins Lisesi Yönetim Sistemi - Tüm Hakları Saklıdır
+            </div>
         </div>
     </footer>
     
