@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Hawkins Lisesi</title>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -40,108 +43,154 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- Custom Animations -->
+    <!-- Custom Styles -->
     <style>
-        @@keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        @@keyframes pulse-slow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .8; }
-        }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-        .animate-pulse-slow {
-            animation: pulse-slow 3s ease-in-out infinite;
+        body {
+            background: #f5f5f5;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-cream-50 via-white to-cream-100 min-h-screen">
+<body class="bg-gray-50 min-h-screen">
     <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500 shadow-2xl sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="bg-[#161618] text-[1.05rem] pt-5 pb-5  top-full flex-col overflow-visible">
+        <div class="max-w-8xl pr-5 mx-auto lg:px-5">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
-                <a asp-controller="Home" asp-action="Index" class="flex items-center space-x-3 group">
-                    <div class="bg-white rounded-xl p-2 group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                        <img src="~/HawkinsLogo.svg" alt="Hawkins Lisesi Logo" class="h-8 w-8">
+                <a asp-controller="Home" asp-action="Index" class="flex items-center space-x-2">
+                    <div class="bg-white p-1.5">
+                        <img src="~/HawkinsLogo.svg" alt="Hawkins Lisesi Logo" class="h-10 w-10">
                     </div>
-                    <span class="text-white font-bold text-xl tracking-wide">Hawkins Lisesi</span>
+                    <span class="text-white font-serif text-lg">Hawkins <br /> High <br /> School</span>
                 </a>
+                
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-1">
+                <div class="hidden md:flex items-center space-x-8">
                     @if (User.Identity?.IsAuthenticated ?? false)
                     {
-                        <a asp-controller="Home" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
-                            <i class="bi bi-house-fill"></i>
-                            <span>Ana Sayfa</span>
+                        <a asp-controller="Home" asp-action="Index" class="text-white hover:text-gray-300 py-5 border-transparent transition-all font-['Special_Gothic_Expanded_One'] font-normal not-italic">
+                            Ana Sayfa
                         </a>
                         
                         @if (User.IsInRole("Admin"))
                         {
-                            <a asp-controller="Admin" asp-action="Dashboard" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
-                                <i class="bi bi-speedometer2"></i>
-                                <span>Yönetim</span>
-                            </a>
-                            <a asp-controller="Students" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
-                                <i class="bi bi-people-fill"></i>
-                                <span>Öğrenciler</span>
-                            </a>
-                            <a asp-controller="Teachers" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
-                                <i class="bi bi-person-workspace"></i>
-                                <span>Öğretmenler</span>
-                            </a>
+                            <!-- Yönetim Dropdown -->
+                            <div class="absolute left-0 top-full z-[1] hidden flex-col overflow-visible bg-[#161618] text-[1.05rem] p-[1.3rem_4px_4px]">
+                                <button class="text-white hover:text-gray-300 py-5 border-b-2 border-transparent group-hover:border-white transition-all font-light text-lg">
+                                    Yönetim
+                                </button>
+                                <div class="absolute left-0 mt-0 w-64 bg-gray-900 border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                    <a asp-controller="Admin" asp-action="Dashboard" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                        Dashboard
+                                    </a>
+                                    <a asp-controller="Students" asp-action="Index" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                        Öğrenciler
+                                    </a>
+                                    <a asp-controller="Teachers" asp-action="Index" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                        Öğretmenler
+                                    </a>
+                                    <a href="#" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                        Ayarlar
+                                    </a>
+                                </div>
+                            </div>
                         }
                         
                         @if (User.IsInRole("Teacher") && !User.IsInRole("Admin"))
                         {
-                            <a asp-controller="Students" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
-                                <i class="bi bi-people-fill"></i>
-                                <span>Öğrenciler</span>
+                            <a asp-controller="Students" asp-action="Index" class="text-white hover:text-gray-300 py-5 border-transparent transition-all font-['Special_Gothic_Expanded_One'] font-normal not-italic">
+                                Öğrenciler
                             </a>
                         }
                         
                         @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
                         {
-                            <a asp-controller="Courses" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
-                                <i class="bi bi-book-fill"></i>
-                                <span>Dersler</span>
-                            </a>
-                            <a asp-controller="Exams" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
-                                <i class="bi bi-clipboard-check-fill"></i>
-                                <span>Sınavlar</span>
-                            </a>
+                           <div class="relative group">
+                                <button class="text-white hover:text-gray-300 py-3 tracking-tight scale-95 transition-all font-['Special_Gothic_Expanded_One'] font-normal not-italic">
+                                Akademik
+                            </button>
+
+                                <div class="absolute left-0 top-full w-64  bg-[#161618] border border-gray-700
+                                        opacity-0 invisible
+                                        group-hover:opacity-100 group-hover:visible
+                                        transition-all duration-200 z-50 ">
+                                <a asp-controller="Courses" asp-action="Index"
+                                   class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Dersler
+                                </a>
+                                <a asp-controller="Exams" asp-action="Index"
+                                   class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Sınavlar
+                                </a>
+                                <a asp-controller="Grades" asp-action="Index"
+                                   class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Notlar
+                                </a>
+                                <a asp-controller="Attendance" asp-action="Index"
+                                   class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Yoklama
+                                </a>
+                            </div>
+                        </div>
+
                         }
                         
-                        <a asp-controller="Schedule" asp-action="Weekly" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
-                            <i class="bi bi-calendar-week-fill"></i>
-                            <span>Program</span>
-                        </a>
+                        <!-- Program Dropdown -->
+                        <div class="relative group">
+                            <button class="text-white hover:text-gray-300 py-5 border-transparent transition-all font-['Special_Gothic_Expanded_One'] font-normal not-italic">
+                                Program
+                            </button>
+                            <div class="absolute left-0 mt-0 w-64 bg-[#161618] border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <a asp-controller="Schedule" asp-action="Weekly" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Haftalık Program
+                                </a>
+                                <a href="#" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Ders Programı
+                                </a>
+                                <a href="#" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Sınav Takvimi
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Kaynaklar Dropdown -->
+                        <div class="relative group">
+                            <button class="text-white hover:text-gray-300 py-5 border-transparent transition-all font-['Special_Gothic_Expanded_One'] font-normal not-italic">
+                                Kaynaklar
+                            </button>
+                            <div class="absolute left-0 mt-0 w-64 bg-[#161618] border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <a href="#" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Kütüphane
+                                </a>
+                                <a asp-controller="Announcements" asp-action="Index" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Duyurular
+                                </a>
+                                <a href="#" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Öğrenci Rehberi
+                                </a>
+                                <a href="#" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Yardım
+                                </a>
+                            </div>
+                        </div>
                     }
                 </div>
 
                 <!-- User Menu -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center">
                     @if (User.Identity?.IsAuthenticated ?? false)
                     {
                         <div class="relative group">
-                            <button class="flex items-center space-x-2 text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200">
-                                <i class="bi bi-person-circle text-xl"></i>
-                                <span class="hidden lg:block">@User.Identity.Name</span>
-                                <i class="bi bi-chevron-down text-xs"></i>
+                            <button class="flex items-center space-x-2 text-white hover:text-gray-300 py-5 font-light text-lg">
+                                <span>@User.Identity.Name</span>
                             </button>
-                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
-                                <a asp-controller="Account" asp-action="Profile" class="block px-4 py-3 text-gray-700 hover:bg-primary-50 transition-colors duration-150 flex items-center space-x-2">
-                                    <i class="bi bi-person-badge"></i>
-                                    <span>Profilim</span>
+                            <div class="absolute right-0 mt-0 w-48 bg-gray-900 border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <a asp-controller="Account" asp-action="Profile" class="block px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                    Profilim
                                 </a>
-                                <hr class="border-gray-200">
+                                <hr class="border-gray-700">
                                 <form asp-controller="Account" asp-action="Logout" method="post">
-                                    <button type="submit" class="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 flex items-center space-x-2">
-                                        <i class="bi bi-box-arrow-right"></i>
-                                        <span>Çıkış Yap</span>
+                                    <button type="submit" class="w-full text-left px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm">
+                                        Çıkış Yap
                                     </button>
                                 </form>
                             </div>
@@ -149,9 +198,8 @@
                     }
                     else
                     {
-                        <a asp-controller="Account" asp-action="Login" class="text-white bg-white/10 hover:bg-white/20 px-6 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
-                            <i class="bi bi-box-arrow-in-right"></i>
-                            <span>Giriş Yap</span>
+                        <a asp-controller="Account" asp-action="Login" class="text-white hover:text-gray-300 py-5 border-b-2 border-transparent hover:border-white transition-all font-light text-lg">
+                            Giriş Yap
                         </a>
                     }
                 </div>
@@ -190,74 +238,72 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-primary-800 via-primary-700 to-primary-600 text-white mt-20">
+    <footer class="bg-black text-white mt-20 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- About -->
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="bg-white/20 p-3 rounded-xl">
-                            <i class="bi bi-mortarboard-fill text-3xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold">Hawkins Lisesi</h3>
-                            <p class="text-white/70 text-sm">Eğitimde Mükemmellik</p>
-                        </div>
-                    </div>
-                    <p class="text-white/80 text-sm leading-relaxed">
-                        Modern eğitim anlayışıyla geleceğin liderlerini yetiştiriyoruz.
-                    </p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- School -->
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-gray-400">Okul</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Hakkımızda</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Yönetim</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Misyon ve Vizyon</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Kampüs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Academics -->
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-gray-400">Akademik</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a asp-controller="Courses" asp-action="Index" class="text-gray-300 hover:text-white transition-colors">Dersler</a></li>
+                        <li><a asp-controller="Exams" asp-action="Index" class="text-gray-300 hover:text-white transition-colors">Sınavlar</a></li>
+                        <li><a asp-controller="Schedule" asp-action="Weekly" class="text-gray-300 hover:text-white transition-colors">Program</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Öğrenci Programları</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-gray-400">Kaynaklar</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Kütüphane</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Duyurular</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Öğrenci Rehberi</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Yardım Merkezi</a></li>
+                    </ul>
                 </div>
 
                 <!-- Contact -->
-                <div class="space-y-4">
-                    <h3 class="text-lg font-semibold flex items-center space-x-2">
-                        <i class="bi bi-telephone-fill"></i>
-                        <span>İletişim</span>
-                    </h3>
-                    <div class="space-y-2 text-white/80 text-sm">
-                        <p class="flex items-center space-x-2">
-                            <i class="bi bi-geo-alt-fill"></i>
-                            <span>Hawkins, Indiana</span>
-                        </p>
-                        <p class="flex items-center space-x-2">
-                            <i class="bi bi-telephone-fill"></i>
-                            <span>(555) 123-4567</span>
-                        </p>
-                        <p class="flex items-center space-x-2">
-                            <i class="bi bi-envelope-fill"></i>
-                            <span>info@hawkinslisesi.edu</span>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Social -->
-                <div class="space-y-4">
-                    <h3 class="text-lg font-semibold flex items-center space-x-2">
-                        <i class="bi bi-share-fill"></i>
-                        <span>Sosyal Medya</span>
-                    </h3>
-                    <div class="flex space-x-3">
-                        <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all duration-200 hover:scale-110">
-                            <i class="bi bi-facebook text-xl"></i>
-                        </a>
-                        <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all duration-200 hover:scale-110">
-                            <i class="bi bi-twitter-x text-xl"></i>
-                        </a>
-                        <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all duration-200 hover:scale-110">
-                            <i class="bi bi-instagram text-xl"></i>
-                        </a>
-                        <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all duration-200 hover:scale-110">
-                            <i class="bi bi-linkedin text-xl"></i>
-                        </a>
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-wider mb-4 text-gray-400">İletişim</h3>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <p>Hawkins, Indiana</p>
+                        <p>(555) 123-4567</p>
+                        <p>info@hawkinslisesi.edu</p>
+                        <div class="flex space-x-3 mt-4">
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <i class="bi bi-facebook text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <i class="bi bi-twitter-x text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <i class="bi bi-linkedin text-xl"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="border-t border-white/20 mt-8 pt-8 text-center">
-                <p class="text-white/70 text-sm">
-                    &copy; 2026 Hawkins Lisesi. Tüm hakları saklıdır.
-                </p>
+            <div class="border-t border-gray-800 mt-8 pt-6">
+                <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+                    <p>&copy; 2026 Hawkins Lisesi. Tüm hakları saklıdır.</p>
+                    <div class="flex space-x-4 mt-4 md:mt-0">
+                        <a href="#" class="hover:text-white transition-colors">Gizlilik Politikası</a>
+                        <a href="#" class="hover:text-white transition-colors">Kullanım Koşulları</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>

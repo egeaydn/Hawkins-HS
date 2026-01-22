@@ -154,3 +154,172 @@ System.IO.IOException: Failed to bind to address http://127.0.0.1:5246: address 
 2026-01-22 15:58:56.635 +03:00 [INF] HTTP GET /Account/Profile responded 200 in 12.5203 ms
 2026-01-22 15:59:00.368 +03:00 [INF] HTTP GET / responded 302 in 4.5109 ms
 2026-01-22 15:59:00.383 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.7252 ms
+2026-01-22 16:37:32.240 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 16:37:32.391 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 16:37:33.529 +03:00 [INF] HTTP GET / responded 302 in 186.7600 ms
+2026-01-22 16:37:33.739 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 16:37:34.166 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 607.6286 ms
+2026-01-22 16:37:34.170 +03:00 [INF] HTTP GET /HawkinsLogo.svg responded 304 in 4.2414 ms
+2026-01-22 16:37:50.588 +03:00 [INF] HTTP GET /Students responded 200 in 66.5130 ms
+2026-01-22 16:38:01.576 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 13.9821 ms
+2026-01-22 16:58:17.517 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 16:58:17.625 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 16:58:18.202 +03:00 [INF] HTTP GET / responded 302 in 118.1252 ms
+2026-01-22 16:58:18.312 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 16:58:18.525 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 305.2892 ms
+2026-01-22 16:58:18.537 +03:00 [INF] HTTP GET /HawkinsLogo.svg responded 304 in 4.0239 ms
+2026-01-22 16:58:26.232 +03:00 [INF] HTTP GET /Exams responded 200 in 149.5778 ms
+2026-01-22 17:07:40.563 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 17:07:40.669 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 17:07:41.300 +03:00 [INF] HTTP GET / responded 302 in 144.0940 ms
+2026-01-22 17:07:41.410 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 17:07:41.626 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 307.8589 ms
+2026-01-22 17:08:28.004 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 17:08:28.108 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 17:08:29.725 +03:00 [INF] HTTP GET / responded 302 in 118.7115 ms
+2026-01-22 17:08:29.842 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 17:08:30.122 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 376.1520 ms
+2026-01-22 17:08:56.249 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 58.0695 ms
+2026-01-22 17:09:42.470 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 53.0499 ms
+2026-01-22 17:10:33.302 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 53.7080 ms
+2026-01-22 17:10:33.328 +03:00 [INF] HTTP GET /HawkinsLogo.svg responded 304 in 5.9930 ms
+2026-01-22 17:10:37.750 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 11.0106 ms
+2026-01-22 17:11:14.631 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 41.3455 ms
+2026-01-22 17:11:25.237 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 48.7549 ms
+2026-01-22 17:11:27.644 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 15.7869 ms
+2026-01-22 17:11:28.697 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.2292 ms
+2026-01-22 17:11:29.100 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 10.1247 ms
+2026-01-22 17:11:30.040 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.9604 ms
+2026-01-22 17:11:38.675 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 31.3526 ms
+2026-01-22 17:11:47.985 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 37.1600 ms
+2026-01-22 17:12:24.757 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 63.2451 ms
+2026-01-22 17:12:35.932 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 40.7466 ms
+2026-01-22 17:15:31.187 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 17:15:31.290 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 17:15:32.283 +03:00 [INF] HTTP GET / responded 302 in 125.7192 ms
+2026-01-22 17:15:32.395 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 17:15:32.606 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 307.2190 ms
+2026-01-22 17:15:52.212 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 38.4946 ms
+2026-01-22 17:15:52.271 +03:00 [INF] HTTP GET /HawkinsLogo.svg responded 200 in 35.0143 ms
+2026-01-22 17:15:52.316 +03:00 [INF] HTTP GET /lib/bootstrap/dist/js/bootstrap.bundle.min.js responded 200 in 37.9238 ms
+2026-01-22 17:15:52.326 +03:00 [INF] HTTP GET /lib/jquery/dist/jquery.min.js responded 200 in 78.9698 ms
+2026-01-22 17:15:52.542 +03:00 [INF] HTTP GET /favicon.ico responded 200 in 1.9800 ms
+2026-01-22 17:17:26.017 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 17:17:26.128 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 17:17:27.056 +03:00 [INF] HTTP GET / responded 302 in 137.0246 ms
+2026-01-22 17:17:27.168 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 17:17:27.389 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 317.2966 ms
+2026-01-22 17:17:44.614 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 51.3926 ms
+2026-01-22 17:17:54.522 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 44.1068 ms
+2026-01-22 17:17:56.562 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 22.8618 ms
+2026-01-22 17:18:09.809 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 40.8429 ms
+2026-01-22 17:18:27.712 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 34.0289 ms
+2026-01-22 17:18:28.745 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 9.2795 ms
+2026-01-22 17:19:08.810 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 41.7176 ms
+2026-01-22 17:19:38.348 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 31.5883 ms
+2026-01-22 17:19:55.545 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 32.3617 ms
+2026-01-22 17:20:20.016 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 42.7808 ms
+2026-01-22 17:20:29.676 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 32.7221 ms
+2026-01-22 17:20:46.915 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 33.9538 ms
+2026-01-22 17:20:57.064 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 33.9479 ms
+2026-01-22 17:21:17.117 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 43.1121 ms
+2026-01-22 17:21:29.531 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 43.0977 ms
+2026-01-22 17:22:54.276 +03:00 [INF] HTTP GET /Account/Profile responded 200 in 15.7392 ms
+2026-01-22 17:22:55.510 +03:00 [INF] HTTP GET / responded 302 in 9.9045 ms
+2026-01-22 17:22:55.533 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 16.3261 ms
+2026-01-22 17:23:04.559 +03:00 [INF] HTTP GET /Students responded 200 in 48.1110 ms
+2026-01-22 17:23:09.459 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 17:23:09.502 +03:00 [INF] HTTP GET /Schedule/Weekly responded 200 in 58.3448 ms
+2026-01-22 17:23:14.802 +03:00 [INF] HTTP GET /Announcements responded 200 in 123.2160 ms
+2026-01-22 17:23:19.256 +03:00 [INF] HTTP GET /Schedule/Weekly responded 200 in 8.5242 ms
+2026-01-22 17:23:20.429 +03:00 [INF] HTTP GET / responded 302 in 3.9943 ms
+2026-01-22 17:23:20.445 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.8073 ms
+2026-01-22 17:23:22.479 +03:00 [INF] HTTP GET /Students responded 200 in 7.6618 ms
+2026-01-22 17:23:23.129 +03:00 [INF] HTTP GET / responded 302 in 3.9288 ms
+2026-01-22 17:23:23.144 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.8102 ms
+2026-01-22 17:23:24.118 +03:00 [INF] HTTP GET /Students responded 200 in 8.4024 ms
+2026-01-22 17:23:33.292 +03:00 [INF] HTTP GET / responded 302 in 17.2875 ms
+2026-01-22 17:23:33.317 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 18.2333 ms
+2026-01-22 17:23:51.263 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 35.0639 ms
+2026-01-22 17:24:03.207 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 34.4768 ms
+2026-01-22 17:24:10.026 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 33.1004 ms
+2026-01-22 17:24:39.626 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 50.8332 ms
+2026-01-22 17:24:50.357 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 35.7757 ms
+2026-01-22 17:25:00.265 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 34.2775 ms
+2026-01-22 17:25:15.189 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 35.6970 ms
+2026-01-22 17:26:07.666 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 55.9265 ms
+2026-01-22 17:28:07.638 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 72.0183 ms
+2026-01-22 17:28:09.769 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.8647 ms
+2026-01-22 17:28:10.386 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.7880 ms
+2026-01-22 17:55:49.483 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 17:55:49.586 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 17:55:50.368 +03:00 [INF] HTTP GET / responded 302 in 213.4380 ms
+2026-01-22 17:55:50.486 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 17:55:50.700 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 311.7799 ms
+2026-01-22 17:55:50.759 +03:00 [INF] HTTP GET /HawkinsLogo.svg responded 304 in 3.7995 ms
+2026-01-22 17:56:14.775 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 57.4121 ms
+2026-01-22 17:57:15.276 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 56.0998 ms
+2026-01-22 17:57:32.699 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 54.3173 ms
+2026-01-22 17:57:41.235 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 40.0595 ms
+2026-01-22 17:58:29.825 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 50.7914 ms
+2026-01-22 17:58:49.087 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 40.8368 ms
+2026-01-22 17:59:02.348 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 31.7490 ms
+2026-01-22 17:59:30.979 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 31.7734 ms
+2026-01-22 17:59:46.258 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 49.7516 ms
+2026-01-22 17:59:57.244 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 49.0438 ms
+2026-01-22 18:01:26.059 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 42.7936 ms
+2026-01-22 18:02:54.789 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 45.4133 ms
+2026-01-22 18:02:56.679 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 9.6676 ms
+2026-01-22 18:02:57.263 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 9.1148 ms
+2026-01-22 18:03:08.953 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 43.8230 ms
+2026-01-22 18:03:11.482 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.4307 ms
+2026-01-22 18:03:11.958 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.8871 ms
+2026-01-22 18:03:12.299 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.5789 ms
+2026-01-22 18:04:05.489 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 37.3488 ms
+2026-01-22 18:04:17.542 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 43.4555 ms
+2026-01-22 18:04:24.161 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 34.0941 ms
+2026-01-22 18:04:57.790 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 36.4794 ms
+2026-01-22 18:05:09.488 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 38.2347 ms
+2026-01-22 18:05:20.706 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 48.5670 ms
+2026-01-22 18:05:42.725 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 37.2729 ms
+2026-01-22 18:05:57.427 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 37.9574 ms
+2026-01-22 18:05:59.027 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 11.7253 ms
+2026-01-22 18:05:59.519 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.3242 ms
+2026-01-22 18:05:59.949 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.9176 ms
+2026-01-22 18:06:07.871 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 40.4485 ms
+2026-01-22 18:07:28.194 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 51.6595 ms
+2026-01-22 18:09:21.670 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 54.5509 ms
+2026-01-22 18:15:53.229 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 68.6274 ms
+2026-01-22 18:15:53.252 +03:00 [INF] HTTP GET /HawkinsLogo.svg responded 304 in 0.5536 ms
+2026-01-22 18:16:02.215 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.6168 ms
+2026-01-22 18:16:02.740 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 6.8566 ms
+2026-01-22 18:17:58.811 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 16.9321 ms
+2026-01-22 18:17:59.360 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 6.0639 ms
+2026-01-22 18:17:59.717 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 6.1960 ms
+2026-01-22 18:18:02.450 +03:00 [INF] HTTP GET /Students responded 200 in 58.6626 ms
+2026-01-22 18:18:04.916 +03:00 [INF] HTTP GET / responded 302 in 9.6194 ms
+2026-01-22 18:18:04.929 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 6.6466 ms
+2026-01-22 18:18:11.872 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.5625 ms
+2026-01-22 18:18:58.101 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 73.5173 ms
+2026-01-22 18:19:55.863 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 52.2205 ms
+2026-01-22 18:20:27.094 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 44.5065 ms
+2026-01-22 18:20:50.237 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 56.1365 ms
+2026-01-22 18:21:19.518 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 42.3248 ms
+2026-01-22 18:28:34.741 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 81.8626 ms
+2026-01-22 18:28:42.645 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.3024 ms
+2026-01-22 18:29:17.242 +03:00 [INF] Database initialized and seeded successfully
+2026-01-22 18:29:17.355 +03:00 [INF] Starting HawkinsHS application
+2026-01-22 18:29:18.942 +03:00 [INF] HTTP GET / responded 302 in 123.5346 ms
+2026-01-22 18:29:19.075 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-01-22 18:29:19.288 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 324.2754 ms
+2026-01-22 18:29:28.710 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 57.1847 ms
+2026-01-22 18:29:37.379 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 49.5136 ms
+2026-01-22 18:30:46.269 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 53.7603 ms
+2026-01-22 18:31:24.147 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 38.8397 ms
+2026-01-22 18:31:41.567 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 64.8080 ms
+2026-01-22 18:32:00.240 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 49.0859 ms
+2026-01-22 18:33:06.012 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 49.6469 ms
+2026-01-22 18:33:33.346 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 41.6628 ms
+2026-01-22 18:33:42.447 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 35.1154 ms
+2026-01-22 18:33:45.023 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 11.8744 ms
+2026-01-22 18:33:51.451 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 40.5976 ms

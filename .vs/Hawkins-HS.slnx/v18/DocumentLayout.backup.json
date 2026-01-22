@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\students\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\students\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -35,19 +39,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Shared\\_Layout.cshtml*",
+              "RelativeToolTip": "Hawkins-HS\\Views\\Shared\\_Layout.cshtml*",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGsAAABpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-22T14:08:10.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Students\\Details.cshtml",
               "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Students\\Details.cshtml",
-              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Students\\Details.cshtml*",
-              "RelativeToolTip": "Hawkins-HS\\Views\\Students\\Details.cshtml*",
-              "ViewState": "AgIAANQAAAAAAAAAAAAAAOcAAAAnAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Students\\Details.cshtml",
+              "RelativeToolTip": "Hawkins-HS\\Views\\Students\\Details.cshtml",
+              "ViewState": "AgIAANkAAAAAAAAAAAAAAPMAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-01-22T12:27:17.139Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "EnterGrades.cshtml",
               "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
               "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
