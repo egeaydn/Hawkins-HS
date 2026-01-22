@@ -4,190 +4,266 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Hawkins Lisesi</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#faf5f0',
+                            100: '#f5ebe0',
+                            200: '#e8d4c0',
+                            300: '#d4b89d',
+                            400: '#c09a78',
+                            500: '#8B5A3C',
+                            600: '#6B4423',
+                            700: '#5a3a1e',
+                            800: '#4a2f19',
+                            900: '#3d2616',
+                        },
+                        cream: {
+                            50: '#fefdfb',
+                            100: '#fdfaf6',
+                            200: '#F5F5DC',
+                            300: '#f0f0cd',
+                            400: '#eae9be',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Hawkins_HS.styles.css" asp-append-version="true" />
+    
+    <!-- Custom Animations -->
+    <style>
+        @@keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @@keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .8; }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 3s ease-in-out infinite;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold d-flex align-items-center gap-2" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="bi bi-mortarboard-fill"></i>
-                    <span>Hawkins Lisesi</span>
+<body class="bg-gradient-to-br from-cream-50 via-white to-cream-100 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500 shadow-2xl sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a asp-controller="Home" asp-action="Index" class="flex items-center space-x-3 group">
+                    <div class="bg-white/20 p-2 rounded-xl group-hover:bg-white/30 transition-all duration-300 group-hover:scale-110">
+                        <i class="bi bi-mortarboard-fill text-white text-2xl"></i>
+                    </div>
+                    <span class="text-white font-bold text-xl tracking-wide">Hawkins Lisesi</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if (User.Identity?.IsAuthenticated ?? false)
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-1">
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <a asp-controller="Home" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
+                            <i class="bi bi-house-fill"></i>
+                            <span>Ana Sayfa</span>
+                        </a>
+                        
+                        @if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Home" asp-action="Index">
-                                    <i class="bi bi-house-fill me-1"></i>Ana Sayfa
-                                </a>
-                            </li>
-                            
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Admin" asp-action="Dashboard">
-                                        <i class="bi bi-speedometer2 me-1"></i>Yönetim
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Students" asp-action="Index">
-                                        <i class="bi bi-people-fill me-1"></i>Öğrenciler
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Teachers" asp-action="Index">
-                                        <i class="bi bi-person-workspace me-1"></i>Öğretmenler
-                                    </a>
-                                </li>
-                            }
-                            
-                            @if (User.IsInRole("Teacher") && !User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Students" asp-action="Index">
-                                        <i class="bi bi-people-fill me-1"></i>Öğrenciler
-                                    </a>
-                                </li>
-                            }
-                            
-                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Courses" asp-action="Index">
-                                        <i class="bi bi-book-fill me-1"></i>Dersler
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-controller="Exams" asp-action="Index">
-                                        <i class="bi bi-clipboard-check-fill me-1"></i>Sınavlar
-                                    </a>
-                                </li>
-                            }
-                            
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Announcements" asp-action="Index">
-                                    <i class="bi bi-megaphone-fill me-1"></i>Duyurular
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Schedule" asp-action="Weekly">
-                                    <i class="bi bi-calendar-week-fill me-1"></i>Program
-                                </a>
-                            </li>
+                            <a asp-controller="Admin" asp-action="Dashboard" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
+                                <i class="bi bi-speedometer2"></i>
+                                <span>Yönetim</span>
+                            </a>
+                            <a asp-controller="Students" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
+                                <i class="bi bi-people-fill"></i>
+                                <span>Öğrenciler</span>
+                            </a>
+                            <a asp-controller="Teachers" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
+                                <i class="bi bi-person-workspace"></i>
+                                <span>Öğretmenler</span>
+                            </a>
                         }
-                    </ul>
-                    
-                    <ul class="navbar-nav">
-                        @if (User.Identity?.IsAuthenticated ?? false)
+                        
+                        @if (User.IsInRole("Teacher") && !User.IsInRole("Admin"))
                         {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person-circle"></i>
-                                    <span>@User.Identity.Name</span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
-                                            <i class="bi bi-person-badge me-2"></i>Profilim
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                                            <button type="submit" class="dropdown-item text-danger">
-                                                <i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
+                            <a asp-controller="Students" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
+                                <i class="bi bi-people-fill"></i>
+                                <span>Öğrenciler</span>
+                            </a>
                         }
-                        else
+                        
+                        @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Account" asp-action="Login">
-                                    <i class="bi bi-box-arrow-in-right me-1"></i>Giriş Yap
-                                </a>
-                            </li>
+                            <a asp-controller="Courses" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
+                                <i class="bi bi-book-fill"></i>
+                                <span>Dersler</span>
+                            </a>
+                            <a asp-controller="Exams" asp-action="Index" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
+                                <i class="bi bi-clipboard-check-fill"></i>
+                                <span>Sınavlar</span>
+                            </a>
                         }
-                    </ul>
+                        
+                        <a asp-controller="Schedule" asp-action="Weekly" class="text-white/90 hover:text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
+                            <i class="bi bi-calendar-week-fill"></i>
+                            <span>Program</span>
+                        </a>
+                    }
+                </div>
+
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <div class="relative group">
+                            <button class="flex items-center space-x-2 text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200">
+                                <i class="bi bi-person-circle text-xl"></i>
+                                <span class="hidden lg:block">@User.Identity.Name</span>
+                                <i class="bi bi-chevron-down text-xs"></i>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                                <a asp-controller="Account" asp-action="Profile" class="block px-4 py-3 text-gray-700 hover:bg-primary-50 transition-colors duration-150 flex items-center space-x-2">
+                                    <i class="bi bi-person-badge"></i>
+                                    <span>Profilim</span>
+                                </a>
+                                <hr class="border-gray-200">
+                                <form asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit" class="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50 transition-colors duration-150 flex items-center space-x-2">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                        <span>Çıkış Yap</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="text-white bg-white/10 hover:bg-white/20 px-6 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span>Giriş Yap</span>
+                        </a>
+                    }
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
     
+    <!-- Alert Messages -->
     @if (TempData["Success"] != null)
     {
-        <div class="container">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                @TempData["Success"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 p-4 rounded-r-lg shadow-md animate-pulse-slow">
+                <div class="flex items-center">
+                    <i class="bi bi-check-circle-fill text-green-500 text-2xl mr-3"></i>
+                    <p class="text-green-800 font-medium">@TempData["Success"]</p>
+                </div>
             </div>
         </div>
     }
     
     @if (TempData["Error"] != null)
     {
-        <div class="container">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                @TempData["Error"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            <div class="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-500 p-4 rounded-r-lg shadow-md animate-pulse-slow">
+                <div class="flex items-center">
+                    <i class="bi bi-exclamation-triangle-fill text-red-500 text-2xl mr-3"></i>
+                    <p class="text-red-800 font-medium">@TempData["Error"]</p>
+                </div>
             </div>
         </div>
     }
     
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        @RenderBody()
+    </main>
 
-    <footer class="footer text-white mt-5">
-        <div class="container">
-            <div class="row py-4">
-                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-                    <h5 class="mb-3"><i class="bi bi-mortarboard-fill me-2"></i>Hawkins Lisesi</h5>
-                    <p class="mb-0 opacity-75">Eğitimde Mükemmellik</p>
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-primary-800 via-primary-700 to-primary-600 text-white mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-white/20 p-3 rounded-xl">
+                            <i class="bi bi-mortarboard-fill text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Hawkins Lisesi</h3>
+                            <p class="text-white/70 text-sm">Eğitimde Mükemmellik</p>
+                        </div>
+                    </div>
+                    <p class="text-white/80 text-sm leading-relaxed">
+                        Modern eğitim anlayışıyla geleceğin liderlerini yetiştiriyoruz.
+                    </p>
                 </div>
-                <div class="col-md-4 text-center mb-3 mb-md-0">
-                    <h6 class="mb-3">İletişim</h6>
-                    <p class="mb-1 opacity-75"><i class="bi bi-telephone-fill me-2"></i>(555) 123-4567</p>
-                    <p class="mb-1 opacity-75"><i class="bi bi-envelope-fill me-2"></i>info@hawkinslisesi.edu</p>
+
+                <!-- Contact -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold flex items-center space-x-2">
+                        <i class="bi bi-telephone-fill"></i>
+                        <span>İletişim</span>
+                    </h3>
+                    <div class="space-y-2 text-white/80 text-sm">
+                        <p class="flex items-center space-x-2">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <span>Hawkins, Indiana</span>
+                        </p>
+                        <p class="flex items-center space-x-2">
+                            <i class="bi bi-telephone-fill"></i>
+                            <span>(555) 123-4567</span>
+                        </p>
+                        <p class="flex items-center space-x-2">
+                            <i class="bi bi-envelope-fill"></i>
+                            <span>info@hawkinslisesi.edu</span>
+                        </p>
+                    </div>
                 </div>
-                <div class="col-md-4 text-center text-md-end">
-                    <h6 class="mb-3">Sosyal Medya</h6>
-                    <div class="d-flex gap-3 justify-content-center justify-content-md-end">
-                        <a href="#" class="text-white opacity-75" style="font-size: 1.5rem;">
-                            <i class="bi bi-facebook"></i>
+
+                <!-- Social -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold flex items-center space-x-2">
+                        <i class="bi bi-share-fill"></i>
+                        <span>Sosyal Medya</span>
+                    </h3>
+                    <div class="flex space-x-3">
+                        <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all duration-200 hover:scale-110">
+                            <i class="bi bi-facebook text-xl"></i>
                         </a>
-                        <a href="#" class="text-white opacity-75" style="font-size: 1.5rem;">
-                            <i class="bi bi-twitter-x"></i>
+                        <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all duration-200 hover:scale-110">
+                            <i class="bi bi-twitter-x text-xl"></i>
                         </a>
-                        <a href="#" class="text-white opacity-75" style="font-size: 1.5rem;">
-                            <i class="bi bi-instagram"></i>
+                        <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all duration-200 hover:scale-110">
+                            <i class="bi bi-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all duration-200 hover:scale-110">
+                            <i class="bi bi-linkedin text-xl"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <hr class="opacity-25" />
-            <div class="text-center py-3 opacity-75">
-                &copy; 2026 - Hawkins Lisesi Yönetim Sistemi - Tüm Hakları Saklıdır
+
+            <div class="border-t border-white/20 mt-8 pt-8 text-center">
+                <p class="text-white/70 text-sm">
+                    &copy; 2026 Hawkins Lisesi. Tüm hakları saklıdır.
+                </p>
             </div>
         </div>
     </footer>
     
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
