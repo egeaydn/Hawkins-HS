@@ -105,4 +105,46 @@ public class StudentsController : Controller
 
         return View(student.Grades.OrderByDescending(g => g.GradedAt).ToList());
     }
+
+    // POST: Students/UploadPhoto
+    [HttpPost]
+    [Authorize(Roles = "Admin,Teacher,Student")]
+    public async Task<IActionResult> UploadPhoto(int id, IFormFile photo)
+    {
+        if (photo == null || photo.Length == 0)
+        {
+            return BadRequest("Lütfen bir fotoğraf seçin.");
+        }
+
+        // Dosya boyutu kontrolü (max 5MB)
+        if (photo.Length > 5 * 1024 * 1024)
+        {
+            return BadRequest("Fotoğraf boyutu 5MB'dan küçük olmalıdır.");
+        }
+
+        // Dosya tipi kontrolü
+        var allowedTypes = new[] { "image/jpeg", "image/jpg", "image/png" };
+        if (!allowedTypes.Contains(photo.ContentType.ToLower()))
+        {
+            return BadRequest("Sadece JPG, JPEG ve PNG formatları kabul edilir.");
+        }
+
+        var student = await _context.Students.FindAsync(id);
+        if (student == null)
+        {
+            return NotFound();
+        }
+
+        // Fotoğrafı BASE64'e çevir
+        using (var memoryStream = new MemoryStream())
+        {
+            await photo.CopyToAsync(memoryStream);
+            var photoBytes = memoryStream.ToArray();
+            student.ProfilePhotoBase64 = Convert.ToBase64String(photoBytes);
+        }
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Details), new { id = student.Id });
+    }
 }

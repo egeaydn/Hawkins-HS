@@ -4,19 +4,92 @@
     ViewData["Title"] = "Profilim";
 }
 
-<div class="container mt-4">
-    <h2>@ViewData["Title"]</h2>
-    
-    <div class="card mt-4">
-        <div class="card-body">
-            <h5 class="card-title">Kullanıcı Bilgileri</h5>
-            
-            <div class="row mt-3">
-                <div class="col-md-6">
-                    <p><strong>Ad Soyad:</strong> @Model.FullName</p>
-                    <p><strong>Kullanıcı Adı:</strong> @Model.UserName</p>
-                    <p><strong>Email:</strong> @Model.Email</p>
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">👤 Profilim</h1>
+        <p class="text-gray-600">Hesap bilgilerinizi görüntüleyin ve güncelleyin</p>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <!-- Header Section -->
+        <div class="bg-gradient-to-r from-primary-600 to-primary-700 px-8 py-6">
+            <div class="flex items-center space-x-6">
+                <div class="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
+                    <i class="bi bi-person-circle text-white text-6xl"></i>
                 </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-2">@Model.FullName</h2>
+                    <p class="text-white/80 text-lg">@@ @Model.UserName</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Info -->
+        <div class="p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Full Name -->
+                <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-blue-100 p-3 rounded-lg">
+                            <i class="bi bi-person-fill text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">Ad Soyad</p>
+                            <p class="text-lg font-semibold text-gray-800">@Model.FullName</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Username -->
+                <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-purple-100 p-3 rounded-lg">
+                            <i class="bi bi-at text-purple-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">Kullanıcı Adı</p>
+                            <p class="text-lg font-semibold text-gray-800 font-mono">@Model.UserName</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 md:col-span-2">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-emerald-100 p-3 rounded-lg">
+                            <i class="bi bi-envelope-fill text-emerald-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">E-posta Adresi</p>
+                            <p class="text-lg font-semibold text-gray-800">@Model.Email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                <a href="#" class="flex-1 inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <i class="bi bi-pencil-fill"></i>
+                    <span>Profili Düzenle</span>
+                </a>
+                <a href="#" class="flex-1 inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <i class="bi bi-key-fill"></i>
+                    <span>Şifre Değiştir</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Info Card -->
+    <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 rounded-lg p-6">
+        <div class="flex items-start space-x-3">
+            <i class="bi bi-info-circle-fill text-blue-500 text-2xl"></i>
+            <div>
+                <h3 class="font-bold text-gray-800 mb-1">Hesap Güvenliği</h3>
+                <p class="text-gray-600 text-sm">Hesabınızın güvenliği için düzenli olarak şifrenizi değiştirmenizi öneririz.</p>
             </div>
         </div>
     </div>

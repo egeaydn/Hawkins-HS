@@ -4,100 +4,169 @@
     ViewData["Title"] = "Öğrenciler";
 }
 
-<div class="container-fluid mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>👨‍🎓 Öğrenciler</h2>
+<style>
+    @@keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
+    }
+    .shimmer {
+        animation: shimmer 2s infinite linear;
+        background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+        background-size: 1000px 100%;
+    }
+</style>
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">👨‍🎓 Öğrenciler</h1>
+            <p class="text-gray-600">Tüm kayıtlı öğrencilerin listesi</p>
+        </div>
         @if (User.IsInRole("Admin"))
         {
-            <a asp-controller="Account" asp-action="Register" class="btn btn-primary">
-                Yeni Öğrenci Ekle
+            <a asp-controller="Account" asp-action="Register" 
+               class="inline-flex items-center space-x-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <i class="bi bi-person-plus-fill"></i>
+                <span>Yeni Öğrenci Ekle</span>
             </a>
         }
     </div>
 
     @if (Model.Any())
     {
-        <div class="card shadow">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Öğrenci No</th>
-                                <th>Ad Soyad</th>
-                                <th>Email</th>
-                                <th>Sınıf</th>
-                                <th>Yıl</th>
-                                <th>Kayıtlı Ders Sayısı</th>
-                                <th>İşlem</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var student in Model.OrderBy(s => s.ClassName).ThenBy(s => s.StudentNumber))
-                            {
-                                <tr>
-                                    <td><strong>@student.StudentNumber</strong></td>
-                                    <td>@student.ApplicationUser.FullName</td>
-                                    <td>@student.ApplicationUser.Email</td>
-                                    <td><span class="badge bg-primary">@student.ClassName</span></td>
-                                    <td>@student.Year</td>
-                                    <td>
-                                        <span class="badge bg-info">@student.Enrollments.Count ders</span>
-                                    </td>
-                                    <td>
-                                        <a asp-action="Details" asp-route-id="@student.Id" class="btn btn-sm btn-outline-primary">
-                                            Detaylar
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-blue-100 text-sm font-medium mb-1">Toplam Öğrenci</p>
+                        <h3 class="text-4xl font-bold">@Model.Count()</h3>
+                    </div>
+                    <div class="bg-white/20 p-4 rounded-xl">
+                        <i class="bi bi-people-fill text-4xl"></i>
+                    </div>
                 </div>
+            </div>
 
-                <div class="mt-4">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card bg-light">
-                                <div class="card-body text-center">
-                                    <h3 class="text-primary">@Model.Count()</h3>
-                                    <p class="mb-0 text-muted">Toplam Öğrenci</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card bg-light">
-                                <div class="card-body text-center">
-                                    <h3 class="text-success">@Model.Where(s => s.ClassName.Contains("9")).Count()</h3>
-                                    <p class="mb-0 text-muted">9. Sınıf</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card bg-light">
-                                <div class="card-body text-center">
-                                    <h3 class="text-info">@Model.Where(s => s.ClassName.Contains("10")).Count()</h3>
-                                    <p class="mb-0 text-muted">10. Sınıf</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card bg-light">
-                                <div class="card-body text-center">
-                                    <h3 class="text-warning">@Model.Sum(s => s.Enrollments.Count)</h3>
-                                    <p class="mb-0 text-muted">Toplam Kayıt</p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-emerald-100 text-sm font-medium mb-1">9. Sınıf</p>
+                        <h3 class="text-4xl font-bold">@Model.Count(s => s.Year == 9)</h3>
+                    </div>
+                    <div class="bg-white/20 p-4 rounded-xl">
+                        <i class="bi bi-1-circle-fill text-4xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-purple-100 text-sm font-medium mb-1">10. Sınıf</p>
+                        <h3 class="text-4xl font-bold">@Model.Count(s => s.Year == 10)</h3>
+                    </div>
+                    <div class="bg-white/20 p-4 rounded-xl">
+                        <i class="bi bi-2-circle-fill text-4xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-amber-100 text-sm font-medium mb-1">Toplam Kayıt</p>
+                        <h3 class="text-4xl font-bold">@Model.Sum(s => s.Enrollments.Count)</h3>
+                    </div>
+                    <div class="bg-white/20 p-4 rounded-xl">
+                        <i class="bi bi-book-fill text-4xl"></i>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Students Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            @foreach (var student in Model.OrderBy(s => s.ClassName).ThenBy(s => s.ApplicationUser.FullName))
+            {
+                <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden group">
+                    <!-- Card Header with QR Code -->
+                    <div class="bg-gradient-to-br from-primary-600 to-primary-800 px-4 py-3 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <div class="bg-white rounded-lg p-1">
+                                <img src="~/HawkinsLogo.svg" alt="Logo" class="h-6 w-6">
+                            </div>
+                            <span class="text-white font-semibold text-sm">@student.ClassName</span>
+                        </div>
+                        <!-- QR Code Placeholder -->
+                        <div class="bg-white p-2 rounded-lg">
+                            <svg class="w-8 h-8 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm-2 8h8v8H3v-8zm2 6h4v-4H5v4zm8-14v8h8V3h-8zm6 6h-4V5h4v4zm-6 4h2v2h-2v-2zm2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm4 0h2v4h-2v-4zm2-2h2v2h-2v-2zm0-4h2v2h-2v-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Student Photo -->
+                    <div class="px-6 py-6 bg-gradient-to-br from-gray-50 to-gray-100">
+                        <div class="relative mx-auto w-32 h-32 mb-4">
+                            <div class="w-full h-full rounded-2xl overflow-hidden border-4 border-white shadow-lg">
+                                @if (!string.IsNullOrEmpty(student.ProfilePhotoBase64))
+                                {
+                                    <img src="data:image/jpeg;base64,@student.ProfilePhotoBase64" 
+                                         alt="@student.ApplicationUser.FullName" 
+                                         class="w-full h-full object-cover">
+                                }
+                                else
+                                {
+                                    <div class="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shimmer">
+                                        <i class="bi bi-person-circle text-white text-6xl opacity-50"></i>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Student Info -->
+                        <div class="text-center">
+                            <h3 class="text-xl font-bold text-gray-800 mb-1">@student.ApplicationUser.FullName</h3>
+                            <p class="text-primary-600 font-mono font-semibold mb-2">@student.StudentNumber</p>
+                            
+                            <div class="flex items-center justify-center space-x-2 text-sm text-gray-600 mb-3">
+                                <i class="bi bi-envelope-fill"></i>
+                                <span class="truncate">@student.ApplicationUser.Email</span>
+                            </div>
+
+                            <div class="flex items-center justify-center space-x-3">
+                                <span class="bg-primary-100 text-primary-700 px-3 py-1 rounded-lg text-sm font-semibold">
+                                    @student.Year. Sınıf
+                                </span>
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-sm font-semibold">
+                                    @student.Enrollments.Count Ders
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer -->
+                    <div class="px-6 py-4 bg-white border-t border-gray-100">
+                        <a asp-action="Details" asp-route-id="@student.Id" 
+                           class="block w-full text-center bg-gradient-to-r from-primary-600 to-primary-700 text-white py-2.5 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg group-hover:scale-105">
+                            <i class="bi bi-eye-fill mr-2"></i>
+                            Detayları Gör
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
     }
     else
     {
-        <div class="alert alert-info text-center">
-            <h4>Henüz öğrenci kaydı yok</h4>
+        <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-8 text-center">
+            <i class="bi bi-info-circle-fill text-blue-500 text-5xl mb-4"></i>
+            <h4 class="text-xl font-bold text-gray-800 mb-2">Henüz öğrenci kaydı yok</h4>
+            <p class="text-gray-600">Yeni öğrenci eklemek için yukarıdaki butonu kullanabilirsiniz.</p>
+        </div>
+    }
         </div>
     }
 </div>
