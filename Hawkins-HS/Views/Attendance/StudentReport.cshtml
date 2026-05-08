@@ -4,136 +4,156 @@
     ViewData["Title"] = "Devamsızlık Raporum";
 }
 
-<div class="container mt-4">
-    <div class="card shadow">
-        <div class="card-header bg-info text-white">
-            <h4 class="mb-0">📊 Devamsızlık Raporum</h4>
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">Devamsızlık Raporum</h1>
+            <p class="text-gray-500 mt-1">@Model.ApplicationUser.FullName &mdash; @Model.StudentNumber / @Model.ClassName</p>
         </div>
-        <div class="card-body">
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <h5>@Model.ApplicationUser.FullName</h5>
-                    <p class="text-muted">@Model.StudentNumber - @Model.ClassName</p>
-                </div>
-            </div>
-
-            @if (Model.Attendances.Any())
-            {
-                var attendancesByCourse = Model.Attendances.GroupBy(a => a.Course);
-                
-                @foreach (var courseGroup in attendancesByCourse)
-                {
-                    var course = courseGroup.Key;
-                    var attendances = courseGroup.ToList();
-                    var totalDays = attendances.Count;
-                    var presentCount = attendances.Count(a => a.Status == "Present");
-                    var absentCount = attendances.Count(a => a.Status == "Absent");
-                    var lateCount = attendances.Count(a => a.Status == "Late");
-                    var excusedCount = attendances.Count(a => a.Status == "Excused");
-                    var absenceRate = totalDays > 0 ? (absentCount * 100.0 / totalDays) : 0;
-                    
-                    <div class="card mb-3 @(absenceRate > 20 ? "border-danger" : absenceRate > 10 ? "border-warning" : "")">
-                        <div class="card-header @(absenceRate > 20 ? "bg-danger text-white" : absenceRate > 10 ? "bg-warning" : "bg-light")">
-                            <h6 class="mb-0">@course.Title (@course.Code)</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-2">
-                                    <div class="card bg-light">
-                                        <div class="card-body text-center p-2">
-                                            <h4>@totalDays</h4>
-                                            <small>Toplam Gün</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="card bg-success text-white">
-                                        <div class="card-body text-center p-2">
-                                            <h4>@presentCount</h4>
-                                            <small>Var</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="card bg-danger text-white">
-                                        <div class="card-body text-center p-2">
-                                            <h4>@absentCount</h4>
-                                            <small>Yok</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="card bg-warning">
-                                        <div class="card-body text-center p-2">
-                                            <h4>@lateCount</h4>
-                                            <small>Geç</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="card bg-info text-white">
-                                        <div class="card-body text-center p-2">
-                                            <h4>@excusedCount</h4>
-                                            <small>Mazeret</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="card @(absenceRate > 20 ? "bg-danger text-white" : absenceRate > 10 ? "bg-warning" : "bg-success text-white")">
-                                        <div class="card-body text-center p-2">
-                                            <h4>@absenceRate.ToString("0.0")%</h4>
-                                            <small>Devamsızlık</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            @if (absenceRate > 20)
-                            {
-                                <div class="alert alert-danger">
-                                    <strong>⚠️ Dikkat!</strong> Bu derste devamsızlık oranınız %20'yi aştı!
-                                </div>
-                            }
-                            else if (absenceRate > 10)
-                            {
-                                <div class="alert alert-warning">
-                                    <strong>⚠️ Uyarı!</strong> Bu derste devamsızlık oranınız %10'u aştı.
-                                </div>
-                            }
-                        </div>
-                    </div>
-                }
-
-                <div class="card bg-light mt-4">
-                    <div class="card-body">
-                        <h6>📊 Genel Özet</h6>
-                        @{
-                            var totalAttendances = Model.Attendances.Count;
-                            var totalPresent = Model.Attendances.Count(a => a.Status == "Present");
-                            var totalAbsent = Model.Attendances.Count(a => a.Status == "Absent");
-                            var totalLate = Model.Attendances.Count(a => a.Status == "Late");
-                            var totalExcused = Model.Attendances.Count(a => a.Status == "Excused");
-                            var overallAbsenceRate = totalAttendances > 0 ? (totalAbsent * 100.0 / totalAttendances) : 0;
-                        }
-                        <div class="row">
-                            <div class="col-md-3">Toplam Kayıt: <strong>@totalAttendances</strong></div>
-                            <div class="col-md-3">Var: <strong class="text-success">@totalPresent</strong></div>
-                            <div class="col-md-3">Yok: <strong class="text-danger">@totalAbsent</strong></div>
-                            <div class="col-md-3">Genel Devamsızlık: <strong>@overallAbsenceRate.ToString("0.0")%</strong></div>
-                        </div>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="alert alert-info text-center">
-                    Henüz devamsızlık kaydı bulunmamaktadır.
-                </div>
-            }
-
-            <div class="mt-4">
-                <a asp-controller="Students" asp-action="Dashboard" class="btn btn-secondary">Dashboard'a Dön</a>
-            </div>
-        </div>
+        <a asp-controller="Students" asp-action="Dashboard"
+           class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
+            <i class="bi bi-arrow-left"></i> Dashboard'a Dön
+        </a>
     </div>
+
+    @if (Model.Attendances.Any())
+    {
+        
+            var attendancesByCourse = Model.Attendances.GroupBy(a => a.Course);
+            var totalAttendances = Model.Attendances.Count;
+            var totalPresent = Model.Attendances.Count(a => a.Status == "Present");
+            var totalAbsent = Model.Attendances.Count(a => a.Status == "Absent");
+            var totalLate = Model.Attendances.Count(a => a.Status == "Late");
+            var totalExcused = Model.Attendances.Count(a => a.Status == "Excused");
+            var overallAbsenceRate = totalAttendances > 0 ? (totalAbsent * 100.0 / totalAttendances) : 0;
+        
+
+        <!-- Summary Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Genel Özet</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="text-center p-4 bg-gray-50 rounded-xl">
+                    <p class="text-2xl font-bold text-gray-800">@totalAttendances</p>
+                    <p class="text-xs text-gray-500 mt-1">Toplam Kayıt</p>
+                </div>
+                <div class="text-center p-4 bg-green-50 rounded-xl">
+                    <p class="text-2xl font-bold text-green-700">@totalPresent</p>
+                    <p class="text-xs text-green-600 mt-1">Var</p>
+                </div>
+                <div class="text-center p-4 bg-red-50 rounded-xl">
+                    <p class="text-2xl font-bold text-red-700">@totalAbsent</p>
+                    <p class="text-xs text-red-600 mt-1">Yok</p>
+                </div>
+                <div class="text-center p-4 bg-yellow-50 rounded-xl">
+                    <p class="text-2xl font-bold text-yellow-700">@totalLate</p>
+                    <p class="text-xs text-yellow-600 mt-1">Geç</p>
+                </div>
+                <div class="text-center p-4 @(overallAbsenceRate > 20 ? "bg-red-50" : overallAbsenceRate > 10 ? "bg-yellow-50" : "bg-green-50") rounded-xl">
+                    <p class="text-2xl font-bold @(overallAbsenceRate > 20 ? "text-red-700" : overallAbsenceRate > 10 ? "text-yellow-700" : "text-green-700")">
+                        @overallAbsenceRate.ToString("0.0")%
+                    </p>
+                    <p class="text-xs @(overallAbsenceRate > 20 ? "text-red-600" : overallAbsenceRate > 10 ? "text-yellow-600" : "text-green-600") mt-1">
+                        Genel Devamsızlık
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Per-Course Cards -->
+        @foreach (var courseGroup in attendancesByCourse)
+        {
+            var course = courseGroup.Key;
+            var attendances = courseGroup.ToList();
+            var totalDays = attendances.Count;
+            var presentCount = attendances.Count(a => a.Status == "Present");
+            var absentCount = attendances.Count(a => a.Status == "Absent");
+            var lateCount = attendances.Count(a => a.Status == "Late");
+            var excusedCount = attendances.Count(a => a.Status == "Excused");
+            var absenceRate = totalDays > 0 ? (absentCount * 100.0 / totalDays) : 0;
+
+            var borderColor = absenceRate > 20 ? "border-red-300" : absenceRate > 10 ? "border-yellow-300" : "border-gray-100";
+            var headerBg = absenceRate > 20 ? "bg-red-50" : absenceRate > 10 ? "bg-yellow-50" : "bg-gray-50";
+            var headerText = absenceRate > 20 ? "text-red-800" : absenceRate > 10 ? "text-yellow-800" : "text-gray-800";
+
+            <div class="bg-white rounded-2xl shadow-sm border @borderColor overflow-hidden mb-4">
+                <div class="@headerBg px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-semibold @headerText">@course.Title</h3>
+                        <p class="text-xs text-gray-400 mt-0.5">@course.Code</p>
+                    </div>
+                    @if (absenceRate > 20)
+                    {
+                        <span class="inline-flex items-center gap-1 text-xs font-semibold bg-red-100 text-red-700 px-3 py-1 rounded-full">
+                            <i class="bi bi-exclamation-triangle-fill"></i> Kritik
+                        </span>
+                    }
+                    else if (absenceRate > 10)
+                    {
+                        <span class="inline-flex items-center gap-1 text-xs font-semibold bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
+                            <i class="bi bi-exclamation-circle-fill"></i> Uyarı
+                        </span>
+                    }
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+                        <div class="text-center p-3 bg-gray-50 rounded-xl">
+                            <p class="text-xl font-bold text-gray-800">@totalDays</p>
+                            <p class="text-xs text-gray-500 mt-1">Toplam</p>
+                        </div>
+                        <div class="text-center p-3 bg-green-50 rounded-xl">
+                            <p class="text-xl font-bold text-green-700">@presentCount</p>
+                            <p class="text-xs text-green-600 mt-1">Var</p>
+                        </div>
+                        <div class="text-center p-3 bg-red-50 rounded-xl">
+                            <p class="text-xl font-bold text-red-700">@absentCount</p>
+                            <p class="text-xs text-red-600 mt-1">Yok</p>
+                        </div>
+                        <div class="text-center p-3 bg-yellow-50 rounded-xl">
+                            <p class="text-xl font-bold text-yellow-700">@lateCount</p>
+                            <p class="text-xs text-yellow-600 mt-1">Geç</p>
+                        </div>
+                        <div class="text-center p-3 bg-blue-50 rounded-xl">
+                            <p class="text-xl font-bold text-blue-700">@excusedCount</p>
+                            <p class="text-xs text-blue-600 mt-1">Mazeret</p>
+                        </div>
+                        <div class="text-center p-3 @(absenceRate > 20 ? "bg-red-50" : absenceRate > 10 ? "bg-yellow-50" : "bg-green-50") rounded-xl">
+                            <p class="text-xl font-bold @(absenceRate > 20 ? "text-red-700" : absenceRate > 10 ? "text-yellow-700" : "text-green-700")">
+                                @absenceRate.ToString("0.0")%
+                            </p>
+                            <p class="text-xs @(absenceRate > 20 ? "text-red-600" : absenceRate > 10 ? "text-yellow-600" : "text-green-600") mt-1">
+                                Devamsızlık
+                            </p>
+                        </div>
+                    </div>
+
+                    @if (absenceRate > 20)
+                    {
+                        <div class="mt-4 flex items-center gap-2 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                            <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
+                            <span><strong>Dikkat!</strong> Bu derste devamsızlık oranınız %20'yi aştı!</span>
+                        </div>
+                    }
+                    else if (absenceRate > 10)
+                    {
+                        <div class="mt-4 flex items-center gap-2 text-sm text-yellow-700 bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
+                            <i class="bi bi-exclamation-circle-fill flex-shrink-0"></i>
+                            <span><strong>Uyarı!</strong> Bu derste devamsızlık oranınız %10'u aştı.</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+            <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="bi bi-calendar2-x text-primary-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Kayıt Bulunamadı</h3>
+            <p class="text-gray-500">Henüz devamsızlık kaydı bulunmamaktadır.</p>
+        </div>
+    }
 </div>

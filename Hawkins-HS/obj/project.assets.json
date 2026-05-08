@@ -5260,5 +5260,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "'AutoMapper' 12.0.1 paketinde önem derecesi yüksek olan bilinen bir https://github.com/advisories/GHSA-rvv3-g6hj-g44x güvenlik açığı var",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
