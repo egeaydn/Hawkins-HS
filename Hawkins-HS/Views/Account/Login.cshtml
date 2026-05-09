@@ -4,49 +4,103 @@
     ViewData["Title"] = "Giriş Yap";
 }
 
-<div class="row justify-content-center mt-5">
-    <div class="col-md-6 col-lg-4">
-        <div class="card shadow">
-            <div class="card-body p-5">
-                <h2 class="text-center mb-4">@ViewData["Title"]</h2>
-                
-                <form asp-action="Login" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-                    
-                    <div class="mb-3">
-                        <label asp-for="UserName" class="form-label"></label>
-                        <input asp-for="UserName" class="form-control" />
-                        <span asp-validation-for="UserName" class="text-danger"></span>
+<div class="min-h-[70vh] flex items-center justify-center py-12 px-4">
+    <div class="w-full max-w-md">
+
+        <!-- Logo + Başlık -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center bg-[#161618] p-3 rounded-2xl shadow-lg mb-4">
+                <img src="~/HawkinsLogo.svg" alt="Hawkins Lisesi" class="h-12 w-12">
+            </div>
+            <h1 class="text-2xl font-bold text-gray-900">Hawkins High School</h1>
+            <p class="text-gray-500 text-sm mt-1">Hesabınıza giriş yapın</p>
+        </div>
+
+        <!-- Kart -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+
+            <!-- Kart Üst Şerit -->
+            <div class="h-1.5 bg-gradient-to-r from-primary-600 to-primary-400"></div>
+
+            <div class="p-8">
+                <form asp-action="Login" method="post" class="space-y-5">
+                    <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3"></div>
+
+                    <!-- Kullanıcı Adı -->
+                    <div>
+                        <label asp-for="UserName" class="block text-sm font-medium text-gray-700 mb-1.5"></label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                                <i class="bi bi-person text-gray-400"></i>
+                            </div>
+                            <input asp-for="UserName"
+                                   class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-900 placeholder-gray-400
+                                          focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                                   placeholder="Kullanıcı adınızı girin" />
+                        </div>
+                        <span asp-validation-for="UserName" class="text-red-500 text-xs mt-1 block"></span>
                     </div>
-                    
-                    <div class="mb-3">
-                        <label asp-for="Password" class="form-label"></label>
-                        <input asp-for="Password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
+
+                    <!-- Şifre -->
+                    <div>
+                        <label asp-for="Password" class="block text-sm font-medium text-gray-700 mb-1.5"></label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                                <i class="bi bi-lock text-gray-400"></i>
+                            </div>
+                            <input asp-for="Password"
+                                   class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-900 placeholder-gray-400
+                                          focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                                   placeholder="Şifrenizi girin" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-red-500 text-xs mt-1 block"></span>
                     </div>
-                    
-                    <div class="mb-3 form-check">
-                        <input asp-for="RememberMe" class="form-check-input" />
-                        <label asp-for="RememberMe" class="form-check-label"></label>
+
+                    <!-- Beni Hatırla -->
+                    <div class="flex items-center gap-2">
+                        <input asp-for="RememberMe"
+                               class="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer" />
+                        <label asp-for="RememberMe" class="text-sm text-gray-600 cursor-pointer select-none"></label>
                     </div>
-                    
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">Giriş Yap</button>
-                    </div>
+
+                    <!-- Giriş Butonu -->
+                    <button type="submit"
+                            class="w-full bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white font-semibold py-3 rounded-xl
+                                   transition-colors duration-200 text-sm tracking-wide shadow-sm">
+                        <i class="bi bi-box-arrow-in-right mr-2"></i>Giriş Yap
+                    </button>
                 </form>
-                
-                <hr class="my-4" />
-                
-                <div class="text-center">
-                    <p class="text-muted mb-0">Demo Hesaplar:</p>
-                    <small class="text-muted">
-                        Admin: admin / P@ssw0rd!<br />
-                        Öğretmen: e.watson / Teacher@123<br />
-                        Öğrenci: lucas / Student@123
-                    </small>
+
+                <!-- Demo Hesaplar -->
+                <div class="mt-6 pt-6 border-t border-gray-100">
+                    <p class="text-xs text-center text-gray-400 uppercase tracking-wider font-semibold mb-3">Demo Hesaplar</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-2.5 text-xs">
+                            <span class="flex items-center gap-2 text-gray-500">
+                                <i class="bi bi-shield-fill text-primary-500"></i> Admin
+                            </span>
+                            <code class="text-gray-700 font-mono">admin / P@ssw0rd!</code>
+                        </div>
+                        <div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-2.5 text-xs">
+                            <span class="flex items-center gap-2 text-gray-500">
+                                <i class="bi bi-person-badge-fill text-blue-500"></i> Öğretmen
+                            </span>
+                            <code class="text-gray-700 font-mono">e.watson / Teacher@123</code>
+                        </div>
+                        <div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-2.5 text-xs">
+                            <span class="flex items-center gap-2 text-gray-500">
+                                <i class="bi bi-mortarboard-fill text-green-500"></i> Öğrenci
+                            </span>
+                            <code class="text-gray-700 font-mono">lucas / Student@123</code>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <p class="text-center text-xs text-gray-400 mt-6">
+            &copy; 2026 Hawkins High School. Tüm hakları saklıdır.
+        </p>
     </div>
 </div>
 

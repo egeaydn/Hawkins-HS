@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\announcements\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\announcements\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\announcements\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\announcements\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\attendance\\studentreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\attendance\\studentreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\students\\mygrades.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\students\\mygrades.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\announcements\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\announcements\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\students\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\students\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\grades\\entergrades.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\grades\\entergrades.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|c:\\users\\tr\\source\\repos\\hawkins-hs\\hawkins-hs\\views\\announcements\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9D2C261B-7F1B-A040-C988-2CC6398859EB}|Hawkins-HS\\Hawkins-HS.csproj|solutionrelative:hawkins-hs\\views\\announcements\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,7 +50,72 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Announcements\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Announcements\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Announcements\\Edit.cshtml",
+              "RelativeToolTip": "Hawkins-HS\\Views\\Announcements\\Edit.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-09T14:15:09.269Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Announcements\\Details.cshtml",
+              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Announcements\\Details.cshtml",
+              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Announcements\\Details.cshtml",
+              "RelativeToolTip": "Hawkins-HS\\Views\\Announcements\\Details.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-09T14:15:09.179Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Announcements\\Index.cshtml",
+              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Announcements\\Index.cshtml",
+              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Announcements\\Index.cshtml",
+              "RelativeToolTip": "Hawkins-HS\\Views\\Announcements\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-09T14:13:25.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Announcements\\Create.cshtml",
+              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Announcements\\Create.cshtml",
+              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Announcements\\Create.cshtml",
+              "RelativeToolTip": "Hawkins-HS\\Views\\Announcements\\Create.cshtml",
+              "ViewState": "AgIAACsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-09T14:10:04.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "Hawkins-HS\\Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-09T14:06:20.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "StudentReport.cshtml",
               "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Attendance\\StudentReport.cshtml",
               "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Attendance\\StudentReport.cshtml",
@@ -56,56 +125,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-05-08T11:50:40.046Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MyGrades.cshtml",
-              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Students\\MyGrades.cshtml",
-              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Students\\MyGrades.cshtml",
-              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Students\\MyGrades.cshtml",
-              "RelativeToolTip": "Hawkins-HS\\Views\\Students\\MyGrades.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAhwB4AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-08T11:49:51.731Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Hawkins-HS\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAHUAAAAAAAAAAAAAAI0AAABlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-22T14:08:10.56Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Students\\Details.cshtml",
-              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Students\\Details.cshtml",
-              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Students\\Details.cshtml",
-              "RelativeToolTip": "Hawkins-HS\\Views\\Students\\Details.cshtml",
-              "ViewState": "AgIAANkAAAAAAAAAAAAAAPMAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-22T12:27:17.139Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "EnterGrades.cshtml",
-              "DocumentMoniker": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
-              "RelativeDocumentMoniker": "Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
-              "ToolTip": "C:\\Users\\tr\\source\\repos\\Hawkins-HS\\Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
-              "RelativeToolTip": "Hawkins-HS\\Views\\Grades\\EnterGrades.cshtml",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAAAIIAAABaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T13:06:19.066Z"
             }
           ]
         }

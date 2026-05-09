@@ -4,54 +4,96 @@
     ViewData["Title"] = "Duyurular";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>📢 Duyurular</h2>
+<div class="max-w-4xl mx-auto px-4 py-8">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">Duyurular</h1>
+            <p class="text-gray-500 mt-1">Okul genelindeki güncel duyurular</p>
+        </div>
         @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
         {
-            <a asp-action="Create" class="btn btn-primary">Yeni Duyuru Oluştur</a>
+            <a asp-action="Create"
+               class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
+                <i class="bi bi-plus-lg"></i> Yeni Duyuru
+            </a>
         }
     </div>
 
     @if (Model.Any())
     {
-        <div class="row">
+        <div class="space-y-4">
             @foreach (var announcement in Model.OrderByDescending(a => a.CreatedAt))
             {
-                <div class="col-12 mb-3">
-                    <div class="card shadow-sm @(announcement.IsImportant ? "border-danger" : "")">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div class="flex-grow-1">
-                                    <h5 class="card-title">
-                                        @if (announcement.IsImportant)
-                                        {
-                                            <span class="badge bg-danger me-2">ÖNEMLİ</span>
-                                        }
-                                        @announcement.Title
-                                    </h5>
-                                    
-                                    <p class="card-text">@announcement.Body</p>
-                                    
-                                    <div class="d-flex gap-3 text-muted small">
-                                        <span>👤 @announcement.CreatorName</span>
-                                        <span>📅 @announcement.CreatedAt.ToString("dd MMM yyyy, HH:mm")</span>
-                                        <span>👥 @announcement.Audience</span>
-                                    </div>
+                <div class="bg-white rounded-2xl shadow-sm border @(announcement.IsImportant ? "border-red-300" : "border-gray-100") overflow-hidden hover:shadow-md transition-shadow">
+
+                    @if (announcement.IsImportant)
+                    {
+                        <div class="h-1 bg-gradient-to-r from-red-500 to-red-400"></div>
+                    }
+                    else
+                    {
+                        <div class="h-1 bg-gradient-to-r from-primary-500 to-primary-400"></div>
+                    }
+
+                    <div class="p-6">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1 min-w-0">
+                                <!-- Başlık -->
+                                <div class="flex items-center gap-2 flex-wrap mb-2">
+                                    @if (announcement.IsImportant)
+                                    {
+                                        <span class="inline-flex items-center gap-1 text-xs font-bold bg-red-100 text-red-700 px-2.5 py-1 rounded-full">
+                                            <i class="bi bi-exclamation-triangle-fill"></i> ÖNEMLİ
+                                        </span>
+                                    }
+                                    <h2 class="text-lg font-bold text-gray-900 truncate">@announcement.Title</h2>
                                 </div>
-                                
-                                @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
-                                {
-                                    <div class="btn-group ms-3">
-                                        <a asp-action="Details" asp-route-id="@announcement.Id" class="btn btn-sm btn-outline-primary">Detay</a>
-                                        <a asp-action="Edit" asp-route-id="@announcement.Id" class="btn btn-sm btn-outline-secondary">Düzenle</a>
-                                        @if (User.IsInRole("Admin"))
-                                        {
-                                            <a asp-action="Delete" asp-route-id="@announcement.Id" class="btn btn-sm btn-outline-danger" onclick="return confirm('Bu duyuruyu silmek istediğinizden emin misiniz?')">Sil</a>
-                                        }
-                                    </div>
-                                }
+
+                                <!-- İçerik -->
+                                <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">@announcement.Body</p>
+
+                                <!-- Meta -->
+                                <div class="flex flex-wrap items-center gap-4 mt-4 text-xs text-gray-400">
+                                    <span class="flex items-center gap-1">
+                                        <i class="bi bi-person"></i> @announcement.CreatorName
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <i class="bi bi-calendar3"></i> @announcement.CreatedAt.ToString("dd MMM yyyy, HH:mm")
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <i class="bi bi-people"></i>
+                                        @(announcement.Audience == "All" ? "Herkes" :
+                                          announcement.Audience == "Students" ? "Öğrenciler" :
+                                          announcement.Audience == "Teachers" ? "Öğretmenler" :
+                                          announcement.Audience.Replace("Class:", "") + ". Sınıf")
+                                    </span>
+                                </div>
                             </div>
+
+                            <!-- Aksiyon Butonları -->
+                            @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                            {
+                                <div class="flex items-center gap-2 flex-shrink-0">
+                                    <a asp-action="Details" asp-route-id="@announcement.Id"
+                                       class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
+                                        <i class="bi bi-eye"></i> Detay
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@announcement.Id"
+                                       class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-amber-100 hover:bg-amber-200 text-amber-700 rounded-lg transition-colors">
+                                        <i class="bi bi-pencil"></i> Düzenle
+                                    </a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@announcement.Id"
+                                           onclick="return confirm('Bu duyuruyu silmek istediğinizden emin misiniz?')"
+                                           class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors">
+                                            <i class="bi bi-trash"></i> Sil
+                                        </a>
+                                    }
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -60,11 +102,22 @@
     }
     else
     {
-        <div class="alert alert-info text-center" role="alert">
-            <h4>Henüz duyuru yok</h4>
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+            <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="bi bi-megaphone text-primary-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Henüz Duyuru Yok</h3>
             @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
             {
-                <p>Yeni bir duyuru oluşturmak için yukarıdaki butona tıklayın.</p>
+                <p class="text-gray-500 mb-6">Yeni bir duyuru oluşturmak için aşağıdaki butona tıklayın.</p>
+                <a asp-action="Create"
+                   class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors">
+                    <i class="bi bi-plus-lg"></i> Yeni Duyuru Oluştur
+                </a>
+            }
+            else
+            {
+                <p class="text-gray-500">Şu an yayınlanmış bir duyuru bulunmamaktadır.</p>
             }
         </div>
     }

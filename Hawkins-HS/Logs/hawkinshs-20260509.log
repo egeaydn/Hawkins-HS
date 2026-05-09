@@ -1,0 +1,92 @@
+2026-05-09 17:04:20.782 +03:00 [INF] Database initialized and seeded successfully
+2026-05-09 17:04:20.954 +03:00 [INF] Starting HawkinsHS application
+2026-05-09 17:04:22.128 +03:00 [INF] HTTP GET / responded 200 in 132.2083 ms
+2026-05-09 17:05:01.036 +03:00 [INF] HTTP GET / responded 200 in 27.3077 ms
+2026-05-09 17:05:01.155 +03:00 [INF] HTTP GET /favicon.ico responded 200 in 24.9054 ms
+2026-05-09 17:05:01.934 +03:00 [INF] HTTP GET / responded 200 in 17.9461 ms
+2026-05-09 17:05:02.624 +03:00 [INF] HTTP GET / responded 200 in 3.0331 ms
+2026-05-09 17:05:09.293 +03:00 [INF] HTTP GET /Account/Login responded 200 in 79.5028 ms
+2026-05-09 17:05:09.368 +03:00 [INF] HTTP GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js responded 200 in 48.8289 ms
+2026-05-09 17:05:09.416 +03:00 [INF] HTTP GET /lib/jquery-validation/dist/jquery.validate.min.js responded 200 in 97.1473 ms
+2026-05-09 17:05:15.075 +03:00 [INF] HTTP GET /Account/Login responded 200 in 8.9758 ms
+2026-05-09 17:07:01.087 +03:00 [INF] Database initialized and seeded successfully
+2026-05-09 17:07:01.197 +03:00 [INF] Starting HawkinsHS application
+2026-05-09 17:07:01.819 +03:00 [INF] HTTP GET / responded 200 in 122.7536 ms
+2026-05-09 17:07:03.765 +03:00 [INF] HTTP GET /Account/Login responded 200 in 62.4586 ms
+2026-05-09 17:07:23.037 +03:00 [INF] User e.watson logged in
+2026-05-09 17:07:23.043 +03:00 [INF] HTTP POST /Account/Login responded 302 in 202.4883 ms
+2026-05-09 17:07:23.126 +03:00 [INF] HTTP GET / responded 302 in 65.7957 ms
+2026-05-09 17:07:23.218 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-09 17:07:23.375 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 216.3532 ms
+2026-05-09 17:07:39.121 +03:00 [INF] HTTP GET /Courses responded 200 in 128.8273 ms
+2026-05-09 17:07:41.930 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 11.8630 ms
+2026-05-09 17:07:43.164 +03:00 [INF] HTTP GET /Students responded 200 in 41.3187 ms
+2026-05-09 17:07:57.613 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.2777 ms
+2026-05-09 17:08:00.193 +03:00 [INF] HTTP GET /Exams responded 200 in 63.0809 ms
+2026-05-09 17:08:01.798 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 18.3874 ms
+2026-05-09 17:08:08.843 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-09 17:08:08.876 +03:00 [INF] HTTP GET /Courses/Details/6 responded 200 in 60.1943 ms
+2026-05-09 17:08:10.127 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 16.0022 ms
+2026-05-09 17:08:10.686 +03:00 [INF] HTTP GET /Courses/Details/3 responded 200 in 17.9879 ms
+2026-05-09 17:08:11.348 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.0835 ms
+2026-05-09 17:08:11.948 +03:00 [INF] HTTP GET /Courses/Details/1 responded 200 in 9.9342 ms
+2026-05-09 17:08:12.697 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.0086 ms
+2026-05-09 17:08:13.421 +03:00 [INF] HTTP GET /Courses/Details/1 responded 200 in 7.7717 ms
+2026-05-09 17:08:14.621 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 9.1204 ms
+2026-05-09 17:08:14.656 +03:00 [INF] HTTP GET /Account/Login responded 200 in 8.1352 ms
+2026-05-09 17:08:17.773 +03:00 [INF] HTTP GET / responded 302 in 9.7197 ms
+2026-05-09 17:08:17.786 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 7.1512 ms
+2026-05-09 17:08:20.621 +03:00 [INF] HTTP GET /Account/Profile responded 200 in 11.1139 ms
+2026-05-09 17:08:30.431 +03:00 [INF] HTTP GET / responded 302 in 4.9091 ms
+2026-05-09 17:08:30.448 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.8026 ms
+2026-05-09 17:08:32.902 +03:00 [INF] HTTP GET /Announcements/Create responded 200 in 42.4765 ms
+2026-05-09 17:08:37.686 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 9.2116 ms
+2026-05-09 17:08:44.113 +03:00 [INF] HTTP GET /Courses/Create responded 200 in 54.9371 ms
+2026-05-09 17:08:46.235 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.0716 ms
+2026-05-09 17:08:46.947 +03:00 [INF] HTTP GET /Exams/Create responded 200 in 48.7949 ms
+2026-05-09 17:08:47.876 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 9.0115 ms
+2026-05-09 17:08:48.985 +03:00 [INF] HTTP GET /Announcements/Create responded 200 in 6.5942 ms
+2026-05-09 17:08:50.030 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 8.6289 ms
+2026-05-09 17:08:50.585 +03:00 [INF] HTTP GET /Courses responded 200 in 13.5619 ms
+2026-05-09 17:08:51.652 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 21.2243 ms
+2026-05-09 17:08:54.638 +03:00 [INF] HTTP GET /Announcements/Create responded 200 in 6.0780 ms
+2026-05-09 17:10:48.107 +03:00 [INF] Database initialized and seeded successfully
+2026-05-09 17:10:48.209 +03:00 [INF] Starting HawkinsHS application
+2026-05-09 17:10:48.854 +03:00 [INF] HTTP GET / responded 302 in 140.9620 ms
+2026-05-09 17:10:48.964 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-09 17:10:49.168 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 295.5511 ms
+2026-05-09 17:10:52.882 +03:00 [INF] HTTP GET /Announcements/Create responded 200 in 153.5136 ms
+2026-05-09 17:11:10.288 +03:00 [INF] Announcement notification: 📢 Yeni Duyuru: haslgsalglagaljsşgsa - Audience: All
+2026-05-09 17:11:10.290 +03:00 [INF] Announcement created: haslgsalglagaljsşgsa by e.watson
+2026-05-09 17:11:10.292 +03:00 [INF] HTTP POST /Announcements/Create responded 302 in 174.9588 ms
+2026-05-09 17:11:10.339 +03:00 [INF] HTTP GET /Announcements responded 200 in 39.0740 ms
+2026-05-09 17:11:20.814 +03:00 [INF] HTTP GET /Students responded 200 in 47.8331 ms
+2026-05-09 17:11:24.011 +03:00 [INF] HTTP GET /Courses responded 200 in 50.7035 ms
+2026-05-09 17:11:25.305 +03:00 [INF] HTTP GET /Exams responded 200 in 65.1644 ms
+2026-05-09 17:11:26.435 +03:00 [INF] HTTP GET /Grades responded 404 in 1.7849 ms
+2026-05-09 17:11:27.465 +03:00 [INF] HTTP GET /Exams responded 200 in 17.9089 ms
+2026-05-09 17:11:29.278 +03:00 [INF] HTTP GET /Attendance responded 404 in 0.9220 ms
+2026-05-09 17:11:29.801 +03:00 [INF] HTTP GET /Exams responded 200 in 8.2374 ms
+2026-05-09 17:11:29.855 +03:00 [INF] HTTP GET /Courses responded 200 in 16.2599 ms
+2026-05-09 17:11:33.626 +03:00 [INF] HTTP GET /Announcements responded 200 in 14.0132 ms
+2026-05-09 17:11:40.899 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-09 17:11:40.934 +03:00 [INF] HTTP GET /Schedule/Weekly responded 200 in 48.7849 ms
+2026-05-09 17:11:50.309 +03:00 [INF] HTTP GET / responded 302 in 6.1287 ms
+2026-05-09 17:11:50.331 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 14.0126 ms
+2026-05-09 17:15:29.199 +03:00 [INF] Database initialized and seeded successfully
+2026-05-09 17:15:29.320 +03:00 [INF] Starting HawkinsHS application
+2026-05-09 17:15:30.385 +03:00 [INF] HTTP GET / responded 302 in 139.6153 ms
+2026-05-09 17:15:30.499 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-09 17:15:30.727 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 325.6623 ms
+2026-05-09 17:15:38.768 +03:00 [INF] HTTP GET /Announcements responded 200 in 135.4954 ms
+2026-05-09 17:15:42.401 +03:00 [INF] HTTP GET /Announcements/Details/3 responded 200 in 48.2687 ms
+2026-05-09 17:15:43.926 +03:00 [INF] HTTP GET /Announcements responded 200 in 11.3583 ms
+2026-05-09 17:15:50.015 +03:00 [INF] HTTP GET /Students responded 200 in 39.3545 ms
+2026-05-09 17:16:03.350 +03:00 [INF] HTTP GET /Grades responded 404 in 2.0758 ms
+2026-05-09 17:16:04.174 +03:00 [INF] HTTP GET /Students responded 200 in 13.3100 ms
+2026-05-09 17:16:06.601 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-09 17:16:06.638 +03:00 [INF] HTTP GET /Schedule/Weekly responded 200 in 50.8184 ms
+2026-05-09 17:16:10.825 +03:00 [INF] HTTP GET /Courses responded 200 in 42.7028 ms
+2026-05-09 17:16:12.032 +03:00 [INF] HTTP GET /Exams responded 200 in 58.9987 ms
+2026-05-09 17:16:17.427 +03:00 [INF] HTTP GET / responded 302 in 9.5064 ms
+2026-05-09 17:16:17.449 +03:00 [INF] HTTP GET /Teachers/Dashboard responded 200 in 15.3107 ms
